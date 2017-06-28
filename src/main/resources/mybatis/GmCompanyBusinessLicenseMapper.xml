@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mybatis.GmCompanyBusinessLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.GmCompanyBusinessLicense" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="address_code" property="addressCode" jdbcType="INTEGER" />
+    <result column="address_name" property="addressName" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="operating_state" property="operatingState" jdbcType="VARCHAR" />
+    <result column="economic_nature" property="economicNature" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="operation_area" property="operationArea" jdbcType="VARCHAR" />
+    <result column="operation_area2" property="operationArea2" jdbcType="VARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="INTEGER" />
+    <result column="stop_date" property="stopDate" jdbcType="INTEGER" />
+    <result column="organization" property="organization" jdbcType="VARCHAR" />
+    <result column="certify_date" property="certifyDate" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.wangyueche.bean.entity.GmCompanyBusinessLicense" extends="BaseResultMap" >
+    <result column="type" property="type" jdbcType="VARBINARY" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, company_name, address_code, address_name, address, operating_state, economic_nature, 
+    latitude, longitude, operation_area, operation_area2, certificate, start_date, stop_date, 
+    organization, certify_date, flag, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    type
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicenseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from gm_company_business_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicenseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gm_company_business_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from gm_company_business_license
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gm_company_business_license
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicenseExample" >
+    delete from gm_company_business_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicense" >
+    insert into gm_company_business_license (id, company_name, address_code, 
+      address_name, address, operating_state, 
+      economic_nature, latitude, longitude, 
+      operation_area, operation_area2, certificate, 
+      start_date, stop_date, organization, 
+      certify_date, flag, update_time, 
+      type)
+    values (#{id,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{addressCode,jdbcType=INTEGER}, 
+      #{addressName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{operatingState,jdbcType=VARCHAR}, 
+      #{economicNature,jdbcType=VARCHAR}, #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, 
+      #{operationArea,jdbcType=VARCHAR}, #{operationArea2,jdbcType=VARCHAR}, #{certificate,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=INTEGER}, #{stopDate,jdbcType=INTEGER}, #{organization,jdbcType=VARCHAR}, 
+      #{certifyDate,jdbcType=INTEGER}, #{flag,jdbcType=INTEGER}, #{updateTime,jdbcType=BIGINT}, 
+      #{type,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicense" >
+    insert into gm_company_business_license
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="addressCode != null" >
+        address_code,
+      </if>
+      <if test="addressName != null" >
+        address_name,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="operatingState != null" >
+        operating_state,
+      </if>
+      <if test="economicNature != null" >
+        economic_nature,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="operationArea != null" >
+        operation_area,
+      </if>
+      <if test="operationArea2 != null" >
+        operation_area2,
+      </if>
+      <if test="certificate != null" >
+        certificate,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="stopDate != null" >
+        stop_date,
+      </if>
+      <if test="organization != null" >
+        organization,
+      </if>
+      <if test="certifyDate != null" >
+        certify_date,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCode != null" >
+        #{addressCode,jdbcType=INTEGER},
+      </if>
+      <if test="addressName != null" >
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingState != null" >
+        #{operatingState,jdbcType=VARCHAR},
+      </if>
+      <if test="economicNature != null" >
+        #{economicNature,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="operationArea != null" >
+        #{operationArea,jdbcType=VARCHAR},
+      </if>
+      <if test="operationArea2 != null" >
+        #{operationArea2,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=INTEGER},
+      </if>
+      <if test="stopDate != null" >
+        #{stopDate,jdbcType=INTEGER},
+      </if>
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="certifyDate != null" >
+        #{certifyDate,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicenseExample" resultType="java.lang.Integer" >
+    select count(*) from gm_company_business_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gm_company_business_license
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressCode != null" >
+        address_code = #{record.addressCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressName != null" >
+        address_name = #{record.addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operatingState != null" >
+        operating_state = #{record.operatingState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economicNature != null" >
+        economic_nature = #{record.economicNature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="record.operationArea != null" >
+        operation_area = #{record.operationArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operationArea2 != null" >
+        operation_area2 = #{record.operationArea2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificate != null" >
+        certificate = #{record.certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null" >
+        start_date = #{record.startDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.stopDate != null" >
+        stop_date = #{record.stopDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.organization != null" >
+        organization = #{record.organization,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certifyDate != null" >
+        certify_date = #{record.certifyDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update gm_company_business_license
+    set id = #{record.id,jdbcType=INTEGER},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      address_code = #{record.addressCode,jdbcType=INTEGER},
+      address_name = #{record.addressName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      operating_state = #{record.operatingState,jdbcType=VARCHAR},
+      economic_nature = #{record.economicNature,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      operation_area = #{record.operationArea,jdbcType=VARCHAR},
+      operation_area2 = #{record.operationArea2,jdbcType=VARCHAR},
+      certificate = #{record.certificate,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=INTEGER},
+      stop_date = #{record.stopDate,jdbcType=INTEGER},
+      organization = #{record.organization,jdbcType=VARCHAR},
+      certify_date = #{record.certifyDate,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=VARBINARY}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gm_company_business_license
+    set id = #{record.id,jdbcType=INTEGER},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      address_code = #{record.addressCode,jdbcType=INTEGER},
+      address_name = #{record.addressName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      operating_state = #{record.operatingState,jdbcType=VARCHAR},
+      economic_nature = #{record.economicNature,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=DOUBLE},
+      longitude = #{record.longitude,jdbcType=DOUBLE},
+      operation_area = #{record.operationArea,jdbcType=VARCHAR},
+      operation_area2 = #{record.operationArea2,jdbcType=VARCHAR},
+      certificate = #{record.certificate,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=INTEGER},
+      stop_date = #{record.stopDate,jdbcType=INTEGER},
+      organization = #{record.organization,jdbcType=VARCHAR},
+      certify_date = #{record.certifyDate,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicense" >
+    update gm_company_business_license
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCode != null" >
+        address_code = #{addressCode,jdbcType=INTEGER},
+      </if>
+      <if test="addressName != null" >
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingState != null" >
+        operating_state = #{operatingState,jdbcType=VARCHAR},
+      </if>
+      <if test="economicNature != null" >
+        economic_nature = #{economicNature,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="operationArea != null" >
+        operation_area = #{operationArea,jdbcType=VARCHAR},
+      </if>
+      <if test="operationArea2 != null" >
+        operation_area2 = #{operationArea2,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=INTEGER},
+      </if>
+      <if test="stopDate != null" >
+        stop_date = #{stopDate,jdbcType=INTEGER},
+      </if>
+      <if test="organization != null" >
+        organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="certifyDate != null" >
+        certify_date = #{certifyDate,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicense" >
+    update gm_company_business_license
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      address_code = #{addressCode,jdbcType=INTEGER},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      operating_state = #{operatingState,jdbcType=VARCHAR},
+      economic_nature = #{economicNature,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      operation_area = #{operationArea,jdbcType=VARCHAR},
+      operation_area2 = #{operationArea2,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=INTEGER},
+      stop_date = #{stopDate,jdbcType=INTEGER},
+      organization = #{organization,jdbcType=VARCHAR},
+      certify_date = #{certifyDate,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      type = #{type,jdbcType=VARBINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.GmCompanyBusinessLicense" >
+    update gm_company_business_license
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      address_code = #{addressCode,jdbcType=INTEGER},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      operating_state = #{operatingState,jdbcType=VARCHAR},
+      economic_nature = #{economicNature,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      operation_area = #{operationArea,jdbcType=VARCHAR},
+      operation_area2 = #{operationArea2,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=INTEGER},
+      stop_date = #{stopDate,jdbcType=INTEGER},
+      organization = #{organization,jdbcType=VARCHAR},
+      certify_date = #{certifyDate,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

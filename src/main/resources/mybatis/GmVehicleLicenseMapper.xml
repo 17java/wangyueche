@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mybatis.GmVehicleLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.GmVehicleLicense" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="plate_color" property="plateColor" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="engine_id" property="engineId" jdbcType="VARCHAR" />
+    <result column="vIN" property="vin" jdbcType="VARCHAR" />
+    <result column="vehicle_type" property="vehicleType" jdbcType="VARCHAR" />
+    <result column="vehicle_type_code" property="vehicleTypeCode" jdbcType="VARCHAR" />
+    <result column="delivery_date" property="deliveryDate" jdbcType="INTEGER" />
+    <result column="certify_dateA" property="certifyDatea" jdbcType="INTEGER" />
+    <result column="fuel_type" property="fuelType" jdbcType="VARCHAR" />
+    <result column="wheelbase" property="wheelbase" jdbcType="DECIMAL" />
+    <result column="commander" property="commander" jdbcType="DECIMAL" />
+    <result column="width" property="width" jdbcType="DECIMAL" />
+    <result column="height" property="height" jdbcType="DECIMAL" />
+    <result column="power" property="power" jdbcType="DECIMAL" />
+    <result column="seats" property="seats" jdbcType="INTEGER" />
+    <result column="gPS_brand" property="gpsBrand" jdbcType="VARCHAR" />
+    <result column="gPS_model" property="gpsModel" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="trans_area" property="transArea" jdbcType="VARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+    <result column="trans_agency" property="transAgency" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, address, vehicle_no, plate_color, brand, model, engine_id, vIN, vehicle_type, 
+    vehicle_type_code, delivery_date, certify_dateA, fuel_type, wheelbase, commander, 
+    width, height, power, seats, gPS_brand, gPS_model, state, trans_area, certificate, 
+    trans_agency
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangyueche.bean.entity.GmVehicleLicenseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gm_vehicle_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gm_vehicle_license
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gm_vehicle_license
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangyueche.bean.entity.GmVehicleLicenseExample" >
+    delete from gm_vehicle_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangyueche.bean.entity.GmVehicleLicense" >
+    insert into gm_vehicle_license (id, address, vehicle_no, 
+      plate_color, brand, model, 
+      engine_id, vIN, vehicle_type, 
+      vehicle_type_code, delivery_date, certify_dateA, 
+      fuel_type, wheelbase, commander, 
+      width, height, power, 
+      seats, gPS_brand, gPS_model, 
+      state, trans_area, certificate, 
+      trans_agency)
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=INTEGER}, #{vehicleNo,jdbcType=VARCHAR}, 
+      #{plateColor,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{engineId,jdbcType=VARCHAR}, #{vin,jdbcType=VARCHAR}, #{vehicleType,jdbcType=VARCHAR}, 
+      #{vehicleTypeCode,jdbcType=VARCHAR}, #{deliveryDate,jdbcType=INTEGER}, #{certifyDatea,jdbcType=INTEGER}, 
+      #{fuelType,jdbcType=VARCHAR}, #{wheelbase,jdbcType=DECIMAL}, #{commander,jdbcType=DECIMAL}, 
+      #{width,jdbcType=DECIMAL}, #{height,jdbcType=DECIMAL}, #{power,jdbcType=DECIMAL}, 
+      #{seats,jdbcType=INTEGER}, #{gpsBrand,jdbcType=VARCHAR}, #{gpsModel,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{transArea,jdbcType=VARCHAR}, #{certificate,jdbcType=VARCHAR}, 
+      #{transAgency,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangyueche.bean.entity.GmVehicleLicense" >
+    insert into gm_vehicle_license
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no,
+      </if>
+      <if test="plateColor != null" >
+        plate_color,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="model != null" >
+        model,
+      </if>
+      <if test="engineId != null" >
+        engine_id,
+      </if>
+      <if test="vin != null" >
+        vIN,
+      </if>
+      <if test="vehicleType != null" >
+        vehicle_type,
+      </if>
+      <if test="vehicleTypeCode != null" >
+        vehicle_type_code,
+      </if>
+      <if test="deliveryDate != null" >
+        delivery_date,
+      </if>
+      <if test="certifyDatea != null" >
+        certify_dateA,
+      </if>
+      <if test="fuelType != null" >
+        fuel_type,
+      </if>
+      <if test="wheelbase != null" >
+        wheelbase,
+      </if>
+      <if test="commander != null" >
+        commander,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="power != null" >
+        power,
+      </if>
+      <if test="seats != null" >
+        seats,
+      </if>
+      <if test="gpsBrand != null" >
+        gPS_brand,
+      </if>
+      <if test="gpsModel != null" >
+        gPS_model,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="transArea != null" >
+        trans_area,
+      </if>
+      <if test="certificate != null" >
+        certificate,
+      </if>
+      <if test="transAgency != null" >
+        trans_agency,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleNo != null" >
+        #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="plateColor != null" >
+        #{plateColor,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="engineId != null" >
+        #{engineId,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null" >
+        #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null" >
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTypeCode != null" >
+        #{vehicleTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null" >
+        #{deliveryDate,jdbcType=INTEGER},
+      </if>
+      <if test="certifyDatea != null" >
+        #{certifyDatea,jdbcType=INTEGER},
+      </if>
+      <if test="fuelType != null" >
+        #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelbase != null" >
+        #{wheelbase,jdbcType=DECIMAL},
+      </if>
+      <if test="commander != null" >
+        #{commander,jdbcType=DECIMAL},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="power != null" >
+        #{power,jdbcType=DECIMAL},
+      </if>
+      <if test="seats != null" >
+        #{seats,jdbcType=INTEGER},
+      </if>
+      <if test="gpsBrand != null" >
+        #{gpsBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsModel != null" >
+        #{gpsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="transArea != null" >
+        #{transArea,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="transAgency != null" >
+        #{transAgency,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangyueche.bean.entity.GmVehicleLicenseExample" resultType="java.lang.Integer" >
+    select count(*) from gm_vehicle_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gm_vehicle_license
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=INTEGER},
+      </if>
+      <if test="record.vehicleNo != null" >
+        vehicle_no = #{record.vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateColor != null" >
+        plate_color = #{record.plateColor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brand != null" >
+        brand = #{record.brand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null" >
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.engineId != null" >
+        engine_id = #{record.engineId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vin != null" >
+        vIN = #{record.vin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleType != null" >
+        vehicle_type = #{record.vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleTypeCode != null" >
+        vehicle_type_code = #{record.vehicleTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deliveryDate != null" >
+        delivery_date = #{record.deliveryDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.certifyDatea != null" >
+        certify_dateA = #{record.certifyDatea,jdbcType=INTEGER},
+      </if>
+      <if test="record.fuelType != null" >
+        fuel_type = #{record.fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wheelbase != null" >
+        wheelbase = #{record.wheelbase,jdbcType=DECIMAL},
+      </if>
+      <if test="record.commander != null" >
+        commander = #{record.commander,jdbcType=DECIMAL},
+      </if>
+      <if test="record.width != null" >
+        width = #{record.width,jdbcType=DECIMAL},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=DECIMAL},
+      </if>
+      <if test="record.power != null" >
+        power = #{record.power,jdbcType=DECIMAL},
+      </if>
+      <if test="record.seats != null" >
+        seats = #{record.seats,jdbcType=INTEGER},
+      </if>
+      <if test="record.gpsBrand != null" >
+        gPS_brand = #{record.gpsBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpsModel != null" >
+        gPS_model = #{record.gpsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.transArea != null" >
+        trans_area = #{record.transArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificate != null" >
+        certificate = #{record.certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAgency != null" >
+        trans_agency = #{record.transAgency,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gm_vehicle_license
+    set id = #{record.id,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=INTEGER},
+      vehicle_no = #{record.vehicleNo,jdbcType=VARCHAR},
+      plate_color = #{record.plateColor,jdbcType=VARCHAR},
+      brand = #{record.brand,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      engine_id = #{record.engineId,jdbcType=VARCHAR},
+      vIN = #{record.vin,jdbcType=VARCHAR},
+      vehicle_type = #{record.vehicleType,jdbcType=VARCHAR},
+      vehicle_type_code = #{record.vehicleTypeCode,jdbcType=VARCHAR},
+      delivery_date = #{record.deliveryDate,jdbcType=INTEGER},
+      certify_dateA = #{record.certifyDatea,jdbcType=INTEGER},
+      fuel_type = #{record.fuelType,jdbcType=VARCHAR},
+      wheelbase = #{record.wheelbase,jdbcType=DECIMAL},
+      commander = #{record.commander,jdbcType=DECIMAL},
+      width = #{record.width,jdbcType=DECIMAL},
+      height = #{record.height,jdbcType=DECIMAL},
+      power = #{record.power,jdbcType=DECIMAL},
+      seats = #{record.seats,jdbcType=INTEGER},
+      gPS_brand = #{record.gpsBrand,jdbcType=VARCHAR},
+      gPS_model = #{record.gpsModel,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      trans_area = #{record.transArea,jdbcType=VARCHAR},
+      certificate = #{record.certificate,jdbcType=VARCHAR},
+      trans_agency = #{record.transAgency,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.GmVehicleLicense" >
+    update gm_vehicle_license
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=INTEGER},
+      </if>
+      <if test="vehicleNo != null" >
+        vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="plateColor != null" >
+        plate_color = #{plateColor,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="engineId != null" >
+        engine_id = #{engineId,jdbcType=VARCHAR},
+      </if>
+      <if test="vin != null" >
+        vIN = #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null" >
+        vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTypeCode != null" >
+        vehicle_type_code = #{vehicleTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDate != null" >
+        delivery_date = #{deliveryDate,jdbcType=INTEGER},
+      </if>
+      <if test="certifyDatea != null" >
+        certify_dateA = #{certifyDatea,jdbcType=INTEGER},
+      </if>
+      <if test="fuelType != null" >
+        fuel_type = #{fuelType,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelbase != null" >
+        wheelbase = #{wheelbase,jdbcType=DECIMAL},
+      </if>
+      <if test="commander != null" >
+        commander = #{commander,jdbcType=DECIMAL},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=DECIMAL},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DECIMAL},
+      </if>
+      <if test="power != null" >
+        power = #{power,jdbcType=DECIMAL},
+      </if>
+      <if test="seats != null" >
+        seats = #{seats,jdbcType=INTEGER},
+      </if>
+      <if test="gpsBrand != null" >
+        gPS_brand = #{gpsBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsModel != null" >
+        gPS_model = #{gpsModel,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="transArea != null" >
+        trans_area = #{transArea,jdbcType=VARCHAR},
+      </if>
+      <if test="certificate != null" >
+        certificate = #{certificate,jdbcType=VARCHAR},
+      </if>
+      <if test="transAgency != null" >
+        trans_agency = #{transAgency,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.GmVehicleLicense" >
+    update gm_vehicle_license
+    set address = #{address,jdbcType=INTEGER},
+      vehicle_no = #{vehicleNo,jdbcType=VARCHAR},
+      plate_color = #{plateColor,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      engine_id = #{engineId,jdbcType=VARCHAR},
+      vIN = #{vin,jdbcType=VARCHAR},
+      vehicle_type = #{vehicleType,jdbcType=VARCHAR},
+      vehicle_type_code = #{vehicleTypeCode,jdbcType=VARCHAR},
+      delivery_date = #{deliveryDate,jdbcType=INTEGER},
+      certify_dateA = #{certifyDatea,jdbcType=INTEGER},
+      fuel_type = #{fuelType,jdbcType=VARCHAR},
+      wheelbase = #{wheelbase,jdbcType=DECIMAL},
+      commander = #{commander,jdbcType=DECIMAL},
+      width = #{width,jdbcType=DECIMAL},
+      height = #{height,jdbcType=DECIMAL},
+      power = #{power,jdbcType=DECIMAL},
+      seats = #{seats,jdbcType=INTEGER},
+      gPS_brand = #{gpsBrand,jdbcType=VARCHAR},
+      gPS_model = #{gpsModel,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      trans_area = #{transArea,jdbcType=VARCHAR},
+      certificate = #{certificate,jdbcType=VARCHAR},
+      trans_agency = #{transAgency,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

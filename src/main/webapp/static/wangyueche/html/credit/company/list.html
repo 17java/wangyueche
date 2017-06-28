@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>网约车监管平台</title>
+    <link href="../../../css/common/reset.css" rel="stylesheet"/>
+    <link href="../../../css/common/base.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../../../script/lib/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../../../script/lib/easyui/themes/icon.css">
+    <!--layui.css-->
+    <link rel="stylesheet" type="text/css" href="../../../script/lib/layui/css/layui.css">
+    <!--自定义css-->
+    <link rel="stylesheet" type="text/css" href="../../../css/system.css">
+
+    <script type="text/javascript" src="../../../script/lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="../../../script/lib/easyui/jquery.easyui.min.js"></script>
+    <!-- dataPicker -->
+    <script src="../../../script/lib/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../../../script/common/common.js" type="text/javascript"></script>
+    <script src="../../../script/common/carnet.js" type="text/javascript"></script>
+    <script src="../../../script/server.js" type="text/javascript"></script>
+    <!-- layer -->
+    <script src="../../../script/lib/layer/layer.js" type="text/javascript"></script>
+    <script src="../../../script/module/credit/company/evaluatelist.js" type="text/javascript"></script>
+</head>
+<script>
+    $(function () {
+        new Carnet.module.evaluatelist().init();
+    })
+</script>
+<body>
+<div class="conWrap">
+    <div class="opWrap">
+        <div class="opTitle">查询条件:</div>
+        <div class="searchWrap">
+            <!-- <p class="txtWrap">
+                 <span class="txtName" id="sArea">归属区划：</span>
+                 <select name="oArea" id="oArea">
+                 </select>
+             </p>-->
+            <p class="txtWrap">
+                <span class="txtName" id="sCompany">公司名称：</span>
+                <select name="oCompany" id="oCompany">
+                    <option value="">--请选择--</option>
+                </select>
+            </p>
+            <a class="opBtn" id="searchBtn"><img width="16" height="16" src="../../../images/search_icon.png"/>&nbsp;搜索</a>
+            <a class="opBtn" id="clearBtn"><img width="16" height="16"
+                                                src="../../../images/clear_icon.png"/>&nbsp;重置</a>
+        </div>
+    </div>
+    <div id="dataList"></div>
+</div>
+</body>
+</html>

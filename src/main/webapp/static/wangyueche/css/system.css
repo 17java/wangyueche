@@ -1,0 +1,22 @@
+/*弹出层表格相关*/
+.open-table {
+    padding: 15px;
+}
+
+.right {
+    text-align: right;
+    color: #527aab;
+    font-size: 14px;
+}
+
+/*弹出层动态加载内容div*/
+.open_scroll {
+    width: 260px;
+    height: 90px;
+    overflow: auto;
+}
+
+/*--不允许为空*--*/
+label.notNull {
+    color: red;
+}

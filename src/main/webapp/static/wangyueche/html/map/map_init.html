@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>区县模块监控</title>
+</head>
+<!-- map -->
+<link rel="stylesheet" href="./map.css">
+<!-- JQ -->
+<script type="text/javascript" src='../../script/lib/jquery/jquery.js'></script>
+<!-- echart -->
+<script type="text/javascript" src='../../script/lib/echarts.common.min.js'></script>
+<!-- commom -->
+<script type="text/javascript" src='../../script/common/carnet.js'></script>
+<script type="text/javascript" src='../../script/server.js'></script>
+<script type="text/javascript" src='../../script/module/main.js'></script>
+
+<!-- loading -->
+<script type="text/javascript" src='../../script/module/map/map_init.js'></script>
+
+<body>
+<div class="section_left">
+    <div class="l_top">
+        <div>
+            <span>网约车企业总数</span><br>
+            <a id="company" class="ap" name="平台基本信息"
+               href="/wangyueche/static/wangyueche/html/info/base/platformBaseInfo.html"></a>
+        </div>
+        <div>
+            <span>驾驶员总数（单位：位）</span><br>
+            <a id="driver" class="ap" name="驾驶员基本信息"
+               href="/wangyueche/static/wangyueche/html/info/base/driverBaseInfo.html"></a>
+        </div>
+        <div>
+            <span>车辆总数（单位：辆）</span><br>
+            <a id="car" class="ap" name="车辆基本信息"
+               href="/wangyueche/static/wangyueche/html/info/base/carBaseInfo.html"></a>
+        </div>
+    </div>
+    <div class="l_bottom">
+        <iframe src="./map_main.html" frameborder="0"></iframe>
+    </div>
+</div>
+<!-- 右区块 -->
+<div class="section_right">
+    <div class="r_top">
+    </div>
+    <div class="r_bottom">
+        <!-- echart -->
+        <div class="bottom_l">
+            <!-- 第一个数据表 -->
+            <div>
+                <p>当日运营订单量</p>
+                <p id="orderRealTime"></p>
+                <div id="chart_pay"></div>
+            </div>
+            <!-- 第二个数据表 -->
+            <div>
+                <p>当日运营车辆</p>
+                <p id="vehicleRealTime"></p>
+                <div id="chart_car"></div>
+            </div>
+        </div>
+        <!-- table -->
+        <!--<div class="bottom_r">-->
+        <!--<p>TOP运营情况</p>-->
+        <!--<p id="table">-->
+        <!--<span class="active">运营车辆</span>-->
+        <!--<span>订单</span>-->
+        <!--</p>-->
+        <!--<div>-->
+        <!--<p>didi:454554</p>-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+</body>
+<script>
+    $(function () {
+        new Carnet.module.Map_init().init();
+    });
+</script>
+
+</html>

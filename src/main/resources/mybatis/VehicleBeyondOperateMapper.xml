@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mybatis.VehicleBeyondOperateMapper">
+    <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.OperateDepartArrive" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="on_area" property="onArea" jdbcType="INTEGER" />
+        <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+        <result column="license_id" property="licenseId" jdbcType="VARCHAR" />
+        <result column="fare_type" property="fareType" jdbcType="VARCHAR" />
+        <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+        <result column="book_dep_time" property="bookDepTime" jdbcType="BIGINT" />
+        <result column="wait_time" property="waitTime" jdbcType="BIGINT" />
+        <result column="dep_longitude" property="depLongitude" jdbcType="DOUBLE" />
+        <result column="dep_latitude" property="depLatitude" jdbcType="DOUBLE" />
+        <result column="dep_area" property="depArea" jdbcType="VARCHAR" />
+        <result column="dep_time" property="depTime" jdbcType="BIGINT" />
+        <result column="encrypt" property="encrypt" jdbcType="INTEGER" />
+        <result column="dest_longitude" property="destLongitude" jdbcType="DOUBLE" />
+        <result column="dest_latitude" property="destLatitude" jdbcType="DOUBLE" />
+        <result column="dest_area" property="destArea" jdbcType="VARCHAR" />
+        <result column="dest_time" property="destTime" jdbcType="BIGINT" />
+        <result column="book_model" property="bookModel" jdbcType="VARCHAR" />
+        <result column="model" property="model" jdbcType="VARCHAR" />
+        <result column="drive_mile" property="driveMile" jdbcType="DECIMAL" />
+        <result column="drive_time" property="driveTime" jdbcType="INTEGER" />
+        <result column="wait_mile" property="waitMile" jdbcType="DECIMAL" />
+        <result column="fact_price" property="factPrice" jdbcType="DECIMAL" />
+        <result column="price" property="price" jdbcType="DECIMAL" />
+        <result column="cash_price" property="cashPrice" jdbcType="DECIMAL" />
+        <result column="line_name" property="lineName" jdbcType="VARCHAR" />
+        <result column="line_price" property="linePrice" jdbcType="DECIMAL" />
+        <result column="pos_name" property="posName" jdbcType="VARCHAR" />
+        <result column="pos_price" property="posPrice" jdbcType="DECIMAL" />
+        <result column="benfit_price" property="benfitPrice" jdbcType="DECIMAL" />
+        <result column="book_tip" property="bookTip" jdbcType="DECIMAL" />
+        <result column="passenger_tip" property="passengerTip" jdbcType="INTEGER" />
+        <result column="peak_up_price" property="peakUpPrice" jdbcType="DECIMAL" />
+        <result column="night_up_price" property="nightUpPrice" jdbcType="DECIMAL" />
+        <result column="far_up_price" property="farUpPrice" jdbcType="DECIMAL" />
+        <result column="other_up_price" property="otherUpPrice" jdbcType="DECIMAL" />
+        <result column="pay_state" property="payState" jdbcType="VARCHAR" />
+        <result column="pay_time" property="payTime" jdbcType="BIGINT" />
+        <result column="order_match_time" property="orderMatchTime" jdbcType="BIGINT" />
+        <result column="invoice_status" property="invoiceStatus" jdbcType="VARCHAR" />
+        <result column="begin_beyond_operate" property="beginBeyondOperate" jdbcType="INTEGER" />
+        <result column="end_beyond_operate" property="endBeyondOperate" jdbcType="INTEGER" />
+    </resultMap>
+    <select id="list" resultMap="BaseResultMap" resultType="com.wangyueche.bean.entity.OperateDepartArrive">
+        SELECT *
+        FROM operate_depart_arrive
+        WHERE begin_beyond_operate=1 OR end_beyond_operate=1
+        <if test="vehicleNo!=null and vehicleNo!=''">
+            AND vehicle_no=#{vehicleNo}
+        </if>
+        <if test="startDate!=null and endDate!=null">
+            AND order_match_time BETWEEN #{startDate} AND #{endDate}
+        </if>
+    </select>
+</mapper>

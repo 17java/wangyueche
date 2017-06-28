@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mybatis.ShareEfficiencyStatMapper">
+    <select id="listStat" resultType="com.wangyueche.bean.vo.share.ShareEfficiencyStat">
+        SELECT company_id AS companyId,COUNT(1) AS orderNum,sum(drive_mile) AS driveMile,sum(drive_time) AS driveTime,sum(face_price) AS factPrice
+        FROM share_pay
+        <where>
+            <if test="companyId!=null and companyId!=''">
+                company_id =#{companyId}
+            </if>
+            <if test="startDate!=null and endDate!=null">
+                AND order_match_time BETWEEN #{startDate} AND #{endDate}
+            </if>
+        </where>
+        GROUP BY company_id
+    </select>
+</mapper>

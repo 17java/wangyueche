@@ -1,0 +1,271 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body,html{
+    width: 100%;
+    height: 100%;
+}
+.leftWrap{
+    width: 11.2%;
+    float: left;
+    height: 100%;
+    background: #26364e;
+    font-size: 20px;
+    color:#ffffff;
+    font-family: 微软雅黑;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+}
+.logoWrap{
+    height:8.5%;
+    background: #2baef1;
+    min-height: 50px;
+}
+.logoWrap .tabWide{
+    height:100%;
+    background:url("../images/iconBtn.png") center right no-repeat;
+    text-align: center;
+    padding-right: 24px;
+    width: 78%;
+    position: relative;
+}
+.logoWrap .tabWide .setNarrow{
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.tabUl{
+
+    height: 91.5%;
+}
+.iconBtn{
+    margin-left: 10px;
+}
+.narrow{
+    width: 50px;
+}
+.narrow .tabWide{
+    display: none;
+}
+.narrow .tabNarrow{
+    height:100%;
+    background:url("../images/iconBtn.png") center center no-repeat;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    cursor: pointer;
+}
+.leftTab{
+    width: 100%;
+    height:91.5%;
+}
+.tabUl li{
+    width: 100%;
+    color: #919fb3;
+    cursor: pointer;
+    height: 65px;
+    padding-top: 5px;
+    width: 100%;
+    position: relative;
+}
+.tabUl li ul{
+    position:absolute;
+    left: 100%;
+    top: 0;
+    background: #151e30;
+    min-height: 70px;
+    display: none;
+    margin-left: -1px;
+}
+.tabUl li:hover,.tabUl li.active{
+    background: #1c293c url("../images/iconarrow.png") center right no-repeat;
+}
+.tabUl li p{
+    font-size: 14px;
+    text-align: center;
+    font-family: 宋体;
+    color: #919fb3;
+}
+.tabUl li .tabIconWrap{
+    height: 36px;
+    text-align: center;
+}
+.tabUl li ul li{
+    line-height: 40px;
+    height: 40px;
+    background: url("../images/iconLeft.png") 20px center no-repeat;
+    font-size: 12px;
+    padding: 0 20px 0 40px;
+    color: #fff;
+    width: 120px;
+}
+.tabUl li ul li:hover{
+    background: url("../images/iconLeftC.png") 20px center no-repeat;
+}
+.tabUl li ul li a{
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.rightWrap{
+    height: 100%;
+    background: #eeeeee;
+    /*margin-left: 11.2%;*/
+}
+
+.header{
+    height:8.5%;
+    width: 100%;
+    background: #425b80;
+    min-height: 50px;
+}
+/*一级菜单项添加为6项，整体左移*/
+.navWrap {
+    /* margin-left: 50px; */
+    margin-left: 20px;
+    height: 100%;
+    width: 900px;
+    position: relative;
+}
+.navWrap .navUl{
+    position: absolute;
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.navWrap .navUl li{
+    height: 30px;
+    width: 100px;
+    float: left;
+    /*margin: 0 10px;*/
+    line-height: 34px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 宋体;
+    font-weight: 600;
+    cursor: pointer;
+}
+.navWrap .navUl li.active,.navWrap .navUl li:hover{
+    background:url("../images/libg.png")  center bottom no-repeat;
+    color: #003e78;
+}
+.userWrap{
+    float: right;
+    height: 100%;
+    width: 300px;
+}
+.userWrap span{
+    display: inline-block;
+    padding-left: 24px;
+    height: 100%;
+    vertical-align: middle;
+    float: right;
+    cursor: pointer;
+    padding-right: 30px;
+    color: #ffffff;
+    font-family: 微软雅黑;
+    font-weight: 600;
+}
+.userWrap .exit{
+    background: url("../images/infoIcon6.png") 0 center no-repeat;
+}
+.userWrap .userPhoto{
+    background: url("../images/infoIcon2.png") 0 center no-repeat;
+}
+.userWrap .infodate{
+    position: relative;
+    background: url("../images/infoIcon3.png") 0 center no-repeat;
+}
+.userWrap .infoemail{
+    position: relative;
+    background: url("../images/infoIcon4.png") 0 center no-repeat;
+}
+.userWrap .infoalarm{
+    position: relative;
+    background: url("../images/infoIcon5.png") 0 center no-repeat;
+}
+.userWrap .num{
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    margin-top: -20px;
+    border-radius: 100%;
+    padding: 3px 6px;
+    color: #ffffff;
+    background: #2dc3e8;
+    line-height: 12px;
+    font-weight: normal;
+}
+.pagetabWrap{
+    width: 98%;
+    margin-left:1%;
+    border-bottom: 2px solid #d0d0d0;
+    height: 26px;
+    padding-top: 10px;
+    position: relative;
+}
+.tabbox{
+    position: relative;
+    overflow: hidden;
+    margin: 0 20px;
+    height: 26px;
+    width:98%;
+}
+.pagetab{
+    position: absolute;
+    left: 0;
+    height: 30px;
+    line-height: 30px;
+}
+.pagetab .atabs{
+    text-align: center;
+    height: 30px;
+    border-radius: 4px  4px 0px 0px;
+    line-height: 30px;
+    background: #aaaaaa;
+    padding: 0px 10px;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 0 2px;
+    text-decoration: none;
+    display:inline-block;
+}
+.pagetab .atabs span{
+    cursor: pointer;
+}
+.pagetab .atabs.active{
+    background: #7388a9;
+    display: inline-block;
+}
+.tabLeft,.tabRight{
+    bottom: 0;
+    cursor: pointer;
+    display: none;
+    font-size: 1px;
+    height: 24px;
+    position: absolute;
+    top: auto;
+    width: 18px;
+    border-radius: 4px 4px 0 0;
+}
+.tabLeft{
+    background:#7388a9 url("../images/tabs_icons.png") no-repeat scroll 1px center;
+    left: 0;
+}
+.tabRight{
+    background:#7388a9 url("../images/tabs_icons.png") no-repeat scroll -15px center;
+    right: 0;
+}
+.contain{
+    height:85.5%;
+    width: 100%;
+    background: #eeeeee;
+    overflow: hidden;
+}

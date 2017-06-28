@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mybatis.GmDriverLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.GmDriverLicense" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="driver_name" property="driverName" jdbcType="VARCHAR" />
+    <result column="driver_gender" property="driverGender" jdbcType="INTEGER" />
+    <result column="document_type" property="documentType" jdbcType="INTEGER" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="driver_phone" property="driverPhone" jdbcType="VARCHAR" />
+    <result column="driver_address" property="driverAddress" jdbcType="VARCHAR" />
+    <result column="driver_education" property="driverEducation" jdbcType="VARCHAR" />
+    <result column="technical_title" property="technicalTitle" jdbcType="VARCHAR" />
+    <result column="employee_status" property="employeeStatus" jdbcType="VARCHAR" />
+    <result column="household_registration" property="householdRegistration" jdbcType="VARCHAR" />
+    <result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+    <result column="driver_birthday" property="driverBirthday" jdbcType="INTEGER" />
+    <result column="get_driver_license_date" property="getDriverLicenseDate" jdbcType="DATE" />
+    <result column="network_car_issue_date" property="networkCarIssueDate" jdbcType="INTEGER" />
+    <result column="network_car_proof_on" property="networkCarProofOn" jdbcType="INTEGER" />
+    <result column="network_car_proof_off" property="networkCarProofOff" jdbcType="INTEGER" />
+    <result column="network_car_issue_organization" property="networkCarIssueOrganization" jdbcType="VARCHAR" />
+    <result column="network_car_issue_organization_code" property="networkCarIssueOrganizationCode" jdbcType="VARCHAR" />
+    <result column="adhere_address" property="adhereAddress" jdbcType="VARCHAR" />
+    <result column="card_type" property="cardType" jdbcType="VARCHAR" />
+    <result column="ic_card" property="icCard" jdbcType="VARCHAR" />
+    <result column="license_id" property="licenseId" jdbcType="VARCHAR" />
+    <result column="emergency_contact" property="emergencyContact" jdbcType="VARCHAR" />
+    <result column="emergency_contact_phone" property="emergencyContactPhone" jdbcType="VARCHAR" />
+    <result column="emergency_contact_address" property="emergencyContactAddress" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, address, driver_name, driver_gender, document_type, id_number, nation, driver_phone, 
+    driver_address, driver_education, technical_title, employee_status, household_registration, 
+    certificate_no, driver_birthday, get_driver_license_date, network_car_issue_date, 
+    network_car_proof_on, network_car_proof_off, network_car_issue_organization, network_car_issue_organization_code, 
+    adhere_address, card_type, ic_card, license_id, emergency_contact, emergency_contact_phone, 
+    emergency_contact_address, state, flag, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangyueche.bean.entity.GmDriverLicenseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from gm_driver_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart >= 0" >
+      limit ${limitStart} , ${pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gm_driver_license
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gm_driver_license
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangyueche.bean.entity.GmDriverLicenseExample" >
+    delete from gm_driver_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.wangyueche.bean.entity.GmDriverLicense" >
+    insert into gm_driver_license (id, address, driver_name, 
+      driver_gender, document_type, id_number, 
+      nation, driver_phone, driver_address, 
+      driver_education, technical_title, employee_status, 
+      household_registration, certificate_no, driver_birthday, 
+      get_driver_license_date, network_car_issue_date, 
+      network_car_proof_on, network_car_proof_off, 
+      network_car_issue_organization, network_car_issue_organization_code, 
+      adhere_address, card_type, ic_card, 
+      license_id, emergency_contact, emergency_contact_phone, 
+      emergency_contact_address, state, flag, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{address,jdbcType=INTEGER}, #{driverName,jdbcType=VARCHAR}, 
+      #{driverGender,jdbcType=INTEGER}, #{documentType,jdbcType=INTEGER}, #{idNumber,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{driverPhone,jdbcType=VARCHAR}, #{driverAddress,jdbcType=VARCHAR}, 
+      #{driverEducation,jdbcType=VARCHAR}, #{technicalTitle,jdbcType=VARCHAR}, #{employeeStatus,jdbcType=VARCHAR}, 
+      #{householdRegistration,jdbcType=VARCHAR}, #{certificateNo,jdbcType=VARCHAR}, #{driverBirthday,jdbcType=INTEGER}, 
+      #{getDriverLicenseDate,jdbcType=DATE}, #{networkCarIssueDate,jdbcType=INTEGER}, 
+      #{networkCarProofOn,jdbcType=INTEGER}, #{networkCarProofOff,jdbcType=INTEGER}, 
+      #{networkCarIssueOrganization,jdbcType=VARCHAR}, #{networkCarIssueOrganizationCode,jdbcType=VARCHAR}, 
+      #{adhereAddress,jdbcType=VARCHAR}, #{cardType,jdbcType=VARCHAR}, #{icCard,jdbcType=VARCHAR}, 
+      #{licenseId,jdbcType=VARCHAR}, #{emergencyContact,jdbcType=VARCHAR}, #{emergencyContactPhone,jdbcType=VARCHAR}, 
+      #{emergencyContactAddress,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{flag,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangyueche.bean.entity.GmDriverLicense" >
+    insert into gm_driver_license
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="driverName != null" >
+        driver_name,
+      </if>
+      <if test="driverGender != null" >
+        driver_gender,
+      </if>
+      <if test="documentType != null" >
+        document_type,
+      </if>
+      <if test="idNumber != null" >
+        id_number,
+      </if>
+      <if test="nation != null" >
+        nation,
+      </if>
+      <if test="driverPhone != null" >
+        driver_phone,
+      </if>
+      <if test="driverAddress != null" >
+        driver_address,
+      </if>
+      <if test="driverEducation != null" >
+        driver_education,
+      </if>
+      <if test="technicalTitle != null" >
+        technical_title,
+      </if>
+      <if test="employeeStatus != null" >
+        employee_status,
+      </if>
+      <if test="householdRegistration != null" >
+        household_registration,
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no,
+      </if>
+      <if test="driverBirthday != null" >
+        driver_birthday,
+      </if>
+      <if test="getDriverLicenseDate != null" >
+        get_driver_license_date,
+      </if>
+      <if test="networkCarIssueDate != null" >
+        network_car_issue_date,
+      </if>
+      <if test="networkCarProofOn != null" >
+        network_car_proof_on,
+      </if>
+      <if test="networkCarProofOff != null" >
+        network_car_proof_off,
+      </if>
+      <if test="networkCarIssueOrganization != null" >
+        network_car_issue_organization,
+      </if>
+      <if test="networkCarIssueOrganizationCode != null" >
+        network_car_issue_organization_code,
+      </if>
+      <if test="adhereAddress != null" >
+        adhere_address,
+      </if>
+      <if test="cardType != null" >
+        card_type,
+      </if>
+      <if test="icCard != null" >
+        ic_card,
+      </if>
+      <if test="licenseId != null" >
+        license_id,
+      </if>
+      <if test="emergencyContact != null" >
+        emergency_contact,
+      </if>
+      <if test="emergencyContactPhone != null" >
+        emergency_contact_phone,
+      </if>
+      <if test="emergencyContactAddress != null" >
+        emergency_contact_address,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=INTEGER},
+      </if>
+      <if test="driverName != null" >
+        #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverGender != null" >
+        #{driverGender,jdbcType=INTEGER},
+      </if>
+      <if test="documentType != null" >
+        #{documentType,jdbcType=INTEGER},
+      </if>
+      <if test="idNumber != null" >
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPhone != null" >
+        #{driverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="driverAddress != null" >
+        #{driverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="driverEducation != null" >
+        #{driverEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="technicalTitle != null" >
+        #{technicalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeStatus != null" >
+        #{employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="householdRegistration != null" >
+        #{householdRegistration,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="driverBirthday != null" >
+        #{driverBirthday,jdbcType=INTEGER},
+      </if>
+      <if test="getDriverLicenseDate != null" >
+        #{getDriverLicenseDate,jdbcType=DATE},
+      </if>
+      <if test="networkCarIssueDate != null" >
+        #{networkCarIssueDate,jdbcType=INTEGER},
+      </if>
+      <if test="networkCarProofOn != null" >
+        #{networkCarProofOn,jdbcType=INTEGER},
+      </if>
+      <if test="networkCarProofOff != null" >
+        #{networkCarProofOff,jdbcType=INTEGER},
+      </if>
+      <if test="networkCarIssueOrganization != null" >
+        #{networkCarIssueOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="networkCarIssueOrganizationCode != null" >
+        #{networkCarIssueOrganizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adhereAddress != null" >
+        #{adhereAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="icCard != null" >
+        #{icCard,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseId != null" >
+        #{licenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContact != null" >
+        #{emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContactPhone != null" >
+        #{emergencyContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContactAddress != null" >
+        #{emergencyContactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.wangyueche.bean.entity.GmDriverLicenseExample" resultType="java.lang.Integer" >
+    select count(*) from gm_driver_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update gm_driver_license
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=INTEGER},
+      </if>
+      <if test="record.driverName != null" >
+        driver_name = #{record.driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.driverGender != null" >
+        driver_gender = #{record.driverGender,jdbcType=INTEGER},
+      </if>
+      <if test="record.documentType != null" >
+        document_type = #{record.documentType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idNumber != null" >
+        id_number = #{record.idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null" >
+        nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.driverPhone != null" >
+        driver_phone = #{record.driverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.driverAddress != null" >
+        driver_address = #{record.driverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.driverEducation != null" >
+        driver_education = #{record.driverEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.technicalTitle != null" >
+        technical_title = #{record.technicalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.employeeStatus != null" >
+        employee_status = #{record.employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.householdRegistration != null" >
+        household_registration = #{record.householdRegistration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certificateNo != null" >
+        certificate_no = #{record.certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.driverBirthday != null" >
+        driver_birthday = #{record.driverBirthday,jdbcType=INTEGER},
+      </if>
+      <if test="record.getDriverLicenseDate != null" >
+        get_driver_license_date = #{record.getDriverLicenseDate,jdbcType=DATE},
+      </if>
+      <if test="record.networkCarIssueDate != null" >
+        network_car_issue_date = #{record.networkCarIssueDate,jdbcType=INTEGER},
+      </if>
+      <if test="record.networkCarProofOn != null" >
+        network_car_proof_on = #{record.networkCarProofOn,jdbcType=INTEGER},
+      </if>
+      <if test="record.networkCarProofOff != null" >
+        network_car_proof_off = #{record.networkCarProofOff,jdbcType=INTEGER},
+      </if>
+      <if test="record.networkCarIssueOrganization != null" >
+        network_car_issue_organization = #{record.networkCarIssueOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="record.networkCarIssueOrganizationCode != null" >
+        network_car_issue_organization_code = #{record.networkCarIssueOrganizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adhereAddress != null" >
+        adhere_address = #{record.adhereAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardType != null" >
+        card_type = #{record.cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icCard != null" >
+        ic_card = #{record.icCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseId != null" >
+        license_id = #{record.licenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emergencyContact != null" >
+        emergency_contact = #{record.emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emergencyContactPhone != null" >
+        emergency_contact_phone = #{record.emergencyContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emergencyContactAddress != null" >
+        emergency_contact_address = #{record.emergencyContactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update gm_driver_license
+    set id = #{record.id,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=INTEGER},
+      driver_name = #{record.driverName,jdbcType=VARCHAR},
+      driver_gender = #{record.driverGender,jdbcType=INTEGER},
+      document_type = #{record.documentType,jdbcType=INTEGER},
+      id_number = #{record.idNumber,jdbcType=VARCHAR},
+      nation = #{record.nation,jdbcType=VARCHAR},
+      driver_phone = #{record.driverPhone,jdbcType=VARCHAR},
+      driver_address = #{record.driverAddress,jdbcType=VARCHAR},
+      driver_education = #{record.driverEducation,jdbcType=VARCHAR},
+      technical_title = #{record.technicalTitle,jdbcType=VARCHAR},
+      employee_status = #{record.employeeStatus,jdbcType=VARCHAR},
+      household_registration = #{record.householdRegistration,jdbcType=VARCHAR},
+      certificate_no = #{record.certificateNo,jdbcType=VARCHAR},
+      driver_birthday = #{record.driverBirthday,jdbcType=INTEGER},
+      get_driver_license_date = #{record.getDriverLicenseDate,jdbcType=DATE},
+      network_car_issue_date = #{record.networkCarIssueDate,jdbcType=INTEGER},
+      network_car_proof_on = #{record.networkCarProofOn,jdbcType=INTEGER},
+      network_car_proof_off = #{record.networkCarProofOff,jdbcType=INTEGER},
+      network_car_issue_organization = #{record.networkCarIssueOrganization,jdbcType=VARCHAR},
+      network_car_issue_organization_code = #{record.networkCarIssueOrganizationCode,jdbcType=VARCHAR},
+      adhere_address = #{record.adhereAddress,jdbcType=VARCHAR},
+      card_type = #{record.cardType,jdbcType=VARCHAR},
+      ic_card = #{record.icCard,jdbcType=VARCHAR},
+      license_id = #{record.licenseId,jdbcType=VARCHAR},
+      emergency_contact = #{record.emergencyContact,jdbcType=VARCHAR},
+      emergency_contact_phone = #{record.emergencyContactPhone,jdbcType=VARCHAR},
+      emergency_contact_address = #{record.emergencyContactAddress,jdbcType=VARCHAR},
+      state = #{record.state,jdbcType=INTEGER},
+      flag = #{record.flag,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.GmDriverLicense" >
+    update gm_driver_license
+    <set >
+      <if test="address != null" >
+        address = #{address,jdbcType=INTEGER},
+      </if>
+      <if test="driverName != null" >
+        driver_name = #{driverName,jdbcType=VARCHAR},
+      </if>
+      <if test="driverGender != null" >
+        driver_gender = #{driverGender,jdbcType=INTEGER},
+      </if>
+      <if test="documentType != null" >
+        document_type = #{documentType,jdbcType=INTEGER},
+      </if>
+      <if test="idNumber != null" >
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="driverPhone != null" >
+        driver_phone = #{driverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="driverAddress != null" >
+        driver_address = #{driverAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="driverEducation != null" >
+        driver_education = #{driverEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="technicalTitle != null" >
+        technical_title = #{technicalTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="employeeStatus != null" >
+        employee_status = #{employeeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="householdRegistration != null" >
+        household_registration = #{householdRegistration,jdbcType=VARCHAR},
+      </if>
+      <if test="certificateNo != null" >
+        certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="driverBirthday != null" >
+        driver_birthday = #{driverBirthday,jdbcType=INTEGER},
+      </if>
+      <if test="getDriverLicenseDate != null" >
+        get_driver_license_date = #{getDriverLicenseDate,jdbcType=DATE},
+      </if>
+      <if test="networkCarIssueDate != null" >
+        network_car_issue_date = #{networkCarIssueDate,jdbcType=INTEGER},
+      </if>
+      <if test="networkCarProofOn != null" >
+        network_car_proof_on = #{networkCarProofOn,jdbcType=INTEGER},
+      </if>
+      <if test="networkCarProofOff != null" >
+        network_car_proof_off = #{networkCarProofOff,jdbcType=INTEGER},
+      </if>
+      <if test="networkCarIssueOrganization != null" >
+        network_car_issue_organization = #{networkCarIssueOrganization,jdbcType=VARCHAR},
+      </if>
+      <if test="networkCarIssueOrganizationCode != null" >
+        network_car_issue_organization_code = #{networkCarIssueOrganizationCode,jdbcType=VARCHAR},
+      </if>
+      <if test="adhereAddress != null" >
+        adhere_address = #{adhereAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="icCard != null" >
+        ic_card = #{icCard,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseId != null" >
+        license_id = #{licenseId,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContact != null" >
+        emergency_contact = #{emergencyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContactPhone != null" >
+        emergency_contact_phone = #{emergencyContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyContactAddress != null" >
+        emergency_contact_address = #{emergencyContactAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.GmDriverLicense" >
+    update gm_driver_license
+    set address = #{address,jdbcType=INTEGER},
+      driver_name = #{driverName,jdbcType=VARCHAR},
+      driver_gender = #{driverGender,jdbcType=INTEGER},
+      document_type = #{documentType,jdbcType=INTEGER},
+      id_number = #{idNumber,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      driver_phone = #{driverPhone,jdbcType=VARCHAR},
+      driver_address = #{driverAddress,jdbcType=VARCHAR},
+      driver_education = #{driverEducation,jdbcType=VARCHAR},
+      technical_title = #{technicalTitle,jdbcType=VARCHAR},
+      employee_status = #{employeeStatus,jdbcType=VARCHAR},
+      household_registration = #{householdRegistration,jdbcType=VARCHAR},
+      certificate_no = #{certificateNo,jdbcType=VARCHAR},
+      driver_birthday = #{driverBirthday,jdbcType=INTEGER},
+      get_driver_license_date = #{getDriverLicenseDate,jdbcType=DATE},
+      network_car_issue_date = #{networkCarIssueDate,jdbcType=INTEGER},
+      network_car_proof_on = #{networkCarProofOn,jdbcType=INTEGER},
+      network_car_proof_off = #{networkCarProofOff,jdbcType=INTEGER},
+      network_car_issue_organization = #{networkCarIssueOrganization,jdbcType=VARCHAR},
+      network_car_issue_organization_code = #{networkCarIssueOrganizationCode,jdbcType=VARCHAR},
+      adhere_address = #{adhereAddress,jdbcType=VARCHAR},
+      card_type = #{cardType,jdbcType=VARCHAR},
+      ic_card = #{icCard,jdbcType=VARCHAR},
+      license_id = #{licenseId,jdbcType=VARCHAR},
+      emergency_contact = #{emergencyContact,jdbcType=VARCHAR},
+      emergency_contact_phone = #{emergencyContactPhone,jdbcType=VARCHAR},
+      emergency_contact_address = #{emergencyContactAddress,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

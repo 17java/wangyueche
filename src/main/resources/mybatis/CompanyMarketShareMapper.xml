@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mybatis.CompanyMarketShareMapper">
+    <select id="listStat" resultType="com.wangyueche.bean.vo.statistics.CompanyMarketShare">
+        SELECT
+        v.company_id AS companyId,
+        v.vNum AS totalVehicle,
+        d.dNUm AS totalDriver
+        FROM (SELECT
+        company_id,
+        count(*) AS vNum
+        FROM vehicle_info
+        <if test="startDate!=null and endDate!=null">
+            WHERE update_time BETWEEN #{startDate,jdbcType=BIGINT} AND #{endDate,jdbcType=BIGINT}
+        </if>
+        GROUP BY company_id) v
+        JOIN
+        (SELECT
+        company_id,
+        count(*) AS dNUm
+        FROM driver_info
+        <if test="startDate!=null and endDate!=null">
+            WHERE update_time BETWEEN #{startDate,jdbcType=BIGINT} AND #{endDate,jdbcType=BIGINT}
+        </if>
+        GROUP BY company_id) d ON v.company_id = d.company_id
+        <if test="companyId!=null and companyId!=''">
+            WHERE v.company_id=#{companyId,jdbcType=VARCHAR};
+        </if>
+    </select>
+</mapper>

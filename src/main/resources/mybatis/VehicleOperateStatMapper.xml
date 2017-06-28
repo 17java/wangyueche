@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mybatis.VehicleOperateStatMapper">
+    <select id="listStat" resultType="com.wangyueche.bean.vo.statistics.VehicleOperateStat">
+        SELECT sum(drive_time) AS totalDriveTime,sum(drive_mile) AS totalDriveMile,sum(drive_mile)+sum(wait_mile) AS totalMile,company_id AS companyId
+        FROM operate_depart_arrive
+        <where>
+            <if test="companyId!=null and companyId!=''">
+                company_id=#{companyId}
+            </if>
+            <if test="startDate!=null and endDate!=null">
+                AND order_match_time BETWEEN #{startDate} AND #{endDate}
+            </if>
+        </where>
+        GROUP BY company_id;
+    </select>
+
+    <select id="selectVehicleCount" resultType="java.lang.Integer">
+        SELECT COUNT(DISTINCT vehicle_no)
+        FROM operate_depart_arrive
+        <where>
+            <if test="companyId!=null and companyId!=''">
+                company_id=#{companyId}
+            </if>
+            <if test="startDate!=null and endDate!=null">
+                AND order_match_time BETWEEN #{startDate} AND #{endDate}
+            </if>
+        </where>
+    </select>
+</mapper>
