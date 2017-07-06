@@ -14,30 +14,30 @@ import java.util.List;
 public class PermissionBiz {
 
 	@Autowired
-	private PermissionService service;
+	private PermissionService permissionService;
 
 	public SysPermission query(long id) {
-		return service.query(id);
+		return permissionService.query(id);
 	}
 
 	public int save(SysPermission sysPermission) {
-		return service.save(sysPermission);
+		return permissionService.save(sysPermission);
 	}
 	
 
 	public int delete(long id) {
-		return service.delete(id);
+		return permissionService.delete(id);
 	}
 
 	public int update(SysPermission sysPermission) {
-		return service.update(sysPermission);
+		return permissionService.update(sysPermission);
 	}
 
 	public EasyUIResult listForPage(int pageCurrent, int pageSize, String permCondition, String permName, String permValue) {
-		return service.listForPage(pageCurrent, pageSize, permCondition, permName, permValue);
+		return permissionService.listForPage(pageCurrent, pageSize, permCondition, permName, permValue);
 	}
 
-	public int deletByIds(List<Long> ids) {
-		return service.deleteByIds(ids);
+	public int deletByIds(List<Object> ids) {
+		return permissionService.deleteByIds(ids);
 	}
 }

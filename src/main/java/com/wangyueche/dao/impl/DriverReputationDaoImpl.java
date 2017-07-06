@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.DriverReputation;
 import com.wangyueche.bean.entity.DriverReputationExample;
 import com.wangyueche.dao.DriverReputationDao;
-import com.wangyueche.mybatis.DriverReputationMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,10 +18,14 @@ import java.util.List;
  */
 @Repository
 public class DriverReputationDaoImpl implements DriverReputationDao {
-    @Autowired
+    @Override
+    public List<DriverReputation> listForPage(int page, int rows, Integer address, String companyId, String licenseId, String startDate, String endDate) {
+        return null;
+    }
+    /*@Autowired
     private DriverReputationMapper mapper;
 
-    /**
+    *//**
      * 驾驶员信誉信息
      *
      * @param page
@@ -33,7 +36,7 @@ public class DriverReputationDaoImpl implements DriverReputationDao {
      * @param startDate
      * @param endDate
      * @return
-     */
+     *//*
     @Override
     public List<DriverReputation> listForPage(int page, int rows, Integer address, String companyId, String licenseId, String startDate, String endDate) {
         DriverReputationExample example = new DriverReputationExample();
@@ -59,5 +62,5 @@ public class DriverReputationDaoImpl implements DriverReputationDao {
         PageHelper.startPage(page, rows);
         List<DriverReputation> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

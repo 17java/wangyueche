@@ -2,9 +2,9 @@ package com.wangyueche.biz;
 
 import com.wangyueche.bean.entity.*;
 import com.wangyueche.bean.vo.EasyUIResult;
-import com.wangyueche.bean.vo.Result;
 import com.wangyueche.bean.vo.SysRoleVo;
 import com.wangyueche.service.*;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gaoshiwei on 2017/3/30.
+ * Created by lyq
  */
 @Component
 public class RoleBiz {
@@ -34,22 +34,23 @@ public class RoleBiz {
     private UserService userService;
 
 
-    public EasyUIResult listForPage(int pageCurrent, int pageSize, String startDate,String endDate, String roleName) {
-        return service.listForPage(pageCurrent, pageSize, startDate, endDate, roleName);
+    public EasyUIResult listForPage(int pageCurrent, int pageSize, String startDate, String endDate, String roleName) {
+        Pager pager = new Pager(pageCurrent, pageSize);
+        return service.listForPage(pager, startDate, endDate, roleName);
     }
 
-    public SysRoleVo query(long id) {
-        SysRole sysRole = service.query(id);
+    public SysRoleVo query(Long roleId) {
+        SysRole sysRole = service.query(roleId);
         SysRoleVo sysRoleVo = new SysRoleVo(sysRole);
-        List<SysRolePermission> rolePermissions = rolePermissionService.queryByRoleId(id);
-        ArrayList<Long> idList = new ArrayList<Long>();
+        List<SysRolePermission> rolePermissions = rolePermissionService.queryByParam(roleId);
+        ArrayList<Object> idList = new ArrayList();
         for (SysRolePermission sysRolePermission : rolePermissions) {
             idList.add(sysRolePermission.getPermissionId());
         }
         List<SysPermission> permissions = permissionService.listForId(idList);
         sysRoleVo.setPermissionList(permissions);
         //新增
-        List<SysUserRole> sysUserRoles = userRoleService.queryByRoleId(id);
+        List<SysUserRole> sysUserRoles = userRoleService.queryByParam(roleId, null);
         if (sysUserRoles.size() > 0) {
             ArrayList<Long> uidList = new ArrayList<>();
             for (SysUserRole sysUserRole : sysUserRoles) {
@@ -81,7 +82,7 @@ public class RoleBiz {
     @Transactional
     public int delete(long id) {
         int result = rolePermissionService.delete(id);
-        if (result>0) {
+        if (result > 0) {
             return service.delete(id);
         }
         return 0;
@@ -91,7 +92,7 @@ public class RoleBiz {
     public int update(SysRole sysRole, List<Long> permissionList) {
         int result = rolePermissionService.update(sysRole.getId(), permissionList);
         System.out.println(sysRole.getId());
-        if (result>0) {
+        if (result > 0) {
             return service.update(sysRole);
         }
         return 0;

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.SysRole" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_value" property="roleValue" jdbcType="VARCHAR" />
+    <result column="status_id" property="statusId" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="params">
+    <if test="param.permName != null">AND permission_name = #{param.permName}</if>
+    <if test="param.permValue != null">AND permission_value = #{param.permValue}</if>
+    <if test="param.ids != null">AND id in #{param.ids}</if>
+    <if test="param.parentId != null">AND parent_id = #{param.parentId}</if>
+    <if test="param.roleName != null">AND role_name = #{param.roleName}</if>
+    <if test="param.idLists != null">AND id in (#{param.idLists})</if>
+  </sql>
+
+  <sql id="Base_Column_List" >
+    id, role_name, role_value, status_id, create_time, update_time
+  </sql>
+  <select id="select" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_role
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="delete"  >
+    delete from sys_role
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <insert id="insert" parameterType="com.wangyueche.bean.entity.SysRole" >
+    insert into sys_role (id, role_name, role_value, 
+      status_id, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{roleValue,jdbcType=VARCHAR}, 
+      #{statusId,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.wangyueche.bean.entity.SysRole" >
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="roleValue != null" >
+        role_value,
+      </if>
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleValue != null" >
+        #{roleValue,jdbcType=VARCHAR},
+      </if>
+      <if test="statusId != null" >
+        #{statusId,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="count"  resultType="java.lang.Integer" >
+    select count(*) from sys_role
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+
+  <update id="updateSelective" parameterType="map" >
+    update sys_role
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.roleName != null" >
+        role_name = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleValue != null" >
+        role_value = #{record.roleValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.statusId != null" >
+        status_id = #{record.statusId,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+
+  <update id="update" parameterType="map" >
+    update sys_role
+    set id = #{record.id,jdbcType=BIGINT},
+      role_name = #{record.roleName,jdbcType=VARCHAR},
+      role_value = #{record.roleValue,jdbcType=VARCHAR},
+      status_id = #{record.statusId,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.SysRole" >
+    update sys_role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleValue != null" >
+        role_value = #{roleValue,jdbcType=VARCHAR},
+      </if>
+      <if test="statusId != null" >
+        status_id = #{statusId,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.SysRole" >
+    update sys_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_value = #{roleValue,jdbcType=VARCHAR},
+      status_id = #{statusId,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

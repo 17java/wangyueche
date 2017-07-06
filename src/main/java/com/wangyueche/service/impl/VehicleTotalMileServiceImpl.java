@@ -4,9 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.VehicleTotalMile;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.baseinfo.VehicleTotalMileVo;
+import com.wangyueche.mapper.CompanyPayMapper;
+import com.wangyueche.mapper.VehicleTotalMileMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.VehicleTotalMileService;
-import com.wangyueche.dao.VehicleTotalMileDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +18,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/4/14 8:50
- *
- * @author gaojl
+ * @author lyq
  */
 @Service
 public class VehicleTotalMileServiceImpl implements VehicleTotalMileService {
     @Autowired
-    private VehicleTotalMileDao dao;
+    private VehicleTotalMileMapper vehicleTotalMileMapper;
 
     @Autowired
     private CompanyInfoService infoService;
+
     @Override
-    public EasyUIResult listForPage(int page, int rows, Integer address, String companyId, String vehicleNo) {
-        List<VehicleTotalMile> list = dao.listForPage(page, rows, address, companyId, vehicleNo);
+    public EasyUIResult listForPage(Pager pager, Integer address, String companyId, String vehicleNo) {
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId)
+                .addPositive("address", address)
+                .addNotEmpty("vehicleNo", vehicleNo);
+        pager.setSorts(CompanyPayMapper.ORDERBY);
+        List<VehicleTotalMile> list = vehicleTotalMileMapper.select(pager, argGen.getArgs());
         List<VehicleTotalMileVo> voList = new ArrayList<>();
         if (list.size() > 0) {
             Map<String, String> map = infoService.idWithName();

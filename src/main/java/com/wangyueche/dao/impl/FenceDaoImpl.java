@@ -5,7 +5,7 @@ import com.wangyueche.bean.entity.Fence;
 import com.wangyueche.bean.entity.FenceExample;
 import com.wangyueche.bean.vo.FenceVo;
 import com.wangyueche.dao.FenceDao;
-import com.wangyueche.mybatis.FenceMapper;
+import com.wangyueche.mapper.FenceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,9 +18,38 @@ import java.util.List;
  */
 @Repository
 public class FenceDaoImpl implements FenceDao {
+    @Override
+    public List<Fence> listForPage(int pageCurrent, int pageSize, Fence fence) {
+        return null;
+    }
+
+    @Override
+    public List<FenceVo> listAll() {
+        return null;
+    }
+
+    @Override
+    public Fence findById(int id) {
+        return null;
+    }
+
+    @Override
+    public int save(Fence fence) {
+        return 0;
+    }
+
+    @Override
+    public int update(Fence fence) {
+        return 0;
+    }
+
+    @Override
+    public int changeStatus(Integer id, Integer status) {
+        return 0;
+    }
 
 
-    @Autowired
+    /*@Autowired
     FenceMapper fenceMapper;
 
     @Override
@@ -40,6 +69,8 @@ public class FenceDaoImpl implements FenceDao {
         if (fence.getStatus() != null){
             criteria.andStatusEqualTo(fence.getStatus());
         }
+
+
 
         PageHelper.startPage(pageCurrent,pageSize);
         List<Fence> list = fenceMapper.selectByExample(example);
@@ -120,5 +151,5 @@ public class FenceDaoImpl implements FenceDao {
         Fence old = fenceMapper.selectByPrimaryKey(id);
         old.setStatus(status);
         return fenceMapper.updateByPrimaryKey(old);
-    }
+    }*/
 }

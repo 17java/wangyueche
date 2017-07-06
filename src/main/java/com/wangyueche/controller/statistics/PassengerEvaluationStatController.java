@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 乘客评价统计
- * Created by gaojl on 2017/5/9 5:10.
+ * Created by lyq
  */
 @Controller
 @RequestMapping(value = "/statistics/serviceQuality", method = RequestMethod.GET)
@@ -20,7 +20,9 @@ public class PassengerEvaluationStatController {
 
     @ResponseBody
     @RequestMapping(value = "/passengerAssess", produces = "application/json;charset=UTF-8")
-    public String view(@RequestParam(value = "companyId",required = false) String companyId, @RequestParam(value = "startDate",required = false) String startDate, @RequestParam(value = "endDate",required = false) String endDate) {
+    public String view(@RequestParam(value = "companyId",required = false) String companyId,
+                       @RequestParam(value = "startDate",required = false) String startDate,
+                       @RequestParam(value = "endDate",required = false) String endDate) {
         return statService.listStat(companyId, startDate, endDate);
     }
 

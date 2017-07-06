@@ -3,6 +3,7 @@ package com.wangyueche.service;
 import com.wangyueche.bean.entity.Fence;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.FenceVo;
+import com.wangyueche.util.page.Pager;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface FenceService {
 
-    EasyUIResult listForPage(int page, int rows,  Fence fence);
+    EasyUIResult listForPage(Pager pager,  Fence fence);
 
     List<FenceVo> listAll();
 

@@ -3,8 +3,10 @@ package com.wangyueche.service.impl;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.CompanyInfo;
 import com.wangyueche.bean.vo.EasyUIResult;
+import com.wangyueche.mapper.CompanyInfoMapper;
 import com.wangyueche.service.CompanyInfoService;
-import com.wangyueche.dao.CompanyInfoDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -12,33 +14,46 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-/**
- * Created by gaoshiwei on 2017/4/12.
- */
 @Service
 public class CompanyInfoServiceImpl implements CompanyInfoService {
 
     @Autowired
-    private CompanyInfoDao dao;
+    private RedisTemplate redisTemplate;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private CompanyInfoMapper companyInfoMapper;
 
     @Override
     public CompanyInfo selectCompanyInfo(Integer address, String companyId) {
-        return dao.selectCompanyInfo(address, companyId);
+        ArgGen args = new ArgGen();
+        args.addPositive("address", address)
+                .addNotEmpty("companyId", companyId);
+        List<CompanyInfo> list = companyInfoMapper.selectByExample(new Pager(),args.getArgs());
+        if (list.size() > 0){
+            return list.get(0);
+        }
+        return null;
     }
 
     @Override
     public CompanyInfo selectByState(String companyId, Integer state) {
-        return dao.selectByState(companyId, state);
+        ArgGen args = new ArgGen();
+        args.addPositive("state",state)
+            .addNotEmpty("companyId", companyId);
+        List<CompanyInfo> list = companyInfoMapper.selectByExample(new Pager(),args.getArgs());
+        if (list.size() > 0){
+            return list.get(0);
+        }
+        return null;
     }
 
     @Override
-    public EasyUIResult listForPage(int page, int rows, String companyId, Integer state) {
-        List<CompanyInfo> list = dao.listForPage(page, rows, companyId, state);
+    public EasyUIResult listForPage(Pager pager, String companyId, Integer state) {
+        ArgGen args = new ArgGen();
+        args.addPositive("state",state)
+            .addNotEmpty("companyId", companyId);
+        List<CompanyInfo> list = companyInfoMapper.selectByExample(new Pager(), args.getArgs());
         PageInfo<CompanyInfo> pageInfo = new PageInfo<>(list);
 
         EasyUIResult result = new EasyUIResult();
@@ -58,7 +73,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        List<CompanyInfo> list = dao.list();
+        List<CompanyInfo> list = companyInfoMapper.list(new Pager());
         if (list.size() > 0) {
             HashMap<String, String> map = new HashMap<>();
             for (CompanyInfo info : list) {

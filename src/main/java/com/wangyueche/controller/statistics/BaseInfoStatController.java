@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by gaojl on 2017/5/11 16:33 .
+ * Created by lyq
  */
 @Controller
 @RequestMapping(value = "/statistics")
 public class BaseInfoStatController {
     @Autowired
-    private BaseInfoStatService statService;
+    private BaseInfoStatService baseInfoStatService;
 
     @ResponseBody
     @RequestMapping(value = "/baseInfo")
     public BaseInfoStat list() {
-        return statService.list();
+        return baseInfoStatService.statistics();
     }
 }

@@ -1,14 +1,8 @@
 package com.wangyueche.dao.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.VehicleInsurance;
-import com.wangyueche.bean.entity.VehicleInsuranceExample;
-import com.wangyueche.dao.VehicleDao;
 import com.wangyueche.dao.VehicleInsuranceDao;
-import com.wangyueche.mybatis.VehicleInsuranceMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -19,7 +13,11 @@ import java.util.List;
  */
 @Repository
 public class VehicleInsuranceDaoImpl implements VehicleInsuranceDao {
-    @Autowired
+    @Override
+    public List<VehicleInsurance> listForPage(int page, int rows, Integer address, String companyId, String vehicleNO, String insurCom) {
+        return null;
+    }
+   /* @Autowired
     private VehicleDao dao;
 
     @Autowired
@@ -30,7 +28,7 @@ public class VehicleInsuranceDaoImpl implements VehicleInsuranceDao {
         VehicleInsuranceExample example = new VehicleInsuranceExample();
         VehicleInsuranceExample.Criteria criteria = example.createCriteria();
 
-        /*if (address != null) {
+        *//*if (address != null) {
             List<VehicleInfo> list = dao.selectByAddress(address);
             if (list.size() > 0) {
                 List<String>  vehicleNos= new ArrayList<>();
@@ -41,7 +39,7 @@ public class VehicleInsuranceDaoImpl implements VehicleInsuranceDao {
             } else {
                 return new ArrayList<>();
             }
-        }*/
+        }*//*
         if (StringUtils.hasText(companyId)) {
             criteria.andCompanyIdEqualTo(companyId);
         }
@@ -55,5 +53,5 @@ public class VehicleInsuranceDaoImpl implements VehicleInsuranceDao {
         PageHelper.startPage(page, rows);
         List<VehicleInsurance> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

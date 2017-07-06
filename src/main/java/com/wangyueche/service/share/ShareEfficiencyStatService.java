@@ -1,7 +1,7 @@
 package com.wangyueche.service.share;
 
 /**
- * Created by gaojl on 2017/5/16 18:43 .
+ * Created by lyq
  * 合乘效能统计
  */
 public interface ShareEfficiencyStatService {

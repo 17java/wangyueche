@@ -6,7 +6,6 @@ import com.wangyueche.bean.entity.PassengerEvaluation;
 import com.wangyueche.bean.entity.PassengerEvaluationExample;
 import com.wangyueche.dao.OrderInfoDao;
 import com.wangyueche.dao.PassengerEvaluationDao;
-import com.wangyueche.mybatis.PassengerEvaluationMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,12 +21,16 @@ import java.util.List;
  */
 @Repository
 public class PassengerEvaluationDaoImpl implements PassengerEvaluationDao {
-    @Autowired
+    @Override
+    public List<PassengerEvaluation> listForPage(int page, int rows, Integer address, String companyId, String orderId, String vehicleNo, String licenseId, String driverPhone, String startDate, String endDate) {
+        return null;
+    }
+    /*@Autowired
     private PassengerEvaluationMapper mapper;
 
     @Autowired
     private OrderInfoDao orderInfoDao;
-    /**
+    *//**
      * 乘客评价信息
      *
      * @param page
@@ -41,7 +44,7 @@ public class PassengerEvaluationDaoImpl implements PassengerEvaluationDao {
      * @param startDate
      * @param endDate
      * @return
-     */
+     *//*
     @Override
     public List<PassengerEvaluation> listForPage(int page, int rows, Integer address, String companyId, String orderId, String vehicleNo, String licenseId, String driverPhone, String startDate, String endDate) {
         PassengerEvaluationExample example = new PassengerEvaluationExample();
@@ -100,5 +103,5 @@ public class PassengerEvaluationDaoImpl implements PassengerEvaluationDao {
         PageHelper.startPage(page, rows);
         List<PassengerEvaluation> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

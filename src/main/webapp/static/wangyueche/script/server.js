@@ -15,7 +15,7 @@
                         url: Carnet.basePrefixURL + "/fence/listAll.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
                 },
@@ -24,7 +24,7 @@
                         url: Carnet.basePrefixURL + "/fence/save.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
                 },
@@ -33,10 +33,10 @@
                         url: Carnet.basePrefixURL + "/fence/update.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
-                },
+                }
             },
             no_fence: {
                 all: function (obj) {
@@ -44,7 +44,7 @@
                         url: Carnet.basePrefixURL + "/abnormal/listAll.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
                 },
@@ -53,7 +53,7 @@
                         url: Carnet.basePrefixURL + "/abnormal/save.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
                 },
@@ -62,7 +62,7 @@
                         url: Carnet.basePrefixURL + "/abnormal/update.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
                 },
@@ -71,11 +71,11 @@
                     return $.ajax({
                         url: Carnet.basePrefixURL + "/abnormal/getNum.do",
                         dataType: "json",
-                        type: "post",
+                        type: "post"
                         // data: obj,
                         // async: false
                     });
-                },
+                }
             },
             track: {
                 info: function (obj) {
@@ -83,7 +83,7 @@
                         url: Carnet.basePrefixURL + "/carMonitor/getpart.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
                 },
@@ -92,7 +92,7 @@
                         url: Carnet.basePrefixURL + "/carMonitor/gettrack.do",
                         dataType: "json",
                         type: "post",
-                        data: obj,
+                        data: obj
                         // async: false
                     });
                 }
@@ -103,7 +103,7 @@
                     url: Carnet.basePrefixURL + "/carMonitor/initFence.do",
                     dataType: "json",
                     type: "post",
-                    data: obj,
+                    data: obj
                     // async: false
                 });
             },
@@ -123,7 +123,7 @@
                     url: Carnet.basePrefixURL + "/carMonitor/carDistricts.do",
                     dataType: "json",
                     type: "post",
-                    data: obj,
+                    data: obj
                     // async: false
                 });
             },
@@ -133,17 +133,17 @@
                     url: Carnet.basePrefixURL + "/carMonitor/position.do",
                     dataType: "json",
                     type: "post",
-                    data: obj,
+                    data: obj
                     // async: false
                 });
-            },
+            }
         },
         // 登陆
         login: function (requestModel) {
             return $.ajax({
                 url: Carnet.basePrefixURL + "/login",
                 type: "post",
-                data: requestModel,
+                data: requestModel
                 // async: false
             });
         },

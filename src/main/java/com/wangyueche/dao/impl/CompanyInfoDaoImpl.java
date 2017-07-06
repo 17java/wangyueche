@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.CompanyInfo;
 import com.wangyueche.bean.entity.CompanyInfoExample;
 import com.wangyueche.dao.CompanyInfoDao;
-import com.wangyueche.mybatis.CompanyInfoMapper;
+import com.wangyueche.mapper.CompanyInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -17,8 +17,38 @@ import java.util.List;
  */
 @Repository
 public class CompanyInfoDaoImpl implements CompanyInfoDao {
+    @Override
+    public CompanyInfo selectCompanyInfo(Integer address, String companyId) {
+        return null;
+    }
 
-    @Autowired
+    @Override
+    public CompanyInfo selectByState(String companyId, Integer state) {
+        return null;
+    }
+
+    @Override
+    public List<CompanyInfo> listForPage(int pageCurrent, int pageSize, String companyId, Integer state) {
+        return null;
+    }
+
+    @Override
+    public CompanyInfo selectByCompanyId(String companyId) {
+        return null;
+    }
+
+    @Override
+    public List<CompanyInfo> list() {
+        return null;
+    }
+
+    @Override
+    public List<String> getCompanyIdList() {
+        return null;
+    }
+}
+
+    /*@Autowired
     private CompanyInfoMapper mapper;
 
     @Override
@@ -91,10 +121,10 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
         return mapper.selectByExample(example);
     }
 
-    /**
+    *//**
      * 获取
      * @return
-     */
+     *//*
     @Override
     public List<String> getCompanyIdList() {
         List<String> companyIdList = new ArrayList<>();
@@ -105,4 +135,4 @@ public class CompanyInfoDaoImpl implements CompanyInfoDao {
         }
         return companyIdList;
     }
-}
+}*/

@@ -1,27 +1,83 @@
 package com.wangyueche.dao.impl;
 
-import java.util.Date;
-import java.util.List;
-
-import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.SysUser;
-import com.wangyueche.bean.entity.SysUserExample;
 import com.wangyueche.dao.UserDao;
-import com.wangyueche.mybatis.SysUserMapper;
-import com.wangyueche.util.Base64Util;
-import com.wangyueche.util.base.SqlUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-
-	@Autowired
-	private SysUserMapper mapper;
-
 	@Override
 	public SysUser selectUser(String userno, String password) {
+		return null;
+	}
+
+	@Override
+	public SysUser selectByUserNo(String userno) {
+		return null;
+	}
+
+	@Override
+	public int insert(SysUser user) {
+		return 0;
+	}
+
+	@Override
+	public int update(SysUser user) {
+		return 0;
+	}
+
+	@Override
+	public int deleteById(Long id) {
+		return 0;
+	}
+
+	@Override
+	public List<SysUser> listForPage(int pageCurrent, int pageSize, Long organizationId, String name, String staffNo, String organizationName) {
+		return null;
+	}
+
+	@Override
+	public SysUser select(long id) {
+		return null;
+	}
+
+	@Override
+	public SysUser selectByOrganizationId(long id) {
+		return null;
+	}
+
+	@Override
+	public List<SysUser> listForId(List<Long> uidList) {
+		return null;
+	}
+
+	@Override
+	public List<SysUser> selectByName(String name, boolean equalsOrLikes) {
+		return null;
+	}
+
+	@Override
+	public List<SysUser> list() {
+		return null;
+	}
+
+	@Override
+	public int deleteByIds(List<Long> ids) {
+		return 0;
+	}
+
+	@Override
+	public List<SysUser> selectByNameEmail(String name, String email) {
+		return null;
+	}
+
+	/*@Autowired
+	private SysUserMapper mapper;
+
+	@Override*/
+	 /*public SysUserselectUser(String userno, String password) {
 		SysUserExample example = new SysUserExample();
 		SysUserExample.Criteria criteria = example.createCriteria();
 		criteria.andUserNoEqualTo(userno);
@@ -107,11 +163,11 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-	/**
+	*//**
 	 * @param name
 	 * @param equalsOrLikes true为精确查询，false为模糊查询
 	 * @return
-	 */
+	 *//*
 	@Override
 	public List<SysUser> selectByName(String name, boolean equalsOrLikes) {
 		SysUserExample example = new SysUserExample();
@@ -124,12 +180,12 @@ public class UserDaoImpl implements UserDao {
 		return mapper.selectByExample(example);
 	}
 
-	/**
+	*//**
 	 * 增加
 	 *
 	 * @param uidList
 	 * @return
-	 */
+	 *//*
 	@Override
 	public List<SysUser> listForId(List<Long> uidList) {
 		SysUserExample example = new SysUserExample();
@@ -161,5 +217,5 @@ public class UserDaoImpl implements UserDao {
 		criteria.andNameEqualTo(name);
 		criteria.andEmailEqualTo(email);
 		return mapper.selectByExample(example);
-	}
+	}*/
 }

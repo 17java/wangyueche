@@ -7,6 +7,7 @@ import com.wangyueche.bean.vo.Result;
 import com.wangyueche.bean.vo.SysUserVo;
 import com.wangyueche.service.*;
 import com.wangyueche.util.base.Page;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,16 +51,15 @@ public class UserBiz {
     /**
      * 分页查询用户信息
      *
-     * @param pageCurrent
-     * @param pageSize
+     * @param pager
      * @param organizationId
      * @param name
      * @param staffNo
      * @return
      */
-    public EasyUIResult listForPage(int pageCurrent, int pageSize, Long organizationId, String name, String staffNo,String organizationName) {
+    public EasyUIResult listForPage(Pager pager, Long organizationId, String name, String staffNo,String organizationName) {
         EasyUIResult resultVo = new EasyUIResult();
-        EasyUIResult result = userService.listForPage(pageCurrent, pageSize, organizationId, name, staffNo,organizationName);
+        EasyUIResult result = userService.listForPage(pager, organizationId, name, staffNo,organizationName);
         if (result!=null) {
             ArrayList<SysUserVo> resultData = new ArrayList<SysUserVo>();
             SysUserVo sysUserVo;
@@ -124,9 +124,9 @@ public class UserBiz {
      * @param userId
      * @return
      */
-    public List<SysRole> queryRoles(long userId) {
-        List<SysUserRole> userRoles = userRoleService.queryByUserId(userId);
-        ArrayList<Long> params = new ArrayList<Long>();
+    public List<SysRole> queryRoles(Long userId) {
+        List<SysUserRole> userRoles = userRoleService.queryByParam(null,userId);
+        ArrayList<Object> params = new ArrayList();
         for (SysUserRole sysUserRole : userRoles) {
             params.add(sysUserRole.getRoleId());
         }
@@ -141,12 +141,12 @@ public class UserBiz {
      * @return
      */
     public List<SysPermission> queryPermissions(List<SysRole> roles) {
-        ArrayList<Long> roleParams = new ArrayList<Long>();
+        ArrayList<Object> roleParams = new ArrayList();
         for (SysRole sysRole : roles) {
             roleParams.add(sysRole.getId());
         }
         List<SysRolePermission> rolePermissions = rolePermissionsService.listForRoleId(roleParams);
-        ArrayList<Long> params = new ArrayList<Long>();
+        ArrayList<Object> params = new ArrayList();
         for (SysRolePermission sysRolePermission : rolePermissions) {
             params.add(sysRolePermission.getPermissionId());
         }

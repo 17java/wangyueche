@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.SysUser" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="INTEGER" />
+    <result column="organization_id" property="organizationId" jdbcType="BIGINT" />
+    <result column="user_type" property="userType" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="staff_no" property="staffNo" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="nation" property="nation" jdbcType="VARCHAR" />
+    <result column="identity_card" property="identityCard" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="is_married" property="isMarried" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="organization_name" property="organizationName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="key">id</sql>
+  <sql id="columns" >
+    user_no, password, salt, locked, organization_id, user_type, name, staff_no,
+    position, sex, age, nick_name, phone, mobile, email, weight, height, nation, identity_card, 
+    birthday, is_married, address, create_by, create_time, update_by, update_time, organization_name
+  </sql>
+  <sql id="table">sys_user</sql>
+
+  <sql id="params">
+    <if test="param.userno != null">AND user_no = #{param.userno}</if>
+    <if test="param.password != null">AND password = #{param.password}</if>
+    <if test="param.organizationId != null">AND organization_id = #{param.organizationId}</if>
+    <if test="param.name != null">AND name = #{param.name}</if>
+    <if test="param.staffNo != null">AND staff_no = #{param.staffNo}</if>
+    <if test="param.organizationName != null">AND organization_name = #{param.organizationName}</if>
+    <if test="param.ids != null">AND id in (#{param.ids})</if>
+  </sql>
+
+
+  <select id="count"  resultType="java.lang.Integer" >
+    select COUNT(<include refid="key" />) from sys_user
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+
+  <select id="select" resultMap="BaseResultMap">
+    select
+      <include refid="key" />, <include refid="columns" />
+    from sys_user
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+      <include refid="key" />,<include refid="columns" />
+    from sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="delete" >
+    delete from sys_user
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <insert id="insert" parameterType="com.wangyueche.bean.entity.SysUser" >
+    insert into <include refid="table" />
+        (<include refid="key" />, <include refid="columns" />)
+    values (#{id,jdbcType=BIGINT}, #{userNo,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=INTEGER}, #{organizationId,jdbcType=BIGINT}, 
+      #{userType,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{age,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, #{height,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{identityCard,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, 
+      #{isMarried,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{createBy,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{organizationName,jdbcType=VARCHAR})
+  </insert>
+
+
+  <update id="updateSelective" parameterType="map" >
+    update sys_user
+    <set >
+      <if test="record.id != null" >id = #{record.id,jdbcType=BIGINT},</if>
+      <if test="record.userNo != null" >user_no = #{record.userNo,jdbcType=VARCHAR}, </if>
+      <if test="record.password != null" >password = #{record.password,jdbcType=VARCHAR}, </if>
+      <if test="record.salt != null" > salt = #{record.salt,jdbcType=VARCHAR}, </if>
+      <if test="record.locked != null" > locked = #{record.locked,jdbcType=INTEGER}, </if>
+      <if test="record.organizationId != null" >organization_id = #{record.organizationId,jdbcType=BIGINT}, </if>
+      <if test="record.userType != null" >user_type = #{record.userType,jdbcType=INTEGER}, </if>
+      <if test="record.name != null" > name = #{record.name,jdbcType=VARCHAR}, </if>
+      <if test="record.staffNo != null" > staff_no = #{record.staffNo,jdbcType=VARCHAR},</if>
+      <if test="record.position != null" > position = #{record.position,jdbcType=VARCHAR}, </if>
+      <if test="record.sex != null" > sex = #{record.sex,jdbcType=INTEGER}, </if>
+      <if test="record.age != null" >age = #{record.age,jdbcType=VARCHAR},</if>
+      <if test="record.nickName != null" >nick_name = #{record.nickName,jdbcType=VARCHAR},</if>
+      <if test="record.phone != null" >phone = #{record.phone,jdbcType=VARCHAR},</if>
+      <if test="record.mobile != null" >mobile = #{record.mobile,jdbcType=VARCHAR},</if>
+      <if test="record.email != null" >email = #{record.email,jdbcType=VARCHAR},</if>
+      <if test="record.weight != null" >weight = #{record.weight,jdbcType=VARCHAR},</if>
+      <if test="record.height != null" >height = #{record.height,jdbcType=VARCHAR},</if>
+      <if test="record.nation != null" >nation = #{record.nation,jdbcType=VARCHAR},</if>
+      <if test="record.identityCard != null" >identity_card = #{record.identityCard,jdbcType=VARCHAR},</if>
+      <if test="record.birthday != null" >birthday = #{record.birthday,jdbcType=VARCHAR},</if>
+      <if test="record.isMarried != null" >is_married = #{record.isMarried,jdbcType=INTEGER},</if>
+      <if test="record.address != null" >address = #{record.address,jdbcType=VARCHAR}, </if>
+      <if test="record.createBy != null" >create_by = #{record.createBy,jdbcType=BIGINT},</if>
+      <if test="record.createTime != null" >create_time = #{record.createTime,jdbcType=TIMESTAMP},</if>
+      <if test="record.updateBy != null" >update_by = #{record.updateBy,jdbcType=BIGINT},</if>
+      <if test="record.updateTime != null" >update_time = #{record.updateTime,jdbcType=TIMESTAMP},</if>
+      <if test="record.organizationName != null" >organization_name = #{record.organizationName,jdbcType=VARCHAR},</if>
+    </set>
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+  <update id="update" parameterType="map" >
+    update sys_user
+    set id = #{record.id,jdbcType=BIGINT},
+      user_no = #{record.userNo,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      locked = #{record.locked,jdbcType=INTEGER},
+      organization_id = #{record.organizationId,jdbcType=BIGINT},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      staff_no = #{record.staffNo,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      age = #{record.age,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      weight = #{record.weight,jdbcType=VARCHAR},
+      height = #{record.height,jdbcType=VARCHAR},
+      nation = #{record.nation,jdbcType=VARCHAR},
+      identity_card = #{record.identityCard,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=VARCHAR},
+      is_married = #{record.isMarried,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_by = #{record.updateBy,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      organization_name = #{record.organizationName,jdbcType=VARCHAR}
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.SysUser" >
+    update sys_user
+    <set >
+      <if test="userNo != null" >  user_no = #{userNo,jdbcType=VARCHAR},      </if>
+      <if test="password != null" >password = #{password,jdbcType=VARCHAR}, </if>
+      <if test="salt != null" >salt = #{salt,jdbcType=VARCHAR}, </if>
+      <if test="locked != null" >locked = #{locked,jdbcType=INTEGER}, </if>
+      <if test="organizationId != null" >organization_id = #{organizationId,jdbcType=BIGINT},</if>
+      <if test="userType != null" >user_type = #{userType,jdbcType=INTEGER},</if>
+      <if test="name != null" >name = #{name,jdbcType=VARCHAR},</if>
+      <if test="staffNo != null" >staff_no = #{staffNo,jdbcType=VARCHAR},</if>
+      <if test="position != null" >position = #{position,jdbcType=VARCHAR}, </if>
+      <if test="sex != null" >sex = #{sex,jdbcType=INTEGER},</if>
+      <if test="age != null" >age = #{age,jdbcType=VARCHAR},</if>
+      <if test="nickName != null" >nick_name = #{nickName,jdbcType=VARCHAR},</if>
+      <if test="phone != null" >phone = #{phone,jdbcType=VARCHAR}, </if>
+      <if test="mobile != null" > mobile = #{mobile,jdbcType=VARCHAR}, </if>
+      <if test="email != null" >email = #{email,jdbcType=VARCHAR}, </if>
+      <if test="weight != null" >weight = #{weight,jdbcType=VARCHAR},</if>
+      <if test="height != null" >height = #{height,jdbcType=VARCHAR},</if>
+      <if test="nation != null" >nation = #{nation,jdbcType=VARCHAR},</if>
+      <if test="identityCard != null" >identity_card = #{identityCard,jdbcType=VARCHAR},</if>
+      <if test="birthday != null" >birthday = #{birthday,jdbcType=VARCHAR},</if>
+      <if test="isMarried != null" >is_married = #{isMarried,jdbcType=INTEGER},</if>
+      <if test="address != null" >address = #{address,jdbcType=VARCHAR},</if>
+      <if test="createBy != null" >create_by = #{createBy,jdbcType=BIGINT},</if>
+      <if test="createTime != null" >create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+      <if test="updateBy != null" >update_by = #{updateBy,jdbcType=BIGINT},</if>
+      <if test="updateTime != null" >update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
+      <if test="organizationName != null" >organization_name = #{organizationName,jdbcType=VARCHAR},</if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.SysUser" >
+    update sys_user
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=INTEGER},
+      organization_id = #{organizationId,jdbcType=BIGINT},
+      user_type = #{userType,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      staff_no = #{staffNo,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      height = #{height,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      identity_card = #{identityCard,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      is_married = #{isMarried,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      organization_name = #{organizationName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -2,15 +2,16 @@ package com.wangyueche.service;
 
 import com.wangyueche.bean.entity.OperateLogInOut;
 import com.wangyueche.bean.vo.EasyUIResult;
+import com.wangyueche.util.page.Pager;
 
 import java.util.List;
 
 /**
- * Created by gaojl on 2017/4/17 13:18
  * 车辆运营上下线service
  *
- * @author gaojl
+ * @author lyq
  */
 public interface OperateLogInOutService {
-    EasyUIResult listForPage(int page, int rows, Integer address, String companyId, String startDate, String endDate, String licenseId, String vehicleNo);
+
+    EasyUIResult listForPage(Pager pager, Integer address, String companyId, String startDate, String endDate, String licenseId, String vehicleNo);
 }

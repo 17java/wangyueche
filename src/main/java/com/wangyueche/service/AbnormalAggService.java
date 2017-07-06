@@ -4,6 +4,7 @@ import com.wangyueche.bean.entity.Abnormalaggregation;
 import com.wangyueche.bean.vo.baseinfo.AbnormalagVo;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.baseinfo.AbnormalaggregationVo;
+import com.wangyueche.util.page.Pager;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public interface AbnormalAggService {
 
 
-    EasyUIResult listForPage(int page, int rows, Abnormalaggregation abnormalaggregation);
+    EasyUIResult listForPage(Pager pager, Abnormalaggregation abnormalaggregation);
 
     List<Abnormalaggregation> listAll();
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by gaojl on 2017/5/10 17:42 .
+ * Created by lyq
  * 用车时间段分布
  */
 @Controller
@@ -20,7 +20,9 @@ public class DriveTimeDistributionController {
 
     @ResponseBody
     @RequestMapping(value = "/useCar", produces = "application/json;charset=UTF-8")
-    public String view(@RequestParam(value = "companyId", required = false) String companyId, @RequestParam(value = "startDate", required = false) String startDate, @RequestParam(value = "endDate", required = false) String endDate) {
+    public String view(@RequestParam(value = "companyId", required = false) String companyId,
+                       @RequestParam(value = "startDate", required = false) String startDate,
+                       @RequestParam(value = "endDate", required = false) String endDate) {
         return service.listStat(companyId, startDate, endDate);
     }
 }

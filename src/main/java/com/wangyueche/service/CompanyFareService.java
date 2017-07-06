@@ -1,12 +1,11 @@
 package com.wangyueche.service;
 
 import com.wangyueche.bean.vo.EasyUIResult;
+import com.wangyueche.util.page.Pager;
 
 /**
- * Created by gaojl on 2017/4/12 13:47
- *
- * @author gaojl
+ * @author lyq
  */
 public interface CompanyFareService {
-    EasyUIResult listForPage(int page, int rows, Integer address, String companyId, String fareType, Integer state);
+    EasyUIResult listForPage(Pager pager, Integer address, String companyId, String fareType, Integer state);
 }

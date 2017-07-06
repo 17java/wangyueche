@@ -1,15 +1,21 @@
 package com.wangyueche.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.Fence;
+import com.wangyueche.bean.entity.FenceExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.FenceVo;
-import com.wangyueche.mybatis.FenceMapper;
+import com.wangyueche.mapper.FenceMapper;
 import com.wangyueche.service.FenceService;
 import com.wangyueche.dao.FenceDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,14 +25,16 @@ import java.util.List;
 public class FenceServiceImpl implements FenceService {
 
     @Autowired
-    private FenceDao fenceDao;
-
-    @Autowired
-    private FenceMapper mapper;
+    private FenceMapper fenceMapper;
 
     @Override
-    public EasyUIResult listForPage(int page, int rows, Fence fence) {
-        List<Fence> list = fenceDao.listForPage(page, rows,  fence);
+    public EasyUIResult listForPage(Pager pager, Fence fence) {
+        ArgGen argGen = new ArgGen();
+        argGen.addLike("name", fence.getName())
+              .addLike("number", fence.getNumber())
+              .addPositive("status", fence.getStatus());
+        pager.setSorts(FenceMapper.ORDERBY).max();
+        List<Fence> list = fenceMapper.selectByExample(pager, argGen.getArgs());
         PageInfo<Fence> pageInfo = new PageInfo<Fence>(list);
         EasyUIResult result = new EasyUIResult();
         result.setTotal(pageInfo.getTotal());
@@ -36,33 +44,80 @@ public class FenceServiceImpl implements FenceService {
 
     @Override
     public List<FenceVo> listAll() {
-        return fenceDao.listAll();
+
+        ArgGen argGen = new ArgGen();
+        argGen.addPositive("status", 1);
+        Pager pager = new Pager();
+        pager.max();
+        pager.setSorts(FenceMapper.ORDERBY);
+        List<Fence> list = fenceMapper.selectByExample(pager, argGen.getArgs());
+        List<FenceVo> res = new ArrayList<FenceVo>();
+
+        for(Fence f : list){
+            FenceVo vo = new FenceVo();
+            vo.setName(f.getName());
+            vo.setId(f.getId());
+            vo.setRadius(f.getRadius());
+            vo.setShape(f.getShape());
+            vo.setSpots(f.getSpots());
+            vo.setNumber(f.getNumber());
+            vo.setPurpose(f.getPurpose());
+            vo.setRemark(f.getRemark());
+            res.add(vo);
+        }
+        return res;
     }
 
     @Override
     public Fence findById(int id) {
-        Fence fence = fenceDao.findById(id);
+        Fence fence = fenceMapper.selectByPrimaryKey(id);
         return fence;
     }
 
     @Override
     public int save(Fence fence) {
-        return fenceDao.save(fence);
+        fence.setStatus(1);
+        return fenceMapper.insert(fence);
     }
 
     @Override
     public int update(Fence fence) {
-        return fenceDao.update(fence);
+        Fence old = fenceMapper.selectByPrimaryKey(fence.getId());
+
+        if(fence.getRemark() != null){
+            old.setRemark(fence.getRemark());
+        }
+        if(fence.getName() != null){
+            old.setName(fence.getName());
+        }
+        if(fence.getNumber() != null){
+            old.setNumber(fence.getNumber());
+        }
+        if(fence.getShape() != null){
+            old.setShape(fence.getShape());
+        }
+        if(fence.getPurpose() !=null ){
+            old.setPurpose(fence.getPurpose());
+        }
+        if(fence.getRadius() !=null ){
+            old.setRadius(fence.getRadius());
+        }
+        //更新时间
+        old.setEndtime(new Date());
+        old.setStatus(1);
+        return fenceMapper.updateByPrimaryKey(old);
     }
 
     @Override
     public int changeStatus(Integer id,Integer status) {
-        return fenceDao.changeStatus( id,status);
+        Fence old = fenceMapper.selectByPrimaryKey(id);
+        old.setStatus(status);
+        return fenceMapper.updateByPrimaryKey(old);
     }
 
     @Override
     public int deleteById(Integer id) {
-        return mapper.deleteByPrimaryKey(id);
+        return fenceMapper.deleteByPrimaryKey(id);
     }
 
 }

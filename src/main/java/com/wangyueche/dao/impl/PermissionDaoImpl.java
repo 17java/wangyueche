@@ -5,7 +5,7 @@ import com.wangyueche.bean.entity.CompanyInfoExample;
 import com.wangyueche.bean.entity.SysPermission;
 import com.wangyueche.bean.entity.SysPermissionExample;
 import com.wangyueche.dao.PermissionDao;
-import com.wangyueche.mybatis.SysPermissionMapper;
+import com.wangyueche.mapper.SysPermissionMapper;
 import com.wangyueche.util.base.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,8 +16,56 @@ import java.util.List;
 
 @Repository
 public class PermissionDaoImpl implements PermissionDao {
+	@Override
+	public SysPermission selectById(long id) {
+		return null;
+	}
 
-	@Autowired
+	@Override
+	public int insert(SysPermission permission) {
+		return 0;
+	}
+
+	@Override
+	public int update(SysPermission permission) {
+		return 0;
+	}
+
+	@Override
+	public int deleteById(long id) {
+		return 0;
+	}
+
+	@Override
+	public List<SysPermission> listForId(List<Long> idList) {
+		return null;
+	}
+
+	@Override
+	public List<SysPermission> list() {
+		return null;
+	}
+
+	@Override
+	public List<SysPermission> listByUserId(Long userId) {
+		return null;
+	}
+
+	@Override
+	public List<SysPermission> listForPage(int pageCurrent, int pageSize, String permCondition, String permName, String permValue) {
+		return null;
+	}
+
+	@Override
+	public int deleteByIds(List<Long> ids) {
+		return 0;
+	}
+
+	@Override
+	public List<SysPermission> slectByParentId(Long parentId) {
+		return null;
+	}
+/*@Autowired
 	private SysPermissionMapper mapper;
 
 	@Override
@@ -44,7 +92,7 @@ public class PermissionDaoImpl implements PermissionDao {
 		return mapper.deleteByPrimaryKey(id);
 	}
 
-    /**
+    *//**
      * 新增于  2017年4月5日10:16:53 By Gaojl
      * @param pageCurrent 当前页
      * @param pageSize 页面记录数大小
@@ -52,7 +100,7 @@ public class PermissionDaoImpl implements PermissionDao {
      * @param permName 权限名称
      * @param permValue 权限值
      * @return
-     */
+     *//*
 	@Override
 	public List<SysPermission> listForPage(int pageCurrent, int pageSize, String permCondition, String permName, String permValue) {
 		SysPermissionExample example = new SysPermissionExample();
@@ -77,12 +125,12 @@ public class PermissionDaoImpl implements PermissionDao {
         return list;
 	}
 
-    /**
+    *//**
      * 新增 2017-04-05 15:11:04 By Gaojl
      * 删除多选
      * @param ids
      * @return
-     */
+     *//*
     @Override
     public int deleteByIds(List<Long> ids) {
         SysPermissionExample example = new SysPermissionExample();
@@ -110,12 +158,12 @@ public class PermissionDaoImpl implements PermissionDao {
 		return mapper.selectByUserId(userId);
 	}
 
-	/**
+	*//**
 	 * 根据父节点查询权限
 	 *
 	 * @param parentId
 	 * @return
-	 */
+	 *//*
 	@Override
 	public List<SysPermission> slectByParentId(Long parentId) {
 		SysPermissionExample example = new SysPermissionExample();
@@ -123,5 +171,5 @@ public class PermissionDaoImpl implements PermissionDao {
 		criteria.andParentIdEqualTo(parentId);
 		List<SysPermission> list = mapper.selectByExample(example);
 		return list;
-	}
+	}*/
 }

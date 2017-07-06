@@ -1,10 +1,14 @@
 package com.wangyueche.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.wangyueche.bean.entity.SysRolePermission;
+import com.wangyueche.mapper.SysRolePermissionMapper;
 import com.wangyueche.service.RolePermissionService;
 import com.wangyueche.dao.RolePermissionDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +16,18 @@ import org.springframework.stereotype.Service;
 public class RolePermissionServiceImpl implements RolePermissionService {
 
 	@Autowired
-	private RolePermissionDao dao;
+	private SysRolePermissionMapper mapper;
 
 	@Override
 	public SysRolePermission query(long id) {
-
-		return dao.selectById(id);
+		return mapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public List<SysRolePermission> queryByRoleId(long id) {
-
-		return dao.selectByRoleId(id);
+	public List<SysRolePermission> queryByParam(Long roleId) {
+		ArgGen argGen = new ArgGen();
+		argGen.addPositive("roleId",roleId);
+		return mapper.select(new Pager().max().setSorts(SysRolePermissionMapper.ORDERBY), argGen.getArgs());
 	}
 
 	/**
@@ -33,16 +37,21 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 	 * @return
 	 */
 	@Override
-	public int save(long roleId, List<Long> permissionList) {
+	public int save(Long roleId, List<Long> permissionList) {
 		//根据角色id删除原有权限
-		dao.deleteByRoleId(roleId);
+		ArgGen argGen = new ArgGen();
+		argGen.addPositive("roleId",roleId);
+		mapper.delete(argGen.getArgs());
 		//根据权限列表，增加权限
 		SysRolePermission sysRolePermission = new SysRolePermission();
 		int i = 0;
 		for (Long permissionId : permissionList) {
 			sysRolePermission.setPermissionId(permissionId);
 			sysRolePermission.setRoleId(roleId);
-			dao.insert(sysRolePermission);
+			sysRolePermission.setStatusId("1");
+			sysRolePermission.setCreateTime(new Date());
+			sysRolePermission.setUpdateTime(new Date());
+			mapper.insert(sysRolePermission);
 			i++;
 		}
 		if (permissionList.size() == i) {
@@ -52,25 +61,29 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 	}
 
 	@Override
-	public int delete(long roleId) {
-
-		return dao.deleteByRoleId(roleId);
+	public int delete(Long roleId) {
+		ArgGen argGen = new ArgGen();
+		argGen.addPositive("roleId", roleId);
+		return mapper.delete(argGen.getArgs());
 	}
 
 	@Override
 	public int deleteByRolePermission(SysRolePermission sysRolePermission) {
-		return dao.delectByRolePermission(sysRolePermission);
+		ArgGen argGen = new ArgGen();
+		argGen.addPositive("roleId",sysRolePermission.getRoleId())
+				.addPositive("permissionId",sysRolePermission.getPermissionId());
+		return mapper.delete(argGen.getArgs());
 	}
 
 	@Override
-	public int update(long roleId, List<Long> permissionList) {
-
+	public int update(Long roleId, List<Long> permissionList) {
 		return save(roleId, permissionList);
 	}
 
 	@Override
-	public List<SysRolePermission> listForRoleId(List<Long> idList) {
-
-		return dao.listForRoleId(idList);
+	public List<SysRolePermission> listForRoleId(List<Object> idList) {
+		ArgGen argGen = new ArgGen();
+		argGen.addIn("roleIds", idList);
+		return mapper.select(new Pager().max().setSorts(SysRolePermissionMapper.ORDERBY),argGen.getArgs());
 	}
 }

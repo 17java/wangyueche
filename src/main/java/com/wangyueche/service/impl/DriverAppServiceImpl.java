@@ -4,9 +4,11 @@ import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.DriverApp;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.baseinfo.DriverAppVo;
+import com.wangyueche.mapper.DriverAppMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.DriverAppService;
-import com.wangyueche.dao.DriverAppDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +17,29 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/4/13 8:48
- *
- * @author gaojl
+ * @author lyq
  */
 @Service
 public class DriverAppServiceImpl implements DriverAppService {
     @Autowired
-    private DriverAppDao dao;
+    private DriverAppMapper driverAppMapper;
 
     @Autowired
     private CompanyInfoService infoService;
 
     @Override
     public DriverAppVo selectDriverApp(String companyId, String licenseId, String driverPhone) {
-        DriverApp app = dao.selectDriverApp(companyId, licenseId, driverPhone);
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId)
+                .addNotEmpty("licenseId",licenseId)
+                .addNotEmpty("driverPhone",driverPhone);
+        Pager pager = new Pager();
+        pager.setSorts(DriverAppMapper.ORDERBY);
+        List<DriverApp> list = driverAppMapper.select(pager, argGen.getArgs());
+        DriverApp app = null;
+        if (list.size() > 0){
+            app = list.get(0);
+        }
         if (app != null) {
             Map<String, String> map = infoService.idWithName();
             DriverAppVo vo = new DriverAppVo(app);
@@ -40,8 +50,17 @@ public class DriverAppServiceImpl implements DriverAppService {
     }
 
     @Override
-    public EasyUIResult listForPage(int page, int pageSize, Integer address, String companyId, String licenseId, String driverPhone, Integer state) {
-        List<DriverApp> list = dao.listForPage(page, pageSize, address, companyId, licenseId,driverPhone, state);
+    public EasyUIResult listForPage(Pager pager, Integer address, String companyId, String licenseId, String driverPhone, Integer state) {
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId)
+                .addNotEmpty("licenseId",licenseId)
+                .addNotEmpty("driverPhone",driverPhone)
+                .addPositive("address",address)
+                .addPositive("state",state);
+
+        pager.setSorts(DriverAppMapper.ORDERBY);
+        List<DriverApp> list = driverAppMapper.select(pager, argGen.getArgs());
+
         List<DriverAppVo> voList = new ArrayList<>();
         if (list.size() > 0) {
             Map<String, String> map = infoService.idWithName();

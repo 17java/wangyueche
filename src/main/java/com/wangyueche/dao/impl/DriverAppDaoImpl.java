@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.DriverApp;
 import com.wangyueche.bean.entity.DriverAppExample;
 import com.wangyueche.dao.DriverAppDao;
-import com.wangyueche.mybatis.DriverAppMapper;
 import com.wangyueche.util.base.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,17 +18,26 @@ import java.util.List;
  */
 @Repository
 public class DriverAppDaoImpl implements DriverAppDao {
-    @Autowired
+    @Override
+    public DriverApp selectDriverApp(String companyId, String licenseId, String driverPhone) {
+        return null;
+    }
+
+    @Override
+    public List<DriverApp> listForPage(int page, int pageSize, Integer address, String companyId, String licenseId, String driverPhone, Integer state) {
+        return null;
+    }
+    /*@Autowired
     private DriverAppMapper mapper;
 
-    /**
+    *//**
      * 综合信息——驾驶员信息——移动终端信息
      *
      * @param companyId
      * @param licenseId
      * @param driverPhone
      * @return
-     */
+     *//*
     @Override
     public DriverApp selectDriverApp(String companyId, String licenseId, String driverPhone) {
         DriverAppExample example = new DriverAppExample();
@@ -50,7 +58,7 @@ public class DriverAppDaoImpl implements DriverAppDao {
         return null;
     }
 
-    /**
+    *//**
      * 基本信息——基础信息——驾驶员移动终端信息
      *
      * @param address     归属区划
@@ -58,7 +66,7 @@ public class DriverAppDaoImpl implements DriverAppDao {
      * @param driverPhone 驾驶员手机号
      * @param state       状态
      * @return
-     */
+     *//*
     @Override
     public List<DriverApp> listForPage(int page,int pageSize,Integer address, String companyId, String licenseId,String driverPhone, Integer state) {
         DriverAppExample example = new DriverAppExample();
@@ -85,5 +93,5 @@ public class DriverAppDaoImpl implements DriverAppDao {
         PageHelper.startPage(page, pageSize);
         List<DriverApp> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.ShareCompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.ShareCompany" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="identifier" property="identifier" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="contact_address" property="contactAddress" jdbcType="VARCHAR" />
+    <result column="economic_type" property="economicType" jdbcType="VARCHAR" />
+    <result column="legal_name" property="legalName" jdbcType="VARCHAR" />
+    <result column="legal_phone" property="legalPhone" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="params">
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.state != null">AND state = #{param.state}</if>
+  </sql>
+
+  <sql id="Base_Column_List" >
+    id, company_id, company_name, identifier, address, contact_address, economic_type, 
+    legal_name, legal_phone, state, flag, update_time
+  </sql>
+  
+  <select id="select" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from share_company
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from share_company
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from share_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete"  >
+    delete from share_company
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count"  resultType="java.lang.Integer" >
+    select count(*) from share_company
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+</mapper>

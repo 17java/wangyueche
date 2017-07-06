@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.FenceMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.Fence" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="shape" property="shape" jdbcType="INTEGER" />
+    <result column="radius" property="radius" jdbcType="DOUBLE" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="DATE" />
+    <result column="endTime" property="endtime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap id="ResultMapWithBLOBs" type="com.wangyueche.bean.entity.Fence" extends="BaseResultMap" >
+    <result column="spots" property="spots" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, name, number, shape, radius, purpose, createTime, endTime, remark, status, type
+  </sql>
+
+  <sql id="Blob_Column_List" >
+    spots
+  </sql>
+
+  <sql id="params">
+    <if test="param.name != null">AND name like #{param.name}</if>
+    <if test="param.number != null">AND number like #{param.number}</if>
+    <if test="param.status != null">AND status = #{param.status}</if>
+  </sql>
+
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fence
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from fence
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from fence
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from fence
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="delete"  >
+    delete from fence
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+  <insert id="insert" parameterType="com.wangyueche.bean.entity.Fence" >
+    insert into fence (id, name, number, 
+      shape, radius, purpose, 
+      createTime, endTime, remark, 
+      status, type, spots
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{shape,jdbcType=INTEGER}, #{radius,jdbcType=DOUBLE}, #{purpose,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{spots,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <select id="count" resultType="java.lang.Integer" >
+    select count(*) from fence
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update fence
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shape != null" >
+        shape = #{record.shape,jdbcType=INTEGER},
+      </if>
+      <if test="record.radius != null" >
+        radius = #{record.radius,jdbcType=DOUBLE},
+      </if>
+      <if test="record.purpose != null" >
+        purpose = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createTime = #{record.createtime,jdbcType=DATE},
+      </if>
+      <if test="record.endtime != null" >
+        endTime = #{record.endtime,jdbcType=DATE},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.spots != null" >
+        spots = #{record.spots,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update fence
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=VARCHAR},
+      shape = #{record.shape,jdbcType=INTEGER},
+      radius = #{record.radius,jdbcType=DOUBLE},
+      purpose = #{record.purpose,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=DATE},
+      endTime = #{record.endtime,jdbcType=DATE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      spots = #{record.spots,jdbcType=LONGVARCHAR}
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update fence
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=VARCHAR},
+      shape = #{record.shape,jdbcType=INTEGER},
+      radius = #{record.radius,jdbcType=DOUBLE},
+      purpose = #{record.purpose,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=DATE},
+      endTime = #{record.endtime,jdbcType=DATE},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER}
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.Fence" >
+    update fence
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="shape != null" >
+        shape = #{shape,jdbcType=INTEGER},
+      </if>
+      <if test="radius != null" >
+        radius = #{radius,jdbcType=DOUBLE},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createTime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="spots != null" >
+        spots = #{spots,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.wangyueche.bean.entity.Fence" >
+    update fence
+    set name = #{name,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      shape = #{shape,jdbcType=INTEGER},
+      radius = #{radius,jdbcType=DOUBLE},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      spots = #{spots,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.Fence" >
+    update fence
+    set name = #{name,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      shape = #{shape,jdbcType=INTEGER},
+      radius = #{radius,jdbcType=DOUBLE},
+      purpose = #{purpose,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=DATE},
+      endTime = #{endtime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

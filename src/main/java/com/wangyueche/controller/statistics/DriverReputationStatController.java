@@ -20,7 +20,9 @@ public class DriverReputationStatController {
 
     @ResponseBody
     @RequestMapping(value = "/driverReputation", produces = "application/json;charset=UTF-8")
-    public String view(@RequestParam(value = "companyId",required = false) String companyId, @RequestParam(value = "startDate",required = false) String startDate, @RequestParam(value = "endDate",required = false) String endDate) {
+    public String view(@RequestParam(value = "companyId",required = false) String companyId,
+                       @RequestParam(value = "startDate",required = false) String startDate,
+                       @RequestParam(value = "endDate",required = false) String endDate) {
         return statService.listStat(companyId, startDate, endDate);
     }
 }

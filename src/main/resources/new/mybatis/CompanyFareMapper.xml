@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.CompanyFareMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.CompanyFare" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="fare_type" property="fareType" jdbcType="VARCHAR" />
+    <result column="fare_type_note" property="fareTypeNote" jdbcType="VARCHAR" />
+    <result column="fare_valid_on" property="fareValidOn" jdbcType="BIGINT" />
+    <result column="fare_valid_off" property="fareValidOff" jdbcType="BIGINT" />
+    <result column="start_fare" property="startFare" jdbcType="DECIMAL" />
+    <result column="start_mile" property="startMile" jdbcType="DECIMAL" />
+    <result column="unit_price_per_mile" property="unitPricePerMile" jdbcType="DECIMAL" />
+    <result column="unit_price_per_minute" property="unitPricePerMinute" jdbcType="DECIMAL" />
+    <result column="up_price" property="upPrice" jdbcType="DECIMAL" />
+    <result column="up_price_start_mile" property="upPriceStartMile" jdbcType="INTEGER" />
+    <result column="morning_peak_time_on" property="morningPeakTimeOn" jdbcType="VARCHAR" />
+    <result column="morning_peak_time_off" property="morningPeakTimeOff" jdbcType="VARCHAR" />
+    <result column="evening_peak_time_on" property="eveningPeakTimeOn" jdbcType="VARCHAR" />
+    <result column="evening_peak_time_off" property="eveningPeakTimeOff" jdbcType="VARCHAR" />
+    <result column="other_peak_time_on" property="otherPeakTimeOn" jdbcType="VARCHAR" />
+    <result column="other_peak_time_off" property="otherPeakTimeOff" jdbcType="VARCHAR" />
+    <result column="peak_unit_price" property="peakUnitPrice" jdbcType="DECIMAL" />
+    <result column="peak_price_start_mile" property="peakPriceStartMile" jdbcType="DECIMAL" />
+    <result column="low_speed_price_per_minute" property="lowSpeedPricePerMinute" jdbcType="DECIMAL" />
+    <result column="night_price_per_mile" property="nightPricePerMile" jdbcType="DECIMAL" />
+    <result column="night_price_per_minute" property="nightPricePerMinute" jdbcType="DECIMAL" />
+    <result column="other_price" property="otherPrice" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company_id, address, fare_type, fare_type_note, fare_valid_on, fare_valid_off, 
+    start_fare, start_mile, unit_price_per_mile, unit_price_per_minute, up_price, up_price_start_mile, 
+    morning_peak_time_on, morning_peak_time_off, evening_peak_time_on, evening_peak_time_off, 
+    other_peak_time_on, other_peak_time_off, peak_unit_price, peak_price_start_mile, 
+    low_speed_price_per_minute, night_price_per_mile, night_price_per_minute, other_price, 
+    state, update_time, flag
+  </sql>
+
+  <sql id="params">
+    <if test="param.address != null">AND address = #{param.address}</if>
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.state != null">AND state = #{param.state}</if>
+    <if test="param.fareType != null">AND fare_type = #{param.fareType}</if>
+  </sql>
+
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from company_fare
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from company_fare
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company_fare
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete" >
+    delete from company_fare
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count" resultType="java.lang.Integer" >
+    select count(*) from company_fare
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+</mapper>

@@ -4,10 +4,12 @@ import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.OrderInfo;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.operation.OrderInfoVo;
+import com.wangyueche.mapper.OrderInfoMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.VehicleSpecialService;
-import com.wangyueche.dao.VehicleSpecialDao;
 import com.wangyueche.util.DateUtil;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -17,42 +19,59 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/5/10 10:43 .
+ * Created by lyq
  */
 @Service
 public class VehicleSpecialServiceImpl implements VehicleSpecialService {
     @Autowired
-    private VehicleSpecialDao dao;
+    private OrderInfoMapper orderInfoMapper;
 
     @Autowired
     private CompanyInfoService infoService;
 
     @Override
-    public EasyUIResult list(Integer page, Integer rows, String companyId, String vehicleNo, String orderId, String depPosition, String destPosition,String startDate,String endDate) {
+    public EasyUIResult list(Pager pager, String companyId, String vehicleNo, String orderId, String depPosition, String destPosition, String startDate, String endDate) {
         Long depLong = null;
         Long depLat = null;
         Long destLong = null;
         Long destLat = null;
         if (StringUtils.hasText(depPosition)) {
             String[] dep = depPosition.split(",");
-            depLong = (long)(Double.parseDouble(dep[0])*1000000);
-            depLat = (long)(Double.parseDouble(dep[1])*1000000);
+            depLong = (long) (Double.parseDouble(dep[0]));
+            depLat = (long) (Double.parseDouble(dep[1]));
         }
         if (StringUtils.hasText(destPosition)) {
             String[] dest = destPosition.split(",");
-            destLong = (long)(Double.parseDouble(dest[0])*1000000);
-            destLat = (long)(Double.parseDouble(dest[1])*1000000);
+            destLong = (long) (Double.parseDouble(dest[0]));
+            destLat = (long) (Double.parseDouble(dest[1]));
+        }
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId)
+                .addNotEmpty("vehicleNo", vehicleNo)
+                .addNotEmpty("orderId", orderId);
+
+        if (depLong != null && depLat != null) {
+            argGen.add("depLongPostion", " dep_longitude between " + (double) (depLong - 5) + " and " + (double) (depLong + 5));
+            argGen.add("depLatPostion", " dep_latitude between " + (double) (depLat - 5) + " and " + (double) (depLat + 5));
+        }
+        if (destLong != null && destLat != null) {
+            argGen.add("destLongPostion", " dest_longitude between " + (double) (destLong - 5) + " and " + (double) (destLong + 5));
+            argGen.add("destLatPostion", " dest_latitude between " + (double) (destLat - 5) + " and " + (double) (destLat + 5));
         }
 
-        Long start = null;
-        Long end = null;
         if (StringUtils.hasText(startDate) && StringUtils.hasText(endDate)) {
             String dateFormat = "yyyy-MM-dd HH:mm:ss";
             String numFormat = "yyyyMMddHHmmss";
-            start = DateUtil.parseString(startDate, dateFormat, numFormat);
-            end = DateUtil.parseString(endDate, dateFormat, numFormat);
+            if (startDate.equals(endDate)) {
+                long date = DateUtil.parseString(startDate, dateFormat, numFormat);
+                argGen.add("orderTime", date);
+            }
+            long start = DateUtil.parseString(startDate, dateFormat, numFormat);
+            long end = DateUtil.parseString(endDate, dateFormat, numFormat);
+            argGen.add("orderTimeBetween", " between " + startDate + " and " + endDate);
         }
-        List<OrderInfo> list = dao.list(page, rows, companyId, vehicleNo, orderId, depLong, depLat, destLong, destLat,start,end);
+        pager.setSorts(OrderInfoMapper.ORDERBY);
+        List<OrderInfo> list = orderInfoMapper.select(pager, argGen.getArgs());
         List<OrderInfoVo> voList = new ArrayList<>();
         if (list.size() > 0) {
             Map<String, String> map = infoService.idWithName();
@@ -62,7 +81,6 @@ public class VehicleSpecialServiceImpl implements VehicleSpecialService {
                 voList.add(vo);
             }
         }
-
         PageInfo<OrderInfo> pageInfo = new PageInfo<>(list);
         EasyUIResult result = new EasyUIResult();
         result.setTotal(pageInfo.getTotal());

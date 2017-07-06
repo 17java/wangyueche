@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.CompanyScale;
 import com.wangyueche.bean.entity.CompanyScaleExample;
 import com.wangyueche.dao.CompanyScaleDao;
-import com.wangyueche.mybatis.CompanyScaleMapper;
+import com.wangyueche.mapper.CompanyScaleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,8 +16,17 @@ import java.util.List;
  */
 @Repository
 public class CompanyScaleDaoImpl implements CompanyScaleDao {
+    @Override
+    public CompanyScale selectCompanyScale(String companyId) {
+        return null;
+    }
 
-    @Autowired
+    @Override
+    public List<CompanyScale> listForPage(int pageCurrent, int pageSize, String companyId) {
+        return null;
+    }
+
+   /* @Autowired
     private CompanyScaleMapper mapper;
 
     @Override
@@ -44,5 +53,5 @@ public class CompanyScaleDaoImpl implements CompanyScaleDao {
         PageHelper.startPage(pageCurrent,pageSize);
         List<CompanyScale> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

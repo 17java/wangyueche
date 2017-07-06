@@ -21,7 +21,9 @@ public class CompanyMarketShareController {
 
     @ResponseBody
     @RequestMapping(value = "/platformScale", produces = "application/json;charset=UTF-8")
-    public String view(@RequestParam(value = "companyId",required = false) String companyId,@RequestParam(value = "startDate",required = false) String startDate, @RequestParam(value = "endDate",required = false) String endDate) {
+    public String view(@RequestParam(value = "companyId",required = false) String companyId,
+                       @RequestParam(value = "startDate",required = false) String startDate,
+                       @RequestParam(value = "endDate",required = false) String endDate) {
         return service.marketShareStat(companyId, startDate, endDate);
     }
 

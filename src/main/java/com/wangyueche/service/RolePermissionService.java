@@ -12,16 +12,16 @@ public interface RolePermissionService {
 
 	SysRolePermission query(long id);
 
-	List<SysRolePermission> queryByRoleId(long id);
+	List<SysRolePermission> queryByParam(Long roleId);
 
-	int save(long roleId, List<Long> permissionList);
+	int save(Long roleId, List<Long> permissionList);
 
-	int update(long roleId, List<Long> permissionList);
+	int update(Long roleId, List<Long> permissionList);
 	
-	int delete(long roleId);
+	int delete(Long roleId);
 
 	int deleteByRolePermission(SysRolePermission sysRolePermission);
 	
-	List<SysRolePermission> listForRoleId(List<Long> idList);
+	List<SysRolePermission> listForRoleId(List<Object> idList);
 
 }

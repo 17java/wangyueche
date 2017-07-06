@@ -13,7 +13,7 @@ import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.bean.vo.statistics.OrderStatVo;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.statistics.OrderStatService;
-import com.wangyueche.mybatis.OrderStatVoMapper;
+import com.wangyueche.mapper.OrderStatVoMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ import java.util.*;
 @Service
 public class OrderStatServiceImpl implements OrderStatService {
     @Autowired
-    private OrderStatVoMapper mapper;
+    private OrderStatVoMapper orderStatVoMapper;
     @Autowired
     private CompanyInfoService infoService;
 
@@ -49,7 +49,7 @@ public class OrderStatServiceImpl implements OrderStatService {
             start = DateUtil.parseString(startDate, dateFormat, numFormat);
             end = DateUtil.parseString(endDate, dateFormat, numFormat);
         }
-        List<OrderStatVo> list = mapper.selectOrderCount(companyId, start, end);
+        List<OrderStatVo> list = orderStatVoMapper.listOrder(companyId, start, end);
         if (list.size() < 1) {
             return StateCode.ERROR;
         }
@@ -180,7 +180,7 @@ public class OrderStatServiceImpl implements OrderStatService {
         for (int i = 0; i < hour + 1; i++) {
             x[i] = i + "";
             for (String companyId : dataMap.keySet()) {
-                (dataMap.get(companyId))[i] = mapper.listIndexInfo(companyId, ((base * 100) + i) * 10000, ((base * 100) + i + 1) * 10000 - 1);
+                (dataMap.get(companyId))[i] = orderStatVoMapper.count(companyId, ((base * 100) + i) * 10000, ((base * 100) + i + 1) * 10000 - 1);
             }
         }
 

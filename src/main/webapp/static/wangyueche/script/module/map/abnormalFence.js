@@ -152,8 +152,8 @@ function fenceDelete(id) {
         return $.ajax({
             url: "http://" + window.location.host + "/wangyueche/abnormal/delete",
             dataType: "json",
-            data: id,
-            type: "get",
+            data: {id:id},
+            type: "post",
             async: false,
             success:function(res){
                 if (res == "0") {

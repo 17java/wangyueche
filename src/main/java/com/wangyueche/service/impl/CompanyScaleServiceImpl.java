@@ -4,9 +4,11 @@ import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.CompanyScale;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.baseinfo.CompanyScaleVo;
+import com.wangyueche.mapper.CompanyScaleMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.CompanyScaleService;
-import com.wangyueche.dao.CompanyScaleDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,20 +17,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaoshiwei on 2017/4/12.
+ * Created by lyq
  */
 @Service
 public class CompanyScaleServiceImpl implements CompanyScaleService {
 
     @Autowired
-    private CompanyScaleDao dao;
+    private CompanyScaleMapper companyScaleMapper;
 
     @Autowired
     private CompanyInfoService infoService;
 
     @Override
     public CompanyScaleVo selectCompanyScale(String companyId) {
-        CompanyScale scale = dao.selectCompanyScale(companyId);
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId);
+        Pager pager = new Pager().max();
+        pager.setSorts(CompanyScaleMapper.ORDERBY);
+        List<CompanyScale> list = companyScaleMapper.select(pager, argGen.getArgs());
+        CompanyScale scale = null;
+        if (list.size() > 0){
+            scale = list.get(0);
+        }
         if (scale != null) {
             CompanyScaleVo vo = new CompanyScaleVo(scale);
             Map<String, String> map = infoService.idWithName();
@@ -39,8 +49,12 @@ public class CompanyScaleServiceImpl implements CompanyScaleService {
     }
 
     @Override
-    public EasyUIResult listForPage(int page, int rows, String companyId) {
-        List<CompanyScale> list = dao.listForPage(page, rows, companyId);
+    public EasyUIResult listForPage(Pager pager, String companyId) {
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId);
+        pager.setSorts(CompanyScaleMapper.ORDERBY);
+        List<CompanyScale> list = companyScaleMapper.select(pager, argGen.getArgs());
+
         List<CompanyScaleVo> voList = new ArrayList<>();
         if (list.size() > 0) {
             Map<String, String> map = infoService.idWithName();

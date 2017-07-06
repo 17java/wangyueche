@@ -6,14 +6,53 @@ import java.util.List;
 import com.wangyueche.bean.entity.SysRolePermission;
 import com.wangyueche.bean.entity.SysRolePermissionExample;
 import com.wangyueche.dao.RolePermissionDao;
-import com.wangyueche.mybatis.SysRolePermissionMapper;
+import com.wangyueche.mapper.SysRolePermissionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class RolePermissionsDaoImpl implements RolePermissionDao {
+	@Override
+	public SysRolePermission selectById(long id) {
+		return null;
+	}
 
-	@Autowired
+	@Override
+	public List<SysRolePermission> selectByRoleId(long id) {
+		return null;
+	}
+
+	@Override
+	public int insert(SysRolePermission sysRolePermission) {
+		return 0;
+	}
+
+	@Override
+	public int update(SysRolePermission sysRolePermission) {
+		return 0;
+	}
+
+	@Override
+	public int delectByRolePermission(SysRolePermission sysRolePermission) {
+		return 0;
+	}
+
+	@Override
+	public int deleteByRoleId(long roleId) {
+		return 0;
+	}
+
+	@Override
+	public int countByRoleId(long roleId) {
+		return 0;
+	}
+
+	@Override
+	public List<SysRolePermission> listForRoleId(List<Long> idList) {
+		return null;
+	}
+
+	/*@Autowired
 	private SysRolePermissionMapper mapper;
 
 	@Override
@@ -74,5 +113,5 @@ public class RolePermissionsDaoImpl implements RolePermissionDao {
 		SysRolePermissionExample.Criteria criteria = example.createCriteria();
 		criteria.andRoleIdIn(idList);
 		return mapper.selectByExample(example);
-	}
+	}*/
 }

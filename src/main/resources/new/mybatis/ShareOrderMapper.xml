@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.ShareOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.ShareOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="route_id" property="routeId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="book_depart_time" property="bookDepartTime" jdbcType="BIGINT" />
+    <result column="departure" property="departure" jdbcType="VARCHAR" />
+    <result column="dep_longitude" property="depLongitude" jdbcType="DOUBLE" />
+    <result column="dep_latitude" property="depLatitude" jdbcType="DOUBLE" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="dest_longitude" property="destLongitude" jdbcType="DOUBLE" />
+    <result column="dest_latitude" property="destLatitude" jdbcType="DOUBLE" />
+    <result column="encrypt" property="encrypt" jdbcType="INTEGER" />
+    <result column="order_ensure_time" property="orderEnsureTime" jdbcType="BIGINT" />
+    <result column="passenger_num" property="passengerNum" jdbcType="INTEGER" />
+    <result column="passenger_note" property="passengerNote" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="params">
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.routeId != null">AND route_id = #{param.routeId}</if>
+    <if test="param.orderId != null">AND order_id = #{param.orderId}</if>
+  </sql>
+
+  <sql id="Base_Column_List" >
+    id, company_id, address, route_id, order_id, book_depart_time, departure, dep_longitude, 
+    dep_latitude, destination, dest_longitude, dest_latitude, encrypt, order_ensure_time, 
+    passenger_num, passenger_note
+  </sql>
+  <select id="select" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from share_order
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from share_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from share_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete"  >
+    delete from share_order
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count"  resultType="java.lang.Integer" >
+    select count(*) from share_order
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+
+</mapper>

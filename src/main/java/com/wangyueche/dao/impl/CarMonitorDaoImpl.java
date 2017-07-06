@@ -2,8 +2,8 @@ package com.wangyueche.dao.impl;
 
 import com.wangyueche.bean.entity.*;
 import com.wangyueche.dao.CarMonitorDao;
-import com.wangyueche.mybatis.FenceMapper;
-import com.wangyueche.mybatis.RegionInfoMapper;
+import com.wangyueche.mapper.FenceMapper;
+import com.wangyueche.mapper.RegionInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -15,9 +15,18 @@ import java.util.List;
  */
 @Repository
 public class CarMonitorDaoImpl implements CarMonitorDao {
+    @Override
+    public List<RegionInfo> districts(String code) {
+        return null;
+    }
+
+    @Override
+    public int initFence(String code, String fences) {
+        return 0;
+    }
 
 
-    @Autowired
+    /*@Autowired
     RegionInfoMapper regionInfoMapper;
 
 
@@ -52,9 +61,9 @@ public class CarMonitorDaoImpl implements CarMonitorDao {
 //        mongoTemplate.insert(en);
 //    }
 //
-//    /**
+//    *//**
 //     * 查询某时间段的轨迹(状态列表,点列表)
-//     */
+//     *//*
 //    public List<Spot> getTrack(String deviceSn, Long begin, Long end) {
 //        Query query = new Query();
 //        query.addCriteria(Criteria.where("deviceSn").is(deviceSn).andOperator(Criteria.where("receive").gte(begin),Criteria.where("receive").lte(end)));
@@ -154,7 +163,7 @@ public class CarMonitorDaoImpl implements CarMonitorDao {
 //        this.mongoTemplate = mongoTemplate;
 //    }
 
-
+*/
 
 
 }

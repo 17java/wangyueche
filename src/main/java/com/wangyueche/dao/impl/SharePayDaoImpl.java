@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.SharePay;
 import com.wangyueche.bean.entity.SharePayExample;
 import com.wangyueche.dao.SharePayDao;
-import com.wangyueche.mybatis.SharePayMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -12,11 +11,15 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 /**
- * Created by gaojl on 2017/5/15 11:47 .
+ * Created by lyq
  */
 @Repository
 public class SharePayDaoImpl implements SharePayDao {
-    @Autowired
+    @Override
+    public List<SharePay> findListByCriteria(Integer page, Integer rows, String companyId, String routeId, String orderId, String driverPhone, String vehicleNo) {
+        return null;
+    }
+    /*@Autowired
     private SharePayMapper mapper;
 
     @Override
@@ -46,5 +49,5 @@ public class SharePayDaoImpl implements SharePayDao {
             return list;
         }
         return null;
-    }
+    }*/
 }

@@ -1,13 +1,8 @@
 package com.wangyueche.dao.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.CompanyFare;
-import com.wangyueche.bean.entity.CompanyFareExample;
 import com.wangyueche.dao.CompanyFareDao;
-import com.wangyueche.mybatis.CompanyFareMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -16,8 +11,12 @@ import java.util.List;
  */
 @Repository
 public class CompanyFareDaoImpl implements CompanyFareDao {
+    @Override
+    public List<CompanyFare> listForPage(int pageCurrent, int pageSize, Integer address, String companyId, String fareType, Integer state) {
+        return null;
+    }
 
-    @Autowired
+   /* @Autowired
     private CompanyFareMapper mapper;
 
 
@@ -45,5 +44,5 @@ public class CompanyFareDaoImpl implements CompanyFareDao {
         List<CompanyFare> list = mapper.selectByExample(example);
 
         return list;
-    }
+    }*/
 }

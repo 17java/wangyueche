@@ -4,31 +4,52 @@ import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.OperateDepartArrive;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.operation.OperatePayVo;
+import com.wangyueche.mapper.OperateDepartArriveMapper;
+import com.wangyueche.mapper.OrderInfoMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.OperateDepartArriveService;
-import com.wangyueche.dao.OperateDepartArriveDao;
+import com.wangyueche.util.DateUtil;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/4/17 15:18
- *
- * @author gaojl
+ * @author lyq
  */
 @Service
 public class OperateDepartArriveServiceImpl implements OperateDepartArriveService {
     @Autowired
-    private OperateDepartArriveDao dao;
+    private OperateDepartArriveMapper operateDepartArriveMapper;
     @Autowired
     private CompanyInfoService infoService;
 
     @Override
-    public EasyUIResult listForPage(int page, int rows, Integer address, String companyId, String startDate, String endDate, String orderId, String driverName, String licenseId, String vehicleNo) {
-        List<OperateDepartArrive> list = dao.listForPage(page, rows, address, companyId, startDate, endDate, orderId, driverName, licenseId, vehicleNo);
+    public EasyUIResult listForPage(Pager pager, Integer address, String companyId, String startDate, String endDate, String orderId, String driverName, String licenseId, String vehicleNo) {
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId)
+                .addNotEmpty("vehicleNo",vehicleNo)
+                .addPositive("address",address)
+                .addNotEmpty("orderId",orderId)
+                .addNotEmpty("driverName",driverName);
+        if (StringUtils.hasText(startDate) && StringUtils.hasText(endDate)) {
+            String dateFormat = "yyyy-MM-dd HH:mm:ss";
+            String numFormat = "yyyyMMddHHmmss";
+            if (startDate.equals(endDate)) {
+                long date = DateUtil.parseString(startDate, dateFormat, numFormat);
+                argGen.add("orderTime", date);
+            }
+            long start = DateUtil.parseString(startDate, dateFormat, numFormat);
+            long end = DateUtil.parseString(endDate, dateFormat, numFormat);
+            argGen.add("orderTimeBetween", " between " + startDate + " and " + endDate);
+        }
+        pager.setSorts(OrderInfoMapper.ORDERBY);
+        List<OperateDepartArrive> list  = operateDepartArriveMapper.select(pager, argGen.getArgs());
         List<OperatePayVo> voList = new ArrayList<>();
         if (list.size() > 0) {
             Map<String, String> map = infoService.idWithName();

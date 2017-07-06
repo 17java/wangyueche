@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.OperateLogInOut;
 import com.wangyueche.bean.entity.OperateLogInOutExample;
 import com.wangyueche.dao.OperateLogInOutDao;
-import com.wangyueche.mybatis.OperateLogInOutMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +18,11 @@ import java.util.List;
  */
 @Repository
 public class OperateLogInOutDaoImpl implements OperateLogInOutDao {
-    @Autowired
+    @Override
+    public List<OperateLogInOut> listForPage(int page, int rows, Integer address, String companyId, String startDate, String endDate, String licenseId, String vehicleNo) {
+        return null;
+    }
+   /* @Autowired
     private OperateLogInOutMapper mapper;
 
     @Override
@@ -51,5 +54,5 @@ public class OperateLogInOutDaoImpl implements OperateLogInOutDao {
         PageHelper.startPage(page, rows);
         List<OperateLogInOut> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

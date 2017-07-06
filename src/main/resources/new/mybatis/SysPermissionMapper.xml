@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.SysPermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.SysPermission" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+    <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="permission_value" property="permissionValue" jdbcType="VARCHAR" />
+    <result column="status_id" property="statusId" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="is_parent" property="isParent" jdbcType="BIT" />
+  </resultMap>
+
+  <sql id="key">id</sql>
+  <sql id="columns" >
+    type, url, parent_id, parent_ids, permission_name, permission_value, status_id,
+    create_time, update_time, sort_no, icon, is_parent
+  </sql>
+  <sql id="table">sys_permission</sql>
+
+  <sql id="params">
+    <if test="param.permName != null">AND permission_name = #{param.permName}</if>
+    <if test="param.permValue != null">AND permission_value = #{param.permValue}</if>
+    <if test="param.ids != null">AND id in (#{param.ids})</if>
+    <if test="param.parentId != null">AND parent_id = #{param.parentId}</if>
+  </sql>
+
+  <sql id="Column_List" >
+    per.id, per.type, per.url, per.parent_id, per.parent_ids, per.permission_name, per.permission_value, per.status_id,
+    per.create_time, per.update_time, per.sort_no, per.icon, per.is_parent
+  </sql>
+
+  <select id="selectByExample" resultMap="BaseResultMap">
+    select
+    <include refid="key" />,<include refid="columns" />
+    from sys_permission
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    distinct
+    <include refid="Column_List" />
+    from sys_permission per
+    LEFT JOIN sys_role_permission rolePer ON per.id = rolePer.permission_id
+    LEFT JOIN sys_user_role userRole  on rolePer.role_id = userRole.role_id
+    LEFT JOIN sys_user user on user.id = userRole.user_id
+    where user.id = #{userId,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="key" />, <include refid="columns" />
+    from sys_permission
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_permission
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.wangyueche.bean.entity.SysPermissionExample" >
+    delete from sys_permission
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+  <insert id="insert" parameterType="com.wangyueche.bean.entity.SysPermission" >
+    insert into sys_permission (id, type, url, 
+      parent_id, parent_ids, permission_name, 
+      permission_value, status_id, create_time, 
+      update_time, sort_no, icon, 
+      is_parent)
+    values (#{id,jdbcType=BIGINT}, #{type,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=BIGINT}, #{parentIds,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, 
+      #{permissionValue,jdbcType=VARCHAR}, #{statusId,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{sortNo,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, 
+      #{isParent,jdbcType=BIT})
+  </insert>
+
+  <select id="countByExample" parameterType="com.wangyueche.bean.entity.SysPermissionExample" resultType="java.lang.Integer" >
+    select count(*) from sys_permission
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_permission
+    <set >
+      <if test="record.id != null" >id = #{record.id,jdbcType=BIGINT},</if>
+      <if test="record.type != null" >type = #{record.type,jdbcType=VARCHAR},</if>
+      <if test="record.url != null" >url = #{record.url,jdbcType=VARCHAR},</if>
+      <if test="record.parentId != null" >parent_id = #{record.parentId,jdbcType=BIGINT},</if>
+      <if test="record.parentIds != null" >parent_ids = #{record.parentIds,jdbcType=VARCHAR},</if>
+      <if test="record.permissionName != null" >permission_name = #{record.permissionName,jdbcType=VARCHAR},</if>
+      <if test="record.permissionValue != null" >permission_value = #{record.permissionValue,jdbcType=VARCHAR},</if>
+      <if test="record.statusId != null" >status_id = #{record.statusId,jdbcType=CHAR},</if>
+      <if test="record.createTime != null" >create_time = #{record.createTime,jdbcType=TIMESTAMP},</if>
+      <if test="record.updateTime != null" >update_time = #{record.updateTime,jdbcType=TIMESTAMP},</if>
+      <if test="record.sortNo != null" >sort_no = #{record.sortNo,jdbcType=INTEGER},</if>
+      <if test="record.icon != null" >icon = #{record.icon,jdbcType=VARCHAR},</if>
+      <if test="record.isParent != null" >is_parent = #{record.isParent,jdbcType=BIT},</if>
+    </set>
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_permission
+    set id = #{record.id,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      parent_ids = #{record.parentIds,jdbcType=VARCHAR},
+      permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      permission_value = #{record.permissionValue,jdbcType=VARCHAR},
+      status_id = #{record.statusId,jdbcType=CHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      sort_no = #{record.sortNo,jdbcType=INTEGER},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      is_parent = #{record.isParent,jdbcType=BIT}
+    <where>
+      <include refid="params" />
+    </where>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.SysPermission" >
+    update sys_permission
+    <set >
+      <if test="type != null" >type = #{type,jdbcType=VARCHAR},</if>
+      <if test="url != null" >url = #{url,jdbcType=VARCHAR},</if>
+      <if test="parentId != null" >parent_id = #{parentId,jdbcType=BIGINT},</if>
+      <if test="parentIds != null" >parent_ids = #{parentIds,jdbcType=VARCHAR},</if>
+      <if test="permissionName != null" >permission_name = #{permissionName,jdbcType=VARCHAR},</if>
+      <if test="permissionValue != null" >permission_value = #{permissionValue,jdbcType=VARCHAR},</if>
+      <if test="statusId != null" >status_id = #{statusId,jdbcType=CHAR},</if>
+      <if test="createTime != null" >create_time = #{createTime,jdbcType=TIMESTAMP},</if>
+      <if test="updateTime != null" >update_time = #{updateTime,jdbcType=TIMESTAMP},</if>
+      <if test="sortNo != null" >sort_no = #{sortNo,jdbcType=INTEGER},</if>
+      <if test="icon != null" >icon = #{icon,jdbcType=VARCHAR},</if>
+      <if test="isParent != null" >is_parent = #{isParent,jdbcType=BIT},</if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.SysPermission" >
+    update sys_permission
+    set type = #{type,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      parent_ids = #{parentIds,jdbcType=VARCHAR},
+      permission_name = #{permissionName,jdbcType=VARCHAR},
+      permission_value = #{permissionValue,jdbcType=VARCHAR},
+      status_id = #{statusId,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      sort_no = #{sortNo,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      is_parent = #{isParent,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

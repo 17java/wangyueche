@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.OrderInfo;
 import com.wangyueche.bean.entity.OrderInfoExample;
 import com.wangyueche.dao.OrderInfoDao;
-import com.wangyueche.mybatis.OrderInfoMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,7 +18,51 @@ import java.util.List;
  */
 @Repository
 public class OrderInfoDaoImpl implements OrderInfoDao {
-    @Autowired
+    @Override
+    public List<OrderInfo> listForPage(int page, int rows, Integer address, String companyId, String startDate, String endDate, String orderId, String licenseId, String vehicleNo, String driverPhone) {
+        return null;
+    }
+
+    @Override
+    public List<OrderInfo> selectByVehicleNo(String vehicleNo) {
+        return null;
+    }
+
+    @Override
+    public List<OrderInfo> selectByLicenseId(String licenseId) {
+        return null;
+    }
+
+    @Override
+    public List<OrderInfo> selectByDriverPhone(String driverPhone) {
+        return null;
+    }
+
+    @Override
+    public OrderInfo selectByOrderId(String orderId) {
+        return null;
+    }
+
+    @Override
+    public long getTotalOrder() {
+        return 0;
+    }
+
+    @Override
+    public long getTotalSuccessOrder() {
+        return 0;
+    }
+
+    @Override
+    public long getCompanyTotalOrder(String companyId) {
+        return 0;
+    }
+
+    @Override
+    public long getCompanyTotalSuccessOrder(String companyId) {
+        return 0;
+    }
+   /* @Autowired
     private OrderInfoMapper mapper;
 
     @Override
@@ -124,5 +167,5 @@ public class OrderInfoDaoImpl implements OrderInfoDao {
         OrderInfoExample.Criteria criteria = example.createCriteria();
         criteria.andCompanyIdEqualTo(companyId);
         return 0;
-    }
+    }*/
 }

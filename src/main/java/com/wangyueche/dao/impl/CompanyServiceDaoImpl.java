@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.CompanyService;
 import com.wangyueche.bean.entity.CompanyServiceExample;
 import com.wangyueche.dao.CompanyServiceDao;
-import com.wangyueche.mybatis.CompanyServiceMapper;
+import com.wangyueche.mapper.CompanyServiceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,8 +16,17 @@ import java.util.List;
  */
 @Repository
 public class CompanyServiceDaoImpl implements CompanyServiceDao {
+    @Override
+    public CompanyService selectCompanyService(String companyId) {
+        return null;
+    }
 
-    @Autowired
+    @Override
+    public List<CompanyService> listForPage(int pageCurrent, int pageSize, Integer address, String companyId, String serviceName, Integer state) {
+        return null;
+    }
+
+    /*@Autowired
     private CompanyServiceMapper mapper;
 
     @Override
@@ -55,5 +64,5 @@ public class CompanyServiceDaoImpl implements CompanyServiceDao {
         List<CompanyService> list = mapper.selectByExample(example);
 
         return list;
-    }
+    }*/
 }

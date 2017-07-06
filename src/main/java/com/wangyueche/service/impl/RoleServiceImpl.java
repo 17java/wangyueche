@@ -1,12 +1,16 @@
 package com.wangyueche.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.SysRole;
 import com.wangyueche.bean.vo.EasyUIResult;
+import com.wangyueche.mapper.SysRoleMapper;
 import com.wangyueche.service.RoleService;
 import com.wangyueche.dao.RoleDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,33 +18,42 @@ import org.springframework.stereotype.Service;
 public class RoleServiceImpl implements RoleService {
 
 	@Autowired
-	private RoleDao dao;
+	private SysRoleMapper mapper;
 
 	@Override
 	public SysRole query(long id) {
-		return dao.selectById(id);
+		return mapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public int save(SysRole sysRole) {
-		return dao.insert(sysRole);
+		Date date = new Date();
+		sysRole.setCreateTime(date);
+		sysRole.setUpdateTime(date);
+		sysRole.setStatusId("1");
+		return mapper.insertSelective(sysRole);
 	}
 
 	@Override
 	public int update(SysRole sysRole) {
-		return dao.update(sysRole);
+		sysRole.setUpdateTime(new Date());
+		return mapper.updateByPrimaryKeySelective(sysRole);
 	}
 
 	@Override
 	public int delete(long id) {
-		return dao.deleteById(id);
+		return mapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public EasyUIResult listForPage(int pageCurrent, int pageSize, String startDate, String endDate,String roleName) {
-		List<SysRole> list = dao.listForPage(pageCurrent, pageSize, startDate, endDate, roleName);
-		PageInfo<SysRole> pageInfo = new PageInfo<>(list);
+	public EasyUIResult listForPage(Pager pager, String startDate, String endDate,String roleName) {
 
+		ArgGen argGen = new ArgGen();
+		argGen.addNotEmpty("roleName",roleName);
+		pager.setSorts(SysRoleMapper.ORDERBY);
+
+		List<SysRole> list = mapper.select(pager, argGen.getArgs());
+		PageInfo<SysRole> pageInfo = new PageInfo<>(list);
 		EasyUIResult easyUIResult = new EasyUIResult();
 		easyUIResult.setTotal(pageInfo.getTotal());
 		easyUIResult.setRows(pageInfo.getList());
@@ -49,21 +62,40 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public List<SysRole> list() {
-		return dao.list();
+		ArgGen argGen = new ArgGen();
+		Pager pager = new Pager().max();
+		pager.setSorts(SysRoleMapper.ORDERBY);
+		return mapper.select(pager, argGen.getArgs());
 	}
 
 	@Override
 	public SysRole queryByRoleName(String roleName) {
-		return dao.selectByRoleName(roleName);
+		ArgGen argGen = new ArgGen();
+		argGen.addNotEmpty("roleName",roleName);
+		Pager pager = new Pager().max();
+		pager.setSorts(SysRoleMapper.ORDERBY);
+		List<SysRole> resultData = mapper.select(pager, argGen.getArgs());
+		if (resultData.size() < 1) {
+			return null;
+		}
+		return resultData.get(0);
 	}
 
 	@Override
-	public List<SysRole> listForId(List<Long> idList) {
-		return dao.listForId(idList);
+	public List<SysRole> listForId(List<Object> idList) {
+		ArgGen argGen = new ArgGen();
+		argGen.addIn("idLists", idList);
+		Pager pager = new Pager().max();
+		pager.setSorts(SysRoleMapper.ORDERBY);
+		return mapper.select(pager, argGen.getArgs());
 	}
 
 	@Override
-	public int deleteByIds(List<Long> ids) {
-		return dao.deleteByIds(ids);
+	public int deleteByIds(List<Object> idLists) {
+		ArgGen argGen = new ArgGen();
+		argGen.addIn("idLists", idLists);
+		Pager pager = new Pager().max();
+		pager.setSorts(SysRoleMapper.ORDERBY);
+		return mapper.delete(argGen.getArgs());
 	}
 }

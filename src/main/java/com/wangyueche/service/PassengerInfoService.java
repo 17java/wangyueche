@@ -1,13 +1,12 @@
 package com.wangyueche.service;
 
 import com.wangyueche.bean.vo.EasyUIResult;
+import com.wangyueche.util.page.Pager;
 
 /**
- * Created by gaojl on 2017/4/17 13:22
  * 乘客信息service
- *
- * @author gaojl
+ * @author lyq
  */
 public interface PassengerInfoService {
-    EasyUIResult listForPage(int page, int rows, String companyId, String passengerName, String passengerPhone);
+    EasyUIResult listForPage(Pager pager, String companyId, String passengerName, String passengerPhone);
 }

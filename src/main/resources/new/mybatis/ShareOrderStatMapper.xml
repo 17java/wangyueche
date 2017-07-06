@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.ShareOrderStatMapper">
+    <select id="listOrderStat" resultType="com.wangyueche.bean.vo.statistics.OrderStatVo">
+        SELECT t.company_id AS companyId,t.totalNum AS totalOrder,m.matchNum AS matchOrder FROM
+        (SELECT company_id ,COUNT(*) AS totalNum FROM share_order
+        <if test="startDate!=null and endDate!=null">
+            WHERE order_ensure_time BETWEEN #{startDate,jdbcType=BIGINT} AND #{endDate,jdbcType=BIGINT}
+        </if>
+        GROUP BY company_id) t LEFT JOIN
+        (SELECT company_id,COUNT(*) AS matchNum FROM share_pay
+        <if test="startDate!=null and endDate!=null">
+            WHERE order_match_time BETWEEN #{startDate,jdbcType=BIGINT} AND #{endDate,jdbcType=BIGINT}
+        </if>
+        GROUP BY company_id) m ON t.company_id=m.company_id
+        <if test="companyId!=null and companyId!=''">
+            WHERE t.company_id=#{companyId,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

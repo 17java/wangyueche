@@ -6,7 +6,6 @@ import com.wangyueche.bean.entity.DriverStatInfo;
 import com.wangyueche.bean.entity.DriverStatInfoExample;
 import com.wangyueche.dao.DriverInfoDao;
 import com.wangyueche.dao.DriverStatInfoDao;
-import com.wangyueche.mybatis.DriverStatInfoMapper;
 import com.wangyueche.util.base.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +20,16 @@ import java.util.List;
  */
 @Repository
 public class DriverStatInfoDaoImpl implements DriverStatInfoDao {
-    @Autowired
+    @Override
+    public DriverStatInfo selectDriverStat(String companyId, String licenseId, String driverPhone) {
+        return null;
+    }
+
+    @Override
+    public List<DriverStatInfo> listForPage(int page, int pageSize, Integer address, String companyId, String licenseId, String driverPhone) {
+        return null;
+    }
+    /*@Autowired
     private DriverStatInfoMapper mapper;
     @Autowired
     private DriverInfoDao dao;
@@ -76,5 +84,5 @@ public class DriverStatInfoDaoImpl implements DriverStatInfoDao {
         PageHelper.startPage(page, pageSize);
         List<DriverStatInfo> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

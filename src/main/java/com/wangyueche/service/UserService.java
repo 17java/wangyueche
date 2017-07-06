@@ -2,17 +2,18 @@ package com.wangyueche.service;
 
 import com.wangyueche.bean.entity.SysUser;
 import com.wangyueche.bean.vo.EasyUIResult;
+import com.wangyueche.util.page.Pager;
 
 import java.util.List;
 
 /**
- * Created by gaoshiwei on 2017/3/20.
+ * Created by lyq
  */
 public interface UserService {
 
 	SysUser login(String userno, String password);
 
-	EasyUIResult listForPage(int pageCurrent, int pageSize, Long organizationId, String name, String staffNo,String organizationName);
+	EasyUIResult listForPage(Pager pager, Long organizationId, String name, String staffNo,String organizationName);
 
 	SysUser query(long id);
 
@@ -32,7 +33,7 @@ public interface UserService {
 
 	List<SysUser> list();
 
-	int deleteByIds(List<Long> ids);
+	int deleteByIds(List<Object> ids);
 
 	/**
 	 * 根据负责人姓名和邮箱查询负责人

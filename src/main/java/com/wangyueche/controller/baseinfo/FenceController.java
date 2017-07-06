@@ -5,6 +5,7 @@ import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.FenceVo;
 import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.service.FenceService;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +27,11 @@ public class FenceController {
 
     @ResponseBody
     @RequestMapping(value = "/list")
-    public EasyUIResult listPages(@RequestParam(value = "page",defaultValue = "1") int page, @RequestParam(value = "rows",defaultValue = "10") int rows,Fence fence){
-        EasyUIResult result = fenceService.listForPage(page, rows,fence);
+    public EasyUIResult listPages(@RequestParam(value = "page",defaultValue = "1") int page,
+                                  @RequestParam(value = "rows",defaultValue = "10") int rows,
+                                  Fence fence){
+        Pager pager = new Pager(page, rows);
+        EasyUIResult result = fenceService.listForPage(pager, fence);
         if (result != null){
             return result;
         }
@@ -71,7 +75,7 @@ public class FenceController {
 
     @ResponseBody
     @RequestMapping(value = "/delete",method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "id") Integer id) {
+    public String delete(Integer id) {
         Integer result = fenceService.deleteById(id);
         if (result > 0) {
             return StateCode.SUCEESS;

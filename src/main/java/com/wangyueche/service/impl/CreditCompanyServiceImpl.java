@@ -13,27 +13,24 @@ import com.github.abel533.echarts.series.Bar;
 import com.github.abel533.echarts.series.Line;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.CreditCompany;
-import com.wangyueche.bean.entity.CreditCompanyExample;
 import com.wangyueche.bean.vo.EasyUIResult;
-import com.wangyueche.dao.CreditCompanyDao;
-import com.wangyueche.mybatis.CreditCompanyMapper;
+import com.wangyueche.mapper.CreditCompanyMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.credit.CreditCompanyService;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/5/23 15:02 .
+ * Created by lyq
  */
 @Service
 public class CreditCompanyServiceImpl implements CreditCompanyService {
-    @Autowired
-    private CreditCompanyDao dao;
 
     @Autowired
     private CreditCompanyMapper mapper;
@@ -42,8 +39,10 @@ public class CreditCompanyServiceImpl implements CreditCompanyService {
     private CompanyInfoService infoService;
 
     @Override
-    public EasyUIResult list(Integer page, Integer rows, String companyId) {
-        List<CreditCompany> list = dao.list(page, rows, companyId);
+    public EasyUIResult list(Pager pager, String companyId) {
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId);
+        List<CreditCompany> list = mapper.select(pager.setSorts(CreditCompanyMapper.ORDERBY), argGen.getArgs());
         if (list != null && list.size() > 0) {
             EasyUIResult result = new EasyUIResult();
             PageInfo<CreditCompany> pageInfo = new PageInfo<>(list);
@@ -70,10 +69,9 @@ public class CreditCompanyServiceImpl implements CreditCompanyService {
             companyNames[index] = map.get(companyId);
             index++;
 
-            CreditCompanyExample example1 = new CreditCompanyExample();
-            CreditCompanyExample.Criteria criteria1 = example1.createCriteria();
-            criteria1.andCompanyIdEqualTo(companyId);
-            int total = mapper.countByExample(example1);
+            ArgGen argGen = new ArgGen();
+            argGen.addNotEmpty("companyId", companyId);
+            int total = mapper.count(argGen.getArgs());
 
             //统计每个星级占比
             Double[] value = new Double[6];
@@ -84,10 +82,8 @@ public class CreditCompanyServiceImpl implements CreditCompanyService {
                     continue;
                 }
 
-                CreditCompanyExample example = new CreditCompanyExample();
-                CreditCompanyExample.Criteria criteria = example.createCriteria();
-                criteria.andCompanyIdEqualTo(companyId).andStarEqualTo(i);
-                int num = mapper.countByExample(example);
+                argGen.addPositive("star",i);
+                int num = mapper.count(argGen.getArgs());
 
                 value[i] = Math.round(num * 10000 / total) / 100.0;
             }
@@ -153,10 +149,9 @@ public class CreditCompanyServiceImpl implements CreditCompanyService {
             companyNames[index] = map.get(companyId);
             index++;
 
-            CreditCompanyExample example1 = new CreditCompanyExample();
-            CreditCompanyExample.Criteria criteria1 = example1.createCriteria();
-            criteria1.andCompanyIdEqualTo(companyId);
-            int total = mapper.countByExample(example1);
+            ArgGen argGen = new ArgGen();
+            argGen.addNotEmpty("companyId", companyId);
+            int total = mapper.count(argGen.getArgs());
             System.out.println("satis" + total+":"+companyId);
             //统计每个满意度占比
             Double[] value = new Double[3];
@@ -167,10 +162,8 @@ public class CreditCompanyServiceImpl implements CreditCompanyService {
                     continue;
                 }
 
-                CreditCompanyExample example = new CreditCompanyExample();
-                CreditCompanyExample.Criteria criteria = example.createCriteria();
-                criteria.andCompanyIdEqualTo(companyId).andScoreEqualTo(i + 1);
-                int num = mapper.countByExample(example);
+                argGen.addPositive("score",i + 1);
+                int num = mapper.count(argGen.getArgs());
 
                 value[i] = Math.round(num * 10000 / total) / 100.0;
             }

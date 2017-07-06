@@ -1,14 +1,20 @@
 package com.wangyueche.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.PassengerInfo;
+import com.wangyueche.bean.entity.PassengerInfoExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.operation.PassengerInfoVo;
+import com.wangyueche.mapper.PassengerInfoMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.PassengerInfoService;
 import com.wangyueche.dao.PassengerInfoDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +28,18 @@ import java.util.Map;
 @Service
 public class PassengerInfoServiceImpl implements PassengerInfoService {
     @Autowired
-    private PassengerInfoDao dao;
+    private PassengerInfoMapper passengerInfoMapper;
     @Autowired
     private CompanyInfoService infoService;
 
     @Override
-    public EasyUIResult listForPage(int page, int rows, String companyId, String passengerName, String passengerPhone) {
-        List<PassengerInfo> list = dao.listForPage(page, rows, companyId, passengerName, passengerPhone);
+    public EasyUIResult listForPage(Pager pager, String companyId, String passengerName, String passengerPhone) {
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId",companyId)
+                .addNotEmpty("passengerName",passengerName)
+                .addNotEmpty("passengerPhone",passengerPhone);
+        pager.setSorts(PassengerInfoMapper.ORDERBY);
+        List<PassengerInfo> list = passengerInfoMapper.select(pager, argGen.getArgs());
         List<PassengerInfoVo> voList = new ArrayList<>();
         if (list.size() >0) {
             Map<String, String> map = infoService.idWithName();

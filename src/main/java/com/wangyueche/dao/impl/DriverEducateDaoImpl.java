@@ -6,7 +6,6 @@ import com.wangyueche.bean.entity.DriverEducateExample;
 import com.wangyueche.bean.entity.DriverInfo;
 import com.wangyueche.dao.DriverEducateDao;
 import com.wangyueche.dao.DriverInfoDao;
-import com.wangyueche.mybatis.DriverEducateMapper;
 import com.wangyueche.util.base.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +20,16 @@ import java.util.List;
  */
 @Repository
 public class DriverEducateDaoImpl implements DriverEducateDao {
-    @Autowired
+    @Override
+    public DriverEducate selectDriverEducate(String companyId, String licenseId, String driverPhone) {
+        return null;
+    }
+
+    @Override
+    public List<DriverEducate> listForPage(int page, int pageSize, Integer address, String companyId, String licenseId, String courseName, String driverPhone) {
+        return null;
+    }
+    /*@Autowired
     private DriverEducateMapper mapper;
     @Autowired
     private DriverInfoDao dao;
@@ -78,5 +86,5 @@ public class DriverEducateDaoImpl implements DriverEducateDao {
         PageHelper.startPage(page, pageSize);
         List<DriverEducate> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

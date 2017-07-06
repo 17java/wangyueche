@@ -2,6 +2,7 @@ package com.wangyueche.controller.operation;
 
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.service.PassengerComplaintService;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,16 @@ public class PassengerComplaintController {
 
     @RequestMapping(value = "/passengerComplaint/list")
     @ResponseBody
-    public EasyUIResult listForPage(@RequestParam(value = "page", defaultValue = "1") int page, @RequestParam(value = "rows", defaultValue = "10") int rows, @RequestParam(value = "address", required = false) Integer address, @RequestParam(value = "companyId", required = false) String companyId, @RequestParam(value = "orderId", required = false) String orderId, @RequestParam(value = "passengerPhone", required = false) String passengerPhone, @RequestParam(value = "startDate", required = false) String startDate, @RequestParam(value = "endDate", required = false) String endDate) {
-        EasyUIResult result = service.listForPage(page, rows, address, companyId, orderId, passengerPhone, startDate, endDate);
+    public EasyUIResult listForPage(@RequestParam(value = "page", defaultValue = "1") int page,
+                                    @RequestParam(value = "rows", defaultValue = "10") int rows,
+                                    @RequestParam(value = "address", required = false) Integer address,
+                                    @RequestParam(value = "companyId", required = false) String companyId,
+                                    @RequestParam(value = "orderId", required = false) String orderId,
+                                    @RequestParam(value = "passengerPhone", required = false) String passengerPhone,
+                                    @RequestParam(value = "startDate", required = false) String startDate,
+                                    @RequestParam(value = "endDate", required = false) String endDate) {
+        Pager pager = new Pager(page, rows);
+        EasyUIResult result = service.listForPage(pager, address, companyId, orderId, passengerPhone, startDate, endDate);
         if (result != null) {
             return result;
         }

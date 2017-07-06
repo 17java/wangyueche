@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.CreditCompany;
 import com.wangyueche.bean.entity.CreditCompanyExample;
 import com.wangyueche.dao.CreditCompanyDao;
-import com.wangyueche.mybatis.CreditCompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,7 +15,11 @@ import java.util.List;
  */
 @Repository
 public class CreditCompanyDaoImpl implements CreditCompanyDao {
-    @Autowired
+    @Override
+    public List<CreditCompany> list(Integer page, Integer rows, String companyId) {
+        return null;
+    }
+    /*@Autowired
     private CreditCompanyMapper mapper;
 
     @Override
@@ -31,5 +34,5 @@ public class CreditCompanyDaoImpl implements CreditCompanyDao {
         List<CreditCompany> list = mapper.selectByExample(example);
 
         return list;
-    }
+    }*/
 }

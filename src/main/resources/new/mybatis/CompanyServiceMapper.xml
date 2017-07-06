@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.CompanyServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.CompanyService" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    <result column="service_no" property="serviceNo" jdbcType="VARCHAR" />
+    <result column="detail_address" property="detailAddress" jdbcType="VARCHAR" />
+    <result column="responsible_name" property="responsibleName" jdbcType="VARCHAR" />
+    <result column="responsible_phone" property="responsiblePhone" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="manager_phone" property="managerPhone" jdbcType="VARCHAR" />
+    <result column="contact_phone" property="contactPhone" jdbcType="VARCHAR" />
+    <result column="mail_address" property="mailAddress" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, company_id, address, service_name, service_no, detail_address, responsible_name, 
+    responsible_phone, manager_name, manager_phone, contact_phone, mail_address, create_date, 
+    state, flag, update_time
+  </sql>
+
+  <sql id="params">
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.address != null">AND address = #{param.address}</if>
+    <if test="param.serviceName != null">AND service_name = #{param.serviceName}</if>
+    <if test="param.state != null">AND state = #{param.state}</if>
+  </sql>
+
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from company_service
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from company_service
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company_service
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteByExample" >
+    delete from company_service
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count" resultType="java.lang.Integer" >
+    select count(*) from company_service
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+</mapper>

@@ -1,38 +1,29 @@
 package com.wangyueche.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
-
-import com.wangyueche.bean.entity.OperateDepartArrive;
-import com.wangyueche.bean.entity.OrderInfo;
-import com.wangyueche.bean.entity.RegionInfo;
-import com.wangyueche.bean.entity.VehiclePosition;
-import com.wangyueche.bean.vo.DistrictsVo;
-import com.wangyueche.bean.vo.PositionVo;
-import com.wangyueche.bean.vo.SpotVo;
-import com.wangyueche.bean.vo.TrackVo;
-import com.wangyueche.bean.vo.VehiclepositionJMS;
+import com.wangyueche.bean.entity.*;
+import com.wangyueche.bean.vo.*;
+import com.wangyueche.dao.OperateDepartArriveDao;
+import com.wangyueche.dao.OrderInfoDao;
+import com.wangyueche.mapper.FenceMapper;
+import com.wangyueche.mapper.RegionInfoMapper;
 import com.wangyueche.service.CarMonitorService;
 import com.wangyueche.service.cache.DriverPositionCache;
 import com.wangyueche.service.cache.OrderCache;
 import com.wangyueche.service.cache.PositionCache;
-import com.wangyueche.dao.CarMonitorDao;
-import com.wangyueche.dao.OperateDepartArriveDao;
-import com.wangyueche.dao.OrderInfoDao;
 import com.wangyueche.service.mongodb.SpotMongoDao;
 import com.wangyueche.util.Common;
 import com.wangyueche.util.SpotToVo;
 import com.wangyueche.util.SpotToWeb;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * Created by zhangfei on 2017/4/12.
@@ -41,7 +32,10 @@ import com.wangyueche.util.SpotToWeb;
 public class CarMonitorServiceImpl implements CarMonitorService {
 
     @Autowired
-    CarMonitorDao carMonitorDao;
+    FenceMapper fenceMapper;
+
+    @Autowired
+    private RegionInfoMapper regionInfoMapper;
 
     @Resource
     private SpotMongoDao spotMongoDao;
@@ -63,7 +57,11 @@ public class CarMonitorServiceImpl implements CarMonitorService {
     
     @Override
     public int initFence(String code, String fences) {
-        return carMonitorDao.initFence(code, fences);
+        Fence f = new Fence();
+        f.setName("合肥区县围栏");
+        f.setSpots(fences);
+        f.setRemark(code);
+        return fenceMapper.insert(f);
     }
 
     @Override
@@ -74,23 +72,27 @@ public class CarMonitorServiceImpl implements CarMonitorService {
         List<DistrictsVo> list = new ArrayList<DistrictsVo>();
 
         //1根据市编码查县
-        List<RegionInfo> ListT = null;
+        List<RegionInfo> listT = null;
 
         //加入缓存，避免重复请求数据库
         ListOperations<String, RegionInfo> operations = redisTemplate.opsForList();
         try {
             List<RegionInfo> infos = operations.range("region_" + code, 0, -1);
             if (infos != null && infos.size() > 0) {
-                ListT = infos;
+                listT = infos;
             }else{
-                ListT = carMonitorDao.districts(code);
-                operations.leftPushAll("region_" + code, ListT);
+                ArgGen argGen = new ArgGen();
+                argGen.add("code",code);
+                Pager pager = new Pager().setSorts(RegionInfoMapper.ORDERBY);
+                pager.max();
+                listT = regionInfoMapper.select(pager, argGen.getArgs());
+                operations.leftPushAll("region_" + code, listT);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        for(RegionInfo region : ListT ){
+        for(RegionInfo region : listT ){
             DistrictsVo vo = new DistrictsVo();
             
             vo.setAdcode(region.getRegionCode());

@@ -1,8 +1,11 @@
 package com.wangyueche.service.impl;
 
 import com.wangyueche.bean.entity.RegionInfo;
+import com.wangyueche.mapper.RegionInfoMapper;
 import com.wangyueche.service.RegionService;
 import com.wangyueche.dao.RegionDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,29 +22,46 @@ import java.util.Map;
 @Service
 public class RegionServiceImpl implements RegionService{
     @Autowired
-    private RegionDao dao;
+    private RegionInfoMapper regionInfoMapper;
 
     @Override
     public List<RegionInfo> listForCode(String regionCode) {
-        //找出合肥市瞎属区域
-        //List<RegionInfo> list = dao.selectByParentCode(regionCode);
-        //修改于 2017-04-27 12:05:11
-        List<RegionInfo> list = new ArrayList<>();
-        RegionInfo hefeiInfo = dao.selectByRegionCode(regionCode);
-        list.add(hefeiInfo);
-        return list;
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("regionCode",regionCode);
+        Pager pager = new Pager().max();
+        pager.setSorts(RegionInfoMapper.ORDERBY);
+        List<RegionInfo> list = regionInfoMapper.select(pager, argGen.getArgs());
+        if (list.size() > 0) {
+            return list;
+        }
+        return null;
     }
 
     @Override
     public Map<Integer, String> listRegionIdWithName(String regionCode) {
-        //找出合肥市瞎属区域
-        List<RegionInfo> list = dao.selectByParentCode(regionCode);
-        RegionInfo hefeiInfo = dao.selectByRegionCode(regionCode);
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("parentCode",regionCode);
+        Pager pager = new Pager().max();
+        pager.setSorts(RegionInfoMapper.ORDERBY);
+        List<RegionInfo> list = regionInfoMapper.select(pager, argGen.getArgs());
+        RegionInfo hefeiInfo = selectByRegionCode(regionCode);
         list.add(hefeiInfo);
         Map<Integer, String> map = new HashMap<>();
         for (RegionInfo info : list) {
             map.put(Integer.parseInt(info.getRegionCode()), info.getRegionName());
         }
         return map;
+    }
+
+    private RegionInfo selectByRegionCode(String regionCode){
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("regionCode",regionCode);
+        Pager pager = new Pager().max();
+        pager.setSorts(RegionInfoMapper.ORDERBY);
+        List<RegionInfo> list = regionInfoMapper.select(pager, argGen.getArgs());
+        if (list.size() > 0) {
+            return list.get(0);
+        }
+        return null;
     }
 }

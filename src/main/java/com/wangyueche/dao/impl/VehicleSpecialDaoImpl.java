@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.OrderInfo;
 import com.wangyueche.bean.entity.OrderInfoExample;
 import com.wangyueche.dao.VehicleSpecialDao;
-import com.wangyueche.mybatis.OrderInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,7 +15,11 @@ import java.util.List;
  */
 @Repository
 public class VehicleSpecialDaoImpl implements VehicleSpecialDao {
-    @Autowired
+    @Override
+    public List<OrderInfo> list(Integer page, Integer rows, String companyId, String vehicleNo, String orderId, Long depLong, Long depLat, Long destLong, Long destLat, Long startDate, Long endDate) {
+        return null;
+    }
+    /*@Autowired
     private OrderInfoMapper mapper;
 
     @Override
@@ -50,5 +53,5 @@ public class VehicleSpecialDaoImpl implements VehicleSpecialDao {
         List<OrderInfo> list = mapper.selectByExample(example);
 
         return list;
-    }
+    }*/
 }

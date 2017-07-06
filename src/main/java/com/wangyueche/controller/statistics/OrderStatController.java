@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/statistics/businessStatus", method = RequestMethod.GET)
 public class OrderStatController {
     @Autowired
-    private OrderStatService service;
+    private OrderStatService orderStatService;
 
     @ResponseBody
     @RequestMapping(value = "/orderBusiness", produces = "application/json;charset=UTF-8")
     public String view(@RequestParam(value = "companyId", required = false) String companyId, @RequestParam(value = "startDate", required = false) String startDate, @RequestParam(value = "endDate", required = false) String endDate) {
-        return service.echartStatInfo(companyId, startDate, endDate);
+        return orderStatService.echartStatInfo(companyId, startDate, endDate);
     }
 
     /**
@@ -32,6 +32,6 @@ public class OrderStatController {
     @ResponseBody
     @RequestMapping(value = "/orderBusiness/realTime", produces = "application/json;charset=UTF-8")
     public String viewIndex() {
-        return service.listIndexInfo();
+        return orderStatService.listIndexInfo();
     }
 }

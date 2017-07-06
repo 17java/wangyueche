@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.CompanyPay;
 import com.wangyueche.bean.entity.CompanyPayExample;
 import com.wangyueche.dao.CompanyPayDao;
-import com.wangyueche.mybatis.CompanyPayMapper;
+import com.wangyueche.mapper.CompanyPayMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,8 +16,17 @@ import java.util.List;
  */
 @Repository
 public class CompanyPayDaoImpl implements CompanyPayDao {
+    @Override
+    public CompanyPay selectCompanyPay(String companyId) {
+        return null;
+    }
 
-    @Autowired
+    @Override
+    public List<CompanyPay> listForPage(int pageCurrent, int pageSize, String companyId, Integer state) {
+        return null;
+    }
+
+  /*  @Autowired
     private CompanyPayMapper mapper;
 
     @Override
@@ -47,5 +56,5 @@ public class CompanyPayDaoImpl implements CompanyPayDao {
         PageHelper.startPage(pageCurrent,pageSize);
         List<CompanyPay> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

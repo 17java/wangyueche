@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.ShareRoute;
 import com.wangyueche.bean.entity.ShareRouteExample;
 import com.wangyueche.dao.ShareRouteDao;
-import com.wangyueche.mybatis.ShareRouteMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,7 +15,11 @@ import java.util.List;
  */
 @Repository
 public class ShareRouteDaoImpl implements ShareRouteDao {
-    @Autowired
+    @Override
+    public List<ShareRoute> findListByCriteria(Integer page, Integer rows, String companyId, String routeId, String driverName, String driverPhone, String vehicleNo) {
+        return null;
+    }
+    /*@Autowired
     private ShareRouteMapper mapper;
 
     @Override
@@ -47,5 +50,5 @@ public class ShareRouteDaoImpl implements ShareRouteDao {
             return list;
         }
         return null;
-    }
+    }*/
 }

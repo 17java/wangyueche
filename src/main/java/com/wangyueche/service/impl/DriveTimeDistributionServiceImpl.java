@@ -9,7 +9,7 @@ import com.github.abel533.echarts.feature.MagicType;
 import com.github.abel533.echarts.json.GsonUtil;
 import com.github.abel533.echarts.series.Line;
 import com.wangyueche.service.statistics.DriveTimeDistributionService;
-import com.wangyueche.mybatis.DriveTimeDistributionMapper;
+import com.wangyueche.mapper.DriveTimeDistributionMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gaojl on 2017/5/9 4:34.
+ * Created by lyq
  */
 @Service
 public class DriveTimeDistributionServiceImpl implements DriveTimeDistributionService {
@@ -36,16 +36,12 @@ public class DriveTimeDistributionServiceImpl implements DriveTimeDistributionSe
             start = DateUtil.parseString(startDate, dateFormat, numFormat);
             end = DateUtil.parseString(endDate, dateFormat, numFormat);
         }
-
-
         Integer[] amount = new Integer[24];//柱状图数据
         String[] hours = new String[24];//x轴显示
         for (int i = 0; i < 24; i++) {
             amount[i] = mapper.listStat(companyId, start, end, i).getVehicleAmount();
             hours[i] = i+"h";
         }
-
-
         //设置统计数据名称
         String[] lengNames = {"用车数量"};
         //柱状图颜色

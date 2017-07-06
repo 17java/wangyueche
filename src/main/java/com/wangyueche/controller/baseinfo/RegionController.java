@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
- * Created by gaojl on 2017/4/22 22:45
  * 查找区域代码
- * @author gaojl
+ * @author lyq
  */
 @Controller
 @RequestMapping(value = "/region",method = RequestMethod.GET)

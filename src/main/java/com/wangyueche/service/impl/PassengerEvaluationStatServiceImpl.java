@@ -12,7 +12,7 @@ import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.bean.vo.statistics.PassengerEvaluationStat;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.statistics.PassengerEvaluationStatService;
-import com.wangyueche.mybatis.PassengerEvaluationStatMapper;
+import com.wangyueche.mapper.PassengerEvaluationStatMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/5/9 5:01.
+ * Created by lyq
  */
 @Service
 public class PassengerEvaluationStatServiceImpl implements PassengerEvaluationStatService {

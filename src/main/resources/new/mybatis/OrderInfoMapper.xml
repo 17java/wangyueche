@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.OrderInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.OrderInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="depart_time" property="departTime" jdbcType="BIGINT" />
+    <result column="order_time" property="orderTime" jdbcType="BIGINT" />
+    <result column="passenger_note" property="passengerNote" jdbcType="VARCHAR" />
+    <result column="departure" property="departure" jdbcType="VARCHAR" />
+    <result column="dep_longitude" property="depLongitude" jdbcType="DOUBLE" />
+    <result column="dep_latitude" property="depLatitude" jdbcType="DOUBLE" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="dest_longitude" property="destLongitude" jdbcType="DOUBLE" />
+    <result column="dest_latitude" property="destLatitude" jdbcType="DOUBLE" />
+    <result column="encrypt" property="encrypt" jdbcType="INTEGER" />
+    <result column="fare_type" property="fareType" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+    <result column="license_id" property="licenseId" jdbcType="VARCHAR" />
+    <result column="driver_phone" property="driverPhone" jdbcType="VARCHAR" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="distribute_time" property="distributeTime" jdbcType="BIGINT" />
+    <result column="cancel_time" property="cancelTime" jdbcType="BIGINT" />
+    <result column="operator" property="operator" jdbcType="VARCHAR" />
+    <result column="cancel_type_code" property="cancelTypeCode" jdbcType="VARCHAR" />
+    <result column="cancel_reason" property="cancelReason" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="params">
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.orderId != null">AND order_id = #{param.orderId}</if>
+    <if test="param.address != null">AND address = #{param.address}</if>
+    <if test="param.driverPhone != null">AND driver_phone = #{param.driverPhone}</if>
+    <if test="param.vehicleNo != null">AND vehicle_no = #{param.vehicleNo}</if>
+    <if test="param.orderTime != null">AND order_time = #{param.orderTime}</if>
+    <if test="param.orderTimeBetween != null">AND order_time  #{param.orderTimeBetween}</if>
+    <if test="param.depLongPostion != null">AND  #{param.depLongPostion}</if>
+    <if test="param.depLatPostion != null">AND  #{param.depLatPostion}</if>
+    <if test="param.destLongPostion != null">AND  #{param.destLongPostion}</if>
+    <if test="param.destLatPostion != null">AND  #{param.destLatPostion}</if>
+  </sql>
+
+  <sql id="Base_Column_List" >
+    id, company_id, address, order_id, depart_time, order_time, passenger_note, departure, 
+    dep_longitude, dep_latitude, destination, dest_longitude, dest_latitude, encrypt, 
+    fare_type, longitude, latitude, license_id, driver_phone, vehicle_no, distribute_time, 
+    cancel_time, operator, cancel_type_code, cancel_reason
+  </sql>
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from order_info
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete" >
+    delete from order_info
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count" resultType="java.lang.Integer" >
+    select count(*) from order_info
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+
+</mapper>

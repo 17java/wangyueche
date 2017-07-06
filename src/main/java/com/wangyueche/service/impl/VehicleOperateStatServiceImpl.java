@@ -13,7 +13,7 @@ import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.bean.vo.statistics.VehicleOperateStat;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.statistics.VehicleOperateStatService;
-import com.wangyueche.mybatis.VehicleOperateStatMapper;
+import com.wangyueche.mapper.VehicleOperateStatMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -160,7 +160,7 @@ public class VehicleOperateStatServiceImpl implements VehicleOperateStatService 
         for (int i = 0; i < hour + 1; i++) {
             x[i] = i + "";
             for (String companyId : dataMap.keySet()) {
-                (dataMap.get(companyId))[i] = mapper.selectVehicleCount(companyId, ((base * 100) + i) * 10000, ((base * 100) + i + 1) * 10000 - 1);
+                (dataMap.get(companyId))[i] = mapper.count(companyId, ((base * 100) + i) * 10000, ((base * 100) + i + 1) * 10000 - 1);
             }
         }
 

@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.VehicleInfo;
 import com.wangyueche.bean.entity.VehicleInfoExample;
 import com.wangyueche.dao.VehicleDao;
-import com.wangyueche.mybatis.VehicleInfoMapper;
+import com.wangyueche.mapper.VehicleInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,7 +16,36 @@ import java.util.List;
  */
 @Repository
 public class VehicleDaoImpl implements VehicleDao{
-    @Autowired
+    @Override
+    public VehicleInfo selectVehicle(Integer address, String companyId, String vehicleNo) {
+        return null;
+    }
+
+    @Override
+    public List<VehicleInfo> listForPage(int page, int pageSize, Integer address, String companyId, String vehicleNo, Integer state) {
+        return null;
+    }
+
+    @Override
+    public List<VehicleInfo> selectByAddress(Integer address) {
+        return null;
+    }
+
+    @Override
+    public long getTotalVehicle() {
+        return 0;
+    }
+
+    @Override
+    public long getCompanyTotalVehicle(String companyId) {
+        return 0;
+    }
+
+    @Override
+    public long getCompanyTotalScaleVehicle(String companyId) {
+        return 0;
+    }
+    /*@Autowired
     private VehicleInfoMapper mapper;
 
     @Override
@@ -91,5 +120,5 @@ public class VehicleDaoImpl implements VehicleDao{
     @Override
     public long getCompanyTotalScaleVehicle(String companyId) {
         return 0;
-    }
+    }*/
 }

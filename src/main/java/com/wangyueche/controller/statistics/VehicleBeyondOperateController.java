@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 超经营统计
- * Created by gaojl on 2017/5/9 4:55.
+ * Created by lyq
  */
 @Controller
 @RequestMapping(value = "/statistics/businessStatus", method = RequestMethod.GET)
@@ -20,7 +20,9 @@ public class VehicleBeyondOperateController {
 
     @ResponseBody
     @RequestMapping(value = "/overManagement", produces = "application/json;charset=UTF-8")
-    public String view(@RequestParam(value = "companyId",required = false) String companyId, @RequestParam(value = "startDate",required = false) String startDate, @RequestParam(value = "endDate",required = false) String endDate) {
+    public String view(@RequestParam(value = "companyId",required = false) String companyId,
+                       @RequestParam(value = "startDate",required = false) String startDate,
+                       @RequestParam(value = "endDate",required = false) String endDate) {
         return service.listStat(companyId, startDate, endDate);
     }
 }

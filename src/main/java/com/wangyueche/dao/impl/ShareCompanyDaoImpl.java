@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.ShareCompany;
 import com.wangyueche.bean.entity.ShareCompanyExample;
 import com.wangyueche.dao.ShareCompanyDao;
-import com.wangyueche.mybatis.ShareCompanyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,7 +15,16 @@ import java.util.List;
  */
 @Repository
 public class ShareCompanyDaoImpl implements ShareCompanyDao {
-    @Autowired
+    @Override
+    public List<ShareCompany> findListByCriteria(Integer page, Integer rows, String companyId, Integer state) {
+        return null;
+    }
+
+    @Override
+    public List<ShareCompany> select() {
+        return null;
+    }
+    /*@Autowired
     private ShareCompanyMapper mapper;
 
     @Override
@@ -47,5 +55,5 @@ public class ShareCompanyDaoImpl implements ShareCompanyDao {
             return list;
         }
         return null;
-    }
+    }*/
 }

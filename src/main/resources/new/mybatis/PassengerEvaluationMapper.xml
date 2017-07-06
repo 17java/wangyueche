@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.PassengerEvaluationMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.PassengerEvaluation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="evaluate_time" property="evaluateTime" jdbcType="BIGINT" />
+    <result column="service_score" property="serviceScore" jdbcType="INTEGER" />
+    <result column="driver_score" property="driverScore" jdbcType="INTEGER" />
+    <result column="vehicle_score" property="vehicleScore" jdbcType="INTEGER" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="params">
+    <if test="param.address != null">AND address = #{param.address}</if>
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.vehicleNoIn != null">AND order_id in #{param.vehicleNoIn}</if>
+    <if test="param.licenseIdIn != null">AND order_id in #{param.licenseIdIn}</if>
+    <if test="param.driverPhoneIn != null">AND order_id in #{param.driverPhoneIn}</if>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, company_id, order_id, evaluate_time, service_score, driver_score, vehicle_score, 
+    detail
+  </sql>
+
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from passenger_evaluation
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from passenger_evaluation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from passenger_evaluation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete" >
+    delete from passenger_evaluation
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count" resultType="java.lang.Integer" >
+    select count(*) from passenger_evaluation
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+</mapper>

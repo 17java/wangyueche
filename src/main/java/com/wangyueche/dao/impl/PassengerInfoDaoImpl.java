@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.PassengerInfo;
 import com.wangyueche.bean.entity.PassengerInfoExample;
 import com.wangyueche.dao.PassengerInfoDao;
-import com.wangyueche.mybatis.PassengerInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -12,13 +11,15 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 /**
- * Created by gaojl on 2017/4/14 16:02
- *
- * @author gaojl
+ * @author lyq
  */
 @Repository
 public class PassengerInfoDaoImpl implements PassengerInfoDao {
-    @Autowired
+    @Override
+    public List<PassengerInfo> listForPage(int page, int rows, String companyId, String passengerName, String passengerPhone) {
+        return null;
+    }
+    /*@Autowired
     private PassengerInfoMapper mapper;
 
     @Override
@@ -38,5 +39,5 @@ public class PassengerInfoDaoImpl implements PassengerInfoDao {
         PageHelper.startPage(page, rows);
         List<PassengerInfo> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

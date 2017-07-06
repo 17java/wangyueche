@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.VehicleInsuranceMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.VehicleInsurance" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="insur_com" property="insurCom" jdbcType="VARCHAR" />
+    <result column="insur_num" property="insurNum" jdbcType="VARCHAR" />
+    <result column="insur_type" property="insurType" jdbcType="VARCHAR" />
+    <result column="insur_count" property="insurCount" jdbcType="DECIMAL" />
+    <result column="insur_eff" property="insurEff" jdbcType="INTEGER" />
+    <result column="insur_exp" property="insurExp" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, company_id, vehicle_no, insur_com, insur_num, insur_type, insur_count, insur_eff, 
+    insur_exp, flag, update_time
+  </sql>
+
+  <sql id="params">
+    <if test="param.address != null">AND address = #{param.address}</if>
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.vehicleNo != null">AND vehicle_no = #{param.vehicleNo}</if>
+    <if test="param.insurCom != null">AND insur_num = #{param.insurCom}</if>
+  </sql>
+
+  <select id="select" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from vehicle_insurance
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle_insurance
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vehicle_insurance
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete"  >
+    delete from vehicle_insurance
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count"  resultType="java.lang.Integer" >
+    select count(*) from vehicle_insurance
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+</mapper>

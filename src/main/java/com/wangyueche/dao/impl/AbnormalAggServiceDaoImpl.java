@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.Abnormalaggregation;
 import com.wangyueche.bean.entity.AbnormalaggregationExample;
 import com.wangyueche.dao.AbnormalAggServiceDao;
-import com.wangyueche.mybatis.AbnormalaggregationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +14,42 @@ import java.util.List;
  */
 @Repository
 public class AbnormalAggServiceDaoImpl implements AbnormalAggServiceDao {
+    @Override
+    public List<Abnormalaggregation> listForPage(int pageCurrent, int pageSize, Abnormalaggregation abnormalaggregation) {
+        return null;
+    }
 
-    @Autowired
+    @Override
+    public List<Abnormalaggregation> listAll() {
+        return null;
+    }
+
+    @Override
+    public Abnormalaggregation findById(int id) {
+        return null;
+    }
+
+    @Override
+    public int save(Abnormalaggregation abnormalaggregation) {
+        return 0;
+    }
+
+    @Override
+    public int update(Abnormalaggregation abnormalaggregation) {
+        return 0;
+    }
+
+    @Override
+    public int changeStatus(Integer id, Integer status) {
+        return 0;
+    }
+
+    @Override
+    public int getNum(Integer id) {
+        return 0;
+    }
+
+    /*@Autowired
     AbnormalaggregationMapper abnormalaggregationMapper;
 
         @Override
@@ -43,7 +76,7 @@ public class AbnormalAggServiceDaoImpl implements AbnormalAggServiceDao {
         AbnormalaggregationExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo(1);
         List<Abnormalaggregation> list = abnormalaggregationMapper.selectByExample(example);
-        /*
+        *//*
         List<AbnormalaggregationVo> res = new ArrayList<AbnormalaggregationVo>();
         for(Abnormalaggregation f : list){
             AbnormalaggregationVo vo = new AbnormalaggregationVo();
@@ -53,7 +86,7 @@ public class AbnormalAggServiceDaoImpl implements AbnormalAggServiceDao {
             vo.setMemo(f.getMemo());
             vo.setName(f.getName());
             res.add(vo);
-        }*/
+        }*//*
         return list;
     }
 
@@ -115,5 +148,5 @@ public class AbnormalAggServiceDaoImpl implements AbnormalAggServiceDao {
     public int getNum(Integer id) {
 //        return abnormalaggregationMapper.selectByPrimaryKey(id);
         return 0;
-    }
+    }*/
 }

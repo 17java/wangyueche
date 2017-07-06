@@ -4,11 +4,12 @@ import com.wangyueche.bean.entity.SysRole;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.Result;
 import com.wangyueche.util.base.Page;
+import com.wangyueche.util.page.Pager;
 
 import java.util.List;
 
 /**
- * Created by gaoshiwei on 2017/3/20.
+ * Created by lyq
  */
 public interface RoleService {
 
@@ -22,11 +23,11 @@ public interface RoleService {
 
 	int delete(long id);
 
-	EasyUIResult listForPage(int pageCurrent, int pageSize, String startDate,String endDate, String roleName);
+	EasyUIResult listForPage(Pager pager, String startDate,String endDate, String roleName);
 	
-	List<SysRole> listForId(List<Long> idList);
+	List<SysRole> listForId(List<Object> idList);
 
 	List<SysRole> list();
 
-	int deleteByIds(List<Long> ids);
+	int deleteByIds(List<Object> ids);
 }

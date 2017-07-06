@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by gaojl on 2017/5/16 11:22 .
+ * Created by lyq
  * 合乘统计信息
  */
 @Controller
@@ -30,21 +30,27 @@ public class ShareStatisticsController {
     //订单数据统计
     @ResponseBody
     @RequestMapping(value = "/order",produces = "application/json;charset=UTF-8")
-    public String shareOrderStat(@RequestParam(required = false) String companyId, @RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+    public String shareOrderStat(@RequestParam(required = false) String companyId,
+                                 @RequestParam(required = false) String startDate,
+                                 @RequestParam(required = false) String endDate) {
         return orderStatService.listStat(companyId, startDate, endDate);
     }
 
     //营运数据统计
     @ResponseBody
     @RequestMapping(value = "/operate",produces = "application/json;charset=UTF-8")
-    public String shareOperateStat(@RequestParam(required = false) String companyId, @RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+    public String shareOperateStat(@RequestParam(required = false) String companyId,
+                                   @RequestParam(required = false) String startDate,
+                                   @RequestParam(required = false) String endDate) {
         return operateStatService.listStat(companyId, startDate, endDate);
     }
 
     //订单效能统计
     @ResponseBody
     @RequestMapping(value = "/efficiency",produces = "application/json;charset=UTF-8")
-    public String shareEfficiencyStat(@RequestParam(required = false) String companyId, @RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
+    public String shareEfficiencyStat(@RequestParam(required = false) String companyId,
+                                      @RequestParam(required = false) String startDate,
+                                      @RequestParam(required = false) String endDate) {
         return efficiencyStatService.listStat(companyId, startDate, endDate);
     }
 }

@@ -11,7 +11,7 @@ import com.github.abel533.echarts.series.Bar;
 import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.bean.vo.share.ShareEfficiencyStat;
 import com.wangyueche.bean.vo.share.ShareOperateStat;
-import com.wangyueche.mybatis.ShareEfficiencyStatMapper;
+import com.wangyueche.mapper.ShareEfficiencyStatMapper;
 import com.wangyueche.service.share.ShareCompanyService;
 import com.wangyueche.service.share.ShareEfficiencyStatService;
 import com.wangyueche.util.DateUtil;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/5/16 18:45 .
+ * Created by lyq
  */
 @Service
 public class ShareEfficiencyStatServiceImpl implements ShareEfficiencyStatService {

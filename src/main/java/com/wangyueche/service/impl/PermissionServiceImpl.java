@@ -1,41 +1,49 @@
 package com.wangyueche.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.SysPermission;
+import com.wangyueche.bean.entity.SysPermissionExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.TreeNode;
+import com.wangyueche.mapper.SysPermissionMapper;
 import com.wangyueche.service.PermissionService;
-import com.wangyueche.dao.PermissionDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
 
 	@Autowired
-	private PermissionDao dao;
+	private SysPermissionMapper sysPermissionMapper;
 
 	@Override
 	public SysPermission query(long id) {
-		return dao.selectById(id);
+		return sysPermissionMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public int save(SysPermission sysPermission) {
-		return dao.insert(sysPermission);
+		Date date = new Date();
+		sysPermission.setCreateTime(date);
+		sysPermission.setUpdateTime(date);
+		return sysPermissionMapper.insertSelective(sysPermission);
 	}
 
 	@Override
 	public int update(SysPermission sysPermission) {
-		return dao.update(sysPermission);
+		sysPermission.setUpdateTime(new Date());
+		return sysPermissionMapper.updateByPrimaryKeySelective(sysPermission);
 	}
 
 	@Override
 	public int delete(long id) {
-		return dao.deleteById(id);
+		return sysPermissionMapper.deleteByPrimaryKey(id);
 	}
 
 	/**
@@ -49,7 +57,22 @@ public class PermissionServiceImpl implements PermissionService {
 	 */
 	@Override
 	public EasyUIResult listForPage(int pageCurrent, int pageSize, String permCondition, String permName, String permValue) {
-		List<SysPermission> list = dao.listForPage(pageCurrent, pageSize, permCondition, permName, permValue);
+
+		ArgGen args = new ArgGen();
+		args.addLike("permName", permName)
+			.addLike("permValue", permValue);
+		//设置分页
+		int totalCount = sysPermissionMapper.countByExample(args.getArgs());
+		/*pageSize = SqlUtil.checkPageSize(pageSize);
+		pageCurrent = SqlUtil.checkPageCurrent(totalCount, pageSize, pageCurrent);
+		int totalPage = SqlUtil.countTotalPage(totalCount, pageSize);
+
+		PageHelper.startPage(pageCurrent, pageSize);*/
+		Pager pager = new Pager(pageCurrent,pageSize);
+		pager.setSorts(SysPermissionMapper.ORDERBY);
+		//处理查询结果
+		List<SysPermission> list = sysPermissionMapper.selectByExample(pager, args.getArgs());
+
 		PageInfo<SysPermission> pageInfo = new PageInfo<>(list);
 		EasyUIResult result = new EasyUIResult();
 		result.setTotal(pageInfo.getTotal());
@@ -58,23 +81,34 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public int deleteByIds(List<Long> ids) {
-		return dao.deleteByIds(ids);
+	public int deleteByIds(List<Object> ids) {
+		ArgGen args = new ArgGen();
+		args.addIn("ids", ids);
+		return sysPermissionMapper.deleteByExample(args.getArgs());
 	}
 
 	@Override
-	public List<SysPermission> listForId(List<Long> idList) {
-		return dao.listForId(idList);
+	public List<SysPermission> listForId(List<Object> ids) {
+		ArgGen args = new ArgGen();
+		args.addIn("ids", ids);
+		Pager pager = new Pager();
+		pager.setSorts(SysPermissionMapper.ORDERBY);
+		pager.max();
+		return sysPermissionMapper.selectByExample(pager, args.getArgs());
 	}
 
 	@Override
 	public List<SysPermission> list() {
-		return dao.list();
+		ArgGen args = new ArgGen();
+		Pager pager = new Pager();
+		pager.setSorts(SysPermissionMapper.ORDERBY);
+		pager.max();
+		return sysPermissionMapper.selectByExample(pager, args.getArgs());
 	}
 
 	@Override
 	public List<SysPermission> listByUserId(Long userId) {
-		return dao.listByUserId(userId);
+		return sysPermissionMapper.selectByUserId(userId);
 	}
 
 	/**
@@ -85,7 +119,13 @@ public class PermissionServiceImpl implements PermissionService {
 	 */
 	@Override
 	public List<TreeNode> getNodeList(Long parentId) {
-		List<SysPermission> permissionsList = dao.slectByParentId(parentId);
+		ArgGen args = new ArgGen();
+		args.addPositive("parentId", parentId);
+		Pager pager = new Pager();
+		pager.setSorts(SysPermissionMapper.ORDERBY);
+		pager.max();
+		List<SysPermission> permissionsList = sysPermissionMapper.selectByExample(pager, args.getArgs());
+
 		List<TreeNode> treeNodeList = new ArrayList<>();
 		if (permissionsList.size() > 0) {
 			for (SysPermission permission : permissionsList) {

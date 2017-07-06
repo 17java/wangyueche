@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.PassengerComplaint;
 import com.wangyueche.bean.entity.PassengerComplaintExample;
 import com.wangyueche.dao.PassengerComplaintDao;
-import com.wangyueche.mybatis.PassengerComplaintMapper;
+import com.wangyueche.mapper.PassengerComplaintMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,10 +19,14 @@ import java.util.List;
  */
 @Repository
 public class PassengerComplaintDaoImpl implements PassengerComplaintDao {
-    @Autowired
+    @Override
+    public List<PassengerComplaint> listForPage(int page, int rows, Integer address, String companyId, String orderId, String passengerPhone, String startDate, String endDate) {
+        return null;
+    }
+    /*@Autowired
     private PassengerComplaintMapper mapper;
 
-    /**
+    *//**
      * 乘客投诉信息
      *
      * @param page
@@ -34,7 +38,7 @@ public class PassengerComplaintDaoImpl implements PassengerComplaintDao {
      * @param startDate
      * @param endDate
      * @return
-     */
+     *//*
     @Override
     public List<PassengerComplaint> listForPage(int page, int rows, Integer address, String companyId, String orderId, String passengerPhone, String startDate, String endDate) {
         PassengerComplaintExample example = new PassengerComplaintExample();
@@ -60,5 +64,5 @@ public class PassengerComplaintDaoImpl implements PassengerComplaintDao {
         PageHelper.startPage(page, rows);
         List<PassengerComplaint> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

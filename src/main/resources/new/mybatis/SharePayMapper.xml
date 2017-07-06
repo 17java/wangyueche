@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.SharePayMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.SharePay" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="route_id" property="routeId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="driver_phone" property="driverPhone" jdbcType="VARCHAR" />
+    <result column="license_id" property="licenseId" jdbcType="VARCHAR" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="fare_type" property="fareType" jdbcType="VARCHAR" />
+    <result column="book_depart_time" property="bookDepartTime" jdbcType="BIGINT" />
+    <result column="depart_time" property="departTime" jdbcType="BIGINT" />
+    <result column="departure" property="departure" jdbcType="VARCHAR" />
+    <result column="dep_longitude" property="depLongitude" jdbcType="DOUBLE" />
+    <result column="dep_latitude" property="depLatitude" jdbcType="DOUBLE" />
+    <result column="dest_time" property="destTime" jdbcType="BIGINT" />
+    <result column="destination" property="destination" jdbcType="VARCHAR" />
+    <result column="dest_longitude" property="destLongitude" jdbcType="DOUBLE" />
+    <result column="dest_latitude" property="destLatitude" jdbcType="DOUBLE" />
+    <result column="encrypt" property="encrypt" jdbcType="INTEGER" />
+    <result column="drive_mile" property="driveMile" jdbcType="DECIMAL" />
+    <result column="drive_time" property="driveTime" jdbcType="BIGINT" />
+    <result column="face_price" property="facePrice" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="cash_price" property="cashPrice" jdbcType="DECIMAL" />
+    <result column="line_name" property="lineName" jdbcType="VARCHAR" />
+    <result column="line_price" property="linePrice" jdbcType="DECIMAL" />
+    <result column="benfit_price" property="benfitPrice" jdbcType="DECIMAL" />
+    <result column="share_fue_fee" property="shareFueFee" jdbcType="DECIMAL" />
+    <result column="share_highway_toll" property="shareHighwayToll" jdbcType="DECIMAL" />
+    <result column="passenger_tip" property="passengerTip" jdbcType="DECIMAL" />
+    <result column="share_other" property="shareOther" jdbcType="DECIMAL" />
+    <result column="pay_state" property="payState" jdbcType="VARCHAR" />
+    <result column="passenger_num" property="passengerNum" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="BIGINT" />
+    <result column="order_match_time" property="orderMatchTime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="params">
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.routeId != null">AND route_id = #{param.routeId}</if>
+    <if test="param.orderId != null">AND order_id = #{param.orderId}</if>
+    <if test="param.driverPhone != null">AND driver_phone = #{param.driverPhone}</if>
+    <if test="param.vehicleNo != null">AND vehicle_no = #{param.vehicleNo}</if>
+  </sql>
+
+  <sql id="Base_Column_List" >
+    id, company_id, address, route_id, order_id, driver_phone, license_id, vehicle_no, 
+    fare_type, book_depart_time, depart_time, departure, dep_longitude, dep_latitude, 
+    dest_time, destination, dest_longitude, dest_latitude, encrypt, drive_mile, drive_time, 
+    face_price, price, cash_price, line_name, line_price, benfit_price, share_fue_fee, 
+    share_highway_toll, passenger_tip, share_other, pay_state, passenger_num, pay_time, 
+    order_match_time
+  </sql>
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from share_pay
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from share_pay
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from share_pay
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete" >
+    delete from share_pay
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count" resultType="java.lang.Integer" >
+    select count(*) from share_pay
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+</mapper>

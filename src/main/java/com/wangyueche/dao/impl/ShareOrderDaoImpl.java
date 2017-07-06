@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.ShareOrder;
 import com.wangyueche.bean.entity.ShareOrderExample;
 import com.wangyueche.dao.ShareOrderDao;
-import com.wangyueche.mybatis.ShareOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,7 +15,11 @@ import java.util.List;
  */
 @Repository
 public class ShareOrderDaoImpl implements ShareOrderDao {
-    @Autowired
+    @Override
+    public List<ShareOrder> findListByCriteria(Integer page, Integer rows, String companyId, String routeId, String orderId) {
+        return null;
+    }
+    /*@Autowired
     private ShareOrderMapper mapper;
 
     @Override
@@ -40,5 +43,5 @@ public class ShareOrderDaoImpl implements ShareOrderDao {
             return list;
         }
         return null;
-    }
+    }*/
 }

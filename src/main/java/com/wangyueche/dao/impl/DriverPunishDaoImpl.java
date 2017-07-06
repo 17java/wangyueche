@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.DriverPunish;
 import com.wangyueche.bean.entity.DriverPunishExample;
 import com.wangyueche.dao.DriverPunishDao;
-import com.wangyueche.mybatis.DriverPunishMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,10 +18,14 @@ import java.util.List;
  */
 @Repository
 public class DriverPunishDaoImpl implements DriverPunishDao {
-    @Autowired
+    @Override
+    public List<DriverPunish> listForPage(int page, int rows, Integer address, String companyId, String licenseId, String startDate, String endDate) {
+        return null;
+    }
+   /* @Autowired
     private DriverPunishMapper mapper;
 
-    /**
+    *//**
      * 驾驶员处罚信息
      *
      * @param page
@@ -33,7 +36,7 @@ public class DriverPunishDaoImpl implements DriverPunishDao {
      * @param startDate
      * @param endDate
      * @return
-     */
+     *//*
     @Override
     public List<DriverPunish> listForPage(int page, int rows, Integer address, String companyId, String licenseId, String startDate, String endDate) {
         DriverPunishExample example = new DriverPunishExample();
@@ -59,5 +62,5 @@ public class DriverPunishDaoImpl implements DriverPunishDao {
         PageHelper.startPage(page, rows);
         List<DriverPunish> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

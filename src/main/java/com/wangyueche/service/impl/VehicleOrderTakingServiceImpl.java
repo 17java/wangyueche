@@ -1,6 +1,5 @@
 package com.wangyueche.service.impl;
 
-import com.github.abel533.echarts.AxisPointer;
 import com.github.abel533.echarts.Legend;
 import com.github.abel533.echarts.Option;
 import com.github.abel533.echarts.axis.CategoryAxis;
@@ -14,7 +13,7 @@ import com.github.abel533.echarts.series.Pie;
 import com.github.abel533.echarts.style.ItemStyle;
 import com.github.abel533.echarts.style.itemstyle.Emphasis;
 import com.wangyueche.bean.vo.StateCode;
-import com.wangyueche.mybatis.VehicleOrderTakingMapper;
+import com.wangyueche.mapper.VehicleOrderTakingMapper;
 import com.wangyueche.service.statistics.VehicleOrderTakingSerivce;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gaojl on 2017/5/11 9:16 .
+ * Created by lyq
  */
 @Service
 public class VehicleOrderTakingServiceImpl implements VehicleOrderTakingSerivce {

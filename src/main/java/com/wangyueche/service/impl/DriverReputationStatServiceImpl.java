@@ -1,19 +1,18 @@
 package com.wangyueche.service.impl;
 
-import com.github.abel533.echarts.AxisPointer;
 import com.github.abel533.echarts.Option;
-import com.github.abel533.echarts.axis.AxisTick;
 import com.github.abel533.echarts.axis.CategoryAxis;
 import com.github.abel533.echarts.axis.ValueAxis;
-import com.github.abel533.echarts.code.*;
+import com.github.abel533.echarts.code.AxisType;
+import com.github.abel533.echarts.code.Magic;
+import com.github.abel533.echarts.code.Tool;
+import com.github.abel533.echarts.code.Trigger;
 import com.github.abel533.echarts.feature.MagicType;
 import com.github.abel533.echarts.json.GsonUtil;
 import com.github.abel533.echarts.series.Bar;
-import com.github.abel533.echarts.series.Line;
 import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.bean.vo.statistics.DriverReputationStat;
-import com.wangyueche.bean.vo.statistics.OrderStatVo;
-import com.wangyueche.mybatis.DriverReputationStatMapper;
+import com.wangyueche.mapper.DriverReputationStatMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.statistics.DriverReputationStatService;
 import com.wangyueche.util.DateUtil;
@@ -26,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/5/9 5:19.
+ * Created by lyq
  */
 @Service
 public class DriverReputationStatServiceImpl implements DriverReputationStatService {

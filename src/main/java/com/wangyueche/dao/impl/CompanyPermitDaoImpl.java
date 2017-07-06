@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.CompanyPermit;
 import com.wangyueche.bean.entity.CompanyPermitExample;
 import com.wangyueche.dao.CompanyPermitDao;
-import com.wangyueche.mybatis.CompanyPermitMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -16,8 +15,17 @@ import java.util.List;
  */
 @Repository
 public class CompanyPermitDaoImpl implements CompanyPermitDao {
+    @Override
+    public CompanyPermit selectCompanyPermit(Integer address, String companyId) {
+        return null;
+    }
 
-    @Autowired
+    @Override
+    public List<CompanyPermit> listForPage(int pageCurrent, int pageSize, Integer address, String companyId, String state) {
+        return null;
+    }
+
+    /*@Autowired
     private CompanyPermitMapper mapper;
 
     @Override
@@ -53,5 +61,5 @@ public class CompanyPermitDaoImpl implements CompanyPermitDao {
         PageHelper.startPage(pageCurrent,pageSize);
         List<CompanyPermit> list = mapper.selectByExample(example);
         return list;
-    }
+    }*/
 }

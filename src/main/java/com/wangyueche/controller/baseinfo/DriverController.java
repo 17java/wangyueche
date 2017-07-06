@@ -6,6 +6,7 @@ import com.wangyueche.service.DriverAppService;
 import com.wangyueche.service.DriverEducateService;
 import com.wangyueche.service.DriverInfoService;
 import com.wangyueche.service.DriverStatInfoService;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by gaojl on 2017/4/13 10:09
- *
- * @author gaojl
+ * @author lyq
  */
 @Controller
 @RequestMapping(value = "/driver",method = RequestMethod.GET)
@@ -42,8 +41,15 @@ public class DriverController {
 
     @RequestMapping(value = "/info/list")
     @ResponseBody
-    public EasyUIResult listforDriverInfo(@RequestParam(value = "page",defaultValue = "1") int page,@RequestParam(value = "rows",defaultValue = "10") int rows, @RequestParam(value = "address",required = false) Integer address, @RequestParam(value = "companyId",required = false) String companyId, @RequestParam(value = "licenseId",required = false) String licenseId, @RequestParam(value = "driverName",required = false) String driverName, @RequestParam(value = "state",required = false) Integer state) {
-        EasyUIResult result = driverInfoService.listForPage(page, rows, address, companyId, licenseId, driverName, state);
+    public EasyUIResult listforDriverInfo(@RequestParam(value = "page",defaultValue = "1") int page,
+                                          @RequestParam(value = "rows",defaultValue = "10") int rows,
+                                          @RequestParam(value = "address",required = false) Integer address,
+                                          @RequestParam(value = "companyId",required = false) String companyId,
+                                          @RequestParam(value = "licenseId",required = false) String licenseId,
+                                          @RequestParam(value = "driverName",required = false) String driverName,
+                                          @RequestParam(value = "state",required = false) Integer state) {
+        Pager pager = new Pager(page,rows);
+        EasyUIResult result = driverInfoService.listForPage(pager, address, companyId, licenseId, driverName, state);
         if (result != null) {
             return result;
         }
@@ -52,8 +58,15 @@ public class DriverController {
 
     @ResponseBody
     @RequestMapping(value ="/app/list" )
-    public EasyUIResult listforDriverApp(@RequestParam(value = "page",defaultValue = "1") int page, @RequestParam(value = "rows",defaultValue = "10") int rows, @RequestParam(value = "address",required = false) Integer address, @RequestParam(value = "companyId",required = false) String companyId, @RequestParam(value = "licenseId",required = false) String licenseId, @RequestParam(value = "driverPhone",required = false) String driverPhone, @RequestParam(value = "state",required = false) Integer state) {
-        EasyUIResult result = driverAppService.listForPage(page, rows, address, companyId, licenseId, driverPhone, state);
+    public EasyUIResult listforDriverApp(@RequestParam(value = "page",defaultValue = "1") int page,
+                                         @RequestParam(value = "rows",defaultValue = "10") int rows,
+                                         @RequestParam(value = "address",required = false) Integer address,
+                                         @RequestParam(value = "companyId",required = false) String companyId,
+                                         @RequestParam(value = "licenseId",required = false) String licenseId,
+                                         @RequestParam(value = "driverPhone",required = false) String driverPhone,
+                                         @RequestParam(value = "state",required = false) Integer state) {
+        Pager pager = new Pager(page,rows);
+        EasyUIResult result = driverAppService.listForPage(pager, address, companyId, licenseId, driverPhone, state);
         if (result != null) {
             return result;
         }
@@ -62,8 +75,15 @@ public class DriverController {
 
     @ResponseBody
     @RequestMapping(value = "/educate/list")
-    public EasyUIResult listForDriverEducate(@RequestParam(value = "page",defaultValue = "1") int page, @RequestParam(value = "rows",defaultValue = "10") int rows, @RequestParam(value = "address",required = false) Integer address, @RequestParam(value = "companyId",required = false) String companyId, @RequestParam(value = "licenseId",required = false) String licenseId,@RequestParam(value = "courseName",required = false) String courseName, @RequestParam(value = "driverPhone",required = false) String driverPhone) {
-        EasyUIResult result = driverEducateService.listForPage(page, rows, address, companyId, licenseId, courseName, driverPhone);
+    public EasyUIResult listForDriverEducate(@RequestParam(value = "page",defaultValue = "1") int page,
+                                             @RequestParam(value = "rows",defaultValue = "10") int rows,
+                                             @RequestParam(value = "address",required = false) Integer address,
+                                             @RequestParam(value = "companyId",required = false) String companyId,
+                                             @RequestParam(value = "licenseId",required = false) String licenseId,
+                                             @RequestParam(value = "courseName",required = false) String courseName,
+                                             @RequestParam(value = "driverPhone",required = false) String driverPhone) {
+        Pager pager = new Pager(page,rows);
+        EasyUIResult result = driverEducateService.listForPage(pager, address, companyId, licenseId, courseName, driverPhone);
         if (result != null) {
             return result;
         }
@@ -72,8 +92,14 @@ public class DriverController {
 
     @ResponseBody
     @RequestMapping(value = "/stat/list")
-    public EasyUIResult listForDriverStatInfo(@RequestParam(value = "page",defaultValue = "1") int page, @RequestParam(value = "rows",defaultValue = "10") int rows, @RequestParam(value = "address",required = false) Integer address, @RequestParam(value = "companyId",required = false) String companyId, @RequestParam(value = "licenseId",required = false) String licenseId, @RequestParam(value = "driverPhone",required = false) String driverPhone) {
-        EasyUIResult result = driverStatInfoService.listForPage(page, rows, address, companyId, licenseId, driverPhone);
+    public EasyUIResult listForDriverStatInfo(@RequestParam(value = "page",defaultValue = "1") int page,
+                                              @RequestParam(value = "rows",defaultValue = "10") int rows,
+                                              @RequestParam(value = "address",required = false) Integer address,
+                                              @RequestParam(value = "companyId",required = false) String companyId,
+                                              @RequestParam(value = "licenseId",required = false) String licenseId,
+                                              @RequestParam(value = "driverPhone",required = false) String driverPhone) {
+        Pager pager = new Pager(page,rows);
+        EasyUIResult result = driverStatInfoService.listForPage(pager, address, companyId, licenseId, driverPhone);
         if (result != null) {
             return result;
         }

@@ -12,7 +12,7 @@ import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.bean.vo.statistics.CompanyMarketShare;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.statistics.CompanyMarketShareService;
-import com.wangyueche.mybatis.CompanyMarketShareMapper;
+import com.wangyueche.mapper.CompanyMarketShareMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/4/30 11:45
- *
- * @author gaojl
+ * @author lyq
  */
 @Service
 public class CompanyMarketShareServiceImpl implements CompanyMarketShareService {

@@ -5,7 +5,7 @@ import com.wangyueche.bean.vo.share.ShareOperateStat;
 import java.util.List;
 
 /**
- * Created by gaojl on 2017/5/16 16:46 .
+ * Created by lyq
  * 合乘营运统计信息
  */
 public interface ShareOperateStatService {

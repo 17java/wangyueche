@@ -2,35 +2,50 @@ package com.wangyueche.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.CompanyPermit;
+import com.wangyueche.bean.entity.CompanyPermitExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.baseinfo.CompanyPermitVo;
+import com.wangyueche.mapper.CompanyPermitMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.CompanyPermitService;
 import com.wangyueche.dao.CompanyPermitDao;
+import com.wangyueche.util.page.ArgGen;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaoshiwei on 2017/4/12.
+ * Created by lyq on 2017/4/12.
  */
 @Service
 public class CompanyPermitServiceImpl implements CompanyPermitService {
 
     @Autowired
-    private CompanyPermitDao dao;
+    private CompanyPermitMapper companyPermitMapper;
 
     @Autowired
-    private CompanyInfoService infoService;
+    private CompanyInfoService companyInfoService;
 
     @Override
     public CompanyPermitVo selectCompanyPermit(Integer address, String companyId) {
-        CompanyPermit permit = dao.selectCompanyPermit(address, companyId);
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId)
+                .addPositive("address",address);
+        Pager pager = new Pager();
+        pager.setSorts(CompanyPermitMapper.ORDERBY);
+        pager.max();
+        CompanyPermit permit = null;
+        List<CompanyPermit> list = companyPermitMapper.selectByExample(pager, argGen.getArgs());
+        if (list.size() > 0) {
+            permit = list.get(0);
+        }
         if (permit != null) {
-            Map<String, String> map = infoService.idWithName();
+            Map<String, String> map = companyInfoService.idWithName();
             CompanyPermitVo vo = new CompanyPermitVo(permit);
             vo.setCompanyName(map.get(permit.getCompanyId()));
         }
@@ -38,11 +53,18 @@ public class CompanyPermitServiceImpl implements CompanyPermitService {
     }
 
     @Override
-    public EasyUIResult listForPage(int page, int rows, Integer address, String companyId, String state) {
-        List<CompanyPermit> list = dao.listForPage(page, rows, address, companyId, state);
+    public EasyUIResult listForPage(Pager pager, Integer address, String companyId, String state) {
+
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("companyId", companyId)
+                .addNotEmpty("state", state)
+                .addPositive("address",address);
+
+        pager.setSorts(CompanyPermitMapper.ORDERBY);
+        List<CompanyPermit> list = companyPermitMapper.selectByExample(pager, argGen.getArgs());
         List<CompanyPermitVo> voList = new ArrayList<>();
         if (list.size() > 0) {
-            Map<String, String> map = infoService.idWithName();
+            Map<String, String> map = companyInfoService.idWithName();
             for (CompanyPermit permit : list) {
                 CompanyPermitVo vo = new CompanyPermitVo(permit);
                 vo.setCompanyName(map.get(permit.getCompanyId()));

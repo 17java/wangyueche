@@ -11,7 +11,7 @@ import com.github.abel533.echarts.feature.MagicType;
 import com.github.abel533.echarts.json.GsonUtil;
 import com.github.abel533.echarts.series.Bar;
 import com.wangyueche.bean.vo.statistics.OrderStatVo;
-import com.wangyueche.mybatis.ShareOrderStatMapper;
+import com.wangyueche.mapper.ShareOrderStatMapper;
 import com.wangyueche.service.share.ShareCompanyService;
 import com.wangyueche.service.share.ShareOrderStatService;
 import com.wangyueche.util.DateUtil;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/5/16 11:45 .
+ * Created by lyq
  */
 @Service
 public class ShareOrderStatServiceImpl implements ShareOrderStatService{

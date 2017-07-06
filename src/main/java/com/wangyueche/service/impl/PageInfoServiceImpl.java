@@ -4,10 +4,10 @@ import com.wangyueche.bean.vo.pageinfo.CompanyOrderStatisticsVo;
 import com.wangyueche.bean.vo.pageinfo.CompanyVehicleStatisticsVo;
 import com.wangyueche.bean.vo.pageinfo.OrderStatisticsVo;
 import com.wangyueche.bean.vo.pageinfo.VehicleStatisticsVo;
-import com.wangyueche.service.PageInfoService;
 import com.wangyueche.dao.CompanyInfoDao;
 import com.wangyueche.dao.OrderInfoDao;
-import com.wangyueche.dao.VehicleDao;
+import com.wangyueche.service.PageInfoService;
+import com.wangyueche.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gaoshiwei on 2017/4/21.
+ * Created by lyq
  */
 @Service
 public class PageInfoServiceImpl implements PageInfoService {
@@ -25,7 +25,7 @@ public class PageInfoServiceImpl implements PageInfoService {
     @Autowired
     private CompanyInfoDao companyInfoDao;
     @Autowired
-    private VehicleDao vehicleDao;
+    private VehicleService vehicleService;
     /**
      * 平台公司订单统计信息查询
      * @return
@@ -60,13 +60,13 @@ public class PageInfoServiceImpl implements PageInfoService {
     @Override
     public VehicleStatisticsVo queryCompanyVehicleStatistics() {
         VehicleStatisticsVo result = new VehicleStatisticsVo();
-        long totalVehicle = vehicleDao.getTotalVehicle();
+        long totalVehicle = vehicleService.count(null,null,null,null);
         List<CompanyVehicleStatisticsVo> list = new ArrayList<>();
         List<String> companyIdList = companyInfoDao.getCompanyIdList();
         for (String companyId:companyIdList){
             CompanyVehicleStatisticsVo vehicleStatisticsVo = new CompanyVehicleStatisticsVo();
-            long totalCompanyVehicle = vehicleDao.getCompanyTotalVehicle(companyId);
-            long totalCompanyScaleVehicle = vehicleDao.getCompanyTotalScaleVehicle(companyId);
+            long totalCompanyVehicle = vehicleService.count(null, companyId, null, null);
+            long totalCompanyScaleVehicle = vehicleService.count(null, companyId, null, null);
             double totalCompanyScaleVehileRate = totalCompanyVehicle / totalCompanyScaleVehicle;
             vehicleStatisticsVo.setTotalCompanyVehicle(totalCompanyVehicle);
             vehicleStatisticsVo.setTotalCompanyScaleVehileRate(totalCompanyScaleVehicle);

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wangyueche.mapper.VehicleInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.VehicleInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="INTEGER" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="plate_color" property="plateColor" jdbcType="VARCHAR" />
+    <result column="seats" property="seats" jdbcType="INTEGER" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="model" property="model" jdbcType="VARCHAR" />
+    <result column="vehicle_type" property="vehicleType" jdbcType="VARCHAR" />
+    <result column="owner_name" property="ownerName" jdbcType="VARCHAR" />
+    <result column="vehicle_color" property="vehicleColor" jdbcType="VARCHAR" />
+    <result column="engine_id" property="engineId" jdbcType="VARCHAR" />
+    <result column="vIN" property="vin" jdbcType="VARCHAR" />
+    <result column="certify_date_A" property="certifyDateA" jdbcType="INTEGER" />
+    <result column="fuel_type" property="fuelType" jdbcType="VARCHAR" />
+    <result column="engine_displace" property="engineDisplace" jdbcType="VARCHAR" />
+    <result column="photo_id" property="photoId" jdbcType="VARCHAR" />
+    <result column="certificate" property="certificate" jdbcType="VARCHAR" />
+    <result column="trans_agency" property="transAgency" jdbcType="VARCHAR" />
+    <result column="trans_area" property="transArea" jdbcType="VARCHAR" />
+    <result column="trans_date_start" property="transDateStart" jdbcType="INTEGER" />
+    <result column="trans_date_stop" property="transDateStop" jdbcType="INTEGER" />
+    <result column="certify_date_B" property="certifyDateB" jdbcType="INTEGER" />
+    <result column="fix_state" property="fixState" jdbcType="VARCHAR" />
+    <result column="next_fix_date" property="nextFixDate" jdbcType="INTEGER" />
+    <result column="check_state" property="checkState" jdbcType="VARCHAR" />
+    <result column="fee_print_id" property="feePrintId" jdbcType="VARCHAR" />
+    <result column="gPS_brand" property="gpsBrand" jdbcType="VARCHAR" />
+    <result column="gPS_model" property="gpsModel" jdbcType="VARCHAR" />
+    <result column="gPSIMEI" property="gpsimei" jdbcType="VARCHAR" />
+    <result column="gPS_install_date" property="gpsInstallDate" jdbcType="INTEGER" />
+    <result column="register_date" property="registerDate" jdbcType="INTEGER" />
+    <result column="commercial_type" property="commercialType" jdbcType="INTEGER" />
+    <result column="fare_type" property="fareType" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, company_id, address, vehicle_no, plate_color, seats, brand, model, vehicle_type, 
+    owner_name, vehicle_color, engine_id, vIN, certify_date_A, fuel_type, engine_displace, 
+    photo_id, certificate, trans_agency, trans_area, trans_date_start, trans_date_stop, 
+    certify_date_B, fix_state, next_fix_date, check_state, fee_print_id, gPS_brand, gPS_model, 
+    gPSIMEI, gPS_install_date, register_date, commercial_type, fare_type, state, flag, 
+    update_time
+  </sql>
+
+  <sql id="params">
+    <if test="param.address != null">AND address = #{param.address}</if>
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.vehicleNo != null">AND vehicle_no = #{param.vehicleNo}</if>
+    <if test="param.state != null">AND state = #{param.state}</if>
+  </sql>
+
+  <select id="select" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from vehicle_info
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from vehicle_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="delete" >
+    delete from vehicle_info
+    <where>
+      <include refid="params" />
+    </where>
+  </delete>
+
+  <select id="count" resultType="java.lang.Integer" >
+    select count(*) from vehicle_info
+    <where>
+      <include refid="params" />
+    </where>
+  </select>
+
+</mapper>

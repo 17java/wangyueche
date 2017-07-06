@@ -162,7 +162,7 @@ function fenceDelete(id) {
         return $.ajax({
             url: "http://" + window.location.host + "/wangyueche/fence/delete",
             dataType: "json",
-            data: id,
+            data: {id:id},
             type: "get",
             async: false,
             success:function(res){

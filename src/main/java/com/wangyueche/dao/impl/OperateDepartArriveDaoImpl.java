@@ -10,20 +10,26 @@ import com.github.pagehelper.PageHelper;
 import com.wangyueche.bean.entity.OperateDepartArrive;
 import com.wangyueche.bean.entity.OperateDepartArriveExample;
 import com.wangyueche.dao.OperateDepartArriveDao;
-import com.wangyueche.mybatis.OperateDepartArriveMapper;
 import com.wangyueche.util.DateUtil;
 
 /**
- * Created by gaojl on 2017/4/14 13:28
- *
- * @author gaojl
+ * @author lyq
  */
 @Repository
 public class OperateDepartArriveDaoImpl implements OperateDepartArriveDao {
-    @Autowired
+    @Override
+    public List<OperateDepartArrive> listForPage(int page, int rows, Integer address, String companyId, String startDate, String endDate, String orderId, String driverName, String licenseId, String vehicleNo) {
+        return null;
+    }
+
+    @Override
+    public OperateDepartArrive selectByOrderId(String orderId) {
+        return null;
+    }
+    /*@Autowired
     private OperateDepartArriveMapper mapper;
 
-    /**
+    *//**
      * 运营监管-营运数据-企业营运数据
      *
      * @param page
@@ -35,7 +41,7 @@ public class OperateDepartArriveDaoImpl implements OperateDepartArriveDao {
      * @param licenseId
      * @param vehicleNo
      * @return
-     */
+     *//*
     @Override
     public List<OperateDepartArrive> listForPage(int page, int rows, Integer address, String companyId, String startDate, String endDate, String orderId, String driverName, String licenseId, String vehicleNo) {
         OperateDepartArriveExample example = new OperateDepartArriveExample();
@@ -79,5 +85,5 @@ public class OperateDepartArriveDaoImpl implements OperateDepartArriveDao {
             return list.get(0);
         }
 		return null;
-	}
+	}*/
 }
