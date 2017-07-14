@@ -1,21 +1,15 @@
 package com.wangyueche.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.wangyueche.bean.entity.OrderInfo;
 import com.wangyueche.bean.entity.PassengerEvaluation;
-import com.wangyueche.bean.entity.PassengerEvaluationExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.PassengerEvaluationVo;
-import com.wangyueche.mapper.OrderInfoMapper;
 import com.wangyueche.mapper.PassengerEvaluationMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.OrderInfoService;
 import com.wangyueche.service.PassengerEvaluationService;
-import com.wangyueche.dao.PassengerEvaluationDao;
-import com.wangyueche.util.DateUtil;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,41 +36,6 @@ public class PassengerEvaluationServiceImpl implements PassengerEvaluationServic
         ArgGen argGen = new ArgGen();
         argGen.addNotEmpty("companyId", companyId)
                 .addNotEmpty("orderId", orderId);
-
-        if (StringUtils.isNotBlank(vehicleNo)) {
-            List<OrderInfo> list = orderInfoService.list(vehicleNo, null, null, null);
-            if (list.size() > 0) {
-                List<Object> orderIdList = new ArrayList<>();
-                for (OrderInfo orderInfo : list) {
-                    orderIdList.add(orderInfo.getOrderId());
-                }
-                argGen.addIn("vehicleNoIn", orderIdList);
-            }
-        }
-        if (StringUtils.isNotBlank(licenseId)) {
-            //通过驾驶证号牌查询到订单信息，获取订单号
-            List<OrderInfo> list = orderInfoService.list(null, licenseId, null, null);
-            if (list.size() > 0) {
-                List<Object> orderIdList = new ArrayList<>();
-                for (OrderInfo orderInfo : list) {
-                    orderIdList.add(orderInfo.getOrderId());
-                }
-                argGen.addIn("licenseIdIn", orderIdList);
-            }
-        }
-
-        if (StringUtils.isNotBlank(driverPhone)) {
-            //通过驾驶员手机号牌查询到订单信息，获取订单号
-            List<OrderInfo> list = orderInfoService.list(null, null, driverPhone, null);
-            if (list.size() > 0) {
-                List<Object> orderIdList = new ArrayList<>();
-                for (OrderInfo orderInfo : list) {
-                    orderIdList.add(orderInfo.getOrderId());
-                }
-                argGen.addIn("driverPhoneIn", orderIdList);
-            }
-        }
-
        /* if (StringUtils.isNotBlank(startDate) && StringUtils.isNotBlank(endDate)) {
             String dateFormat = "yyyy-MM-dd HH:mm:ss";
             String numFormat = "yyyyMMddHHmmss";

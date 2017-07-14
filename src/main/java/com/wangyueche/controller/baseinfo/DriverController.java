@@ -47,7 +47,8 @@ public class DriverController {
                                           @RequestParam(value = "companyId",required = false) String companyId,
                                           @RequestParam(value = "licenseId",required = false) String licenseId,
                                           @RequestParam(value = "driverName",required = false) String driverName,
-                                          @RequestParam(value = "state",required = false) Integer state) {
+                                          @RequestParam(value = "state",required = false) Integer state,
+                                          @RequestParam(value = "driverNo",required = false) String driverNo  ) {
         Pager pager = new Pager(page,rows);
         EasyUIResult result = driverInfoService.listForPage(pager, address, companyId, licenseId, driverName, state);
         if (result != null) {

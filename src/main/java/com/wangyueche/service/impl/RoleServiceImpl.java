@@ -1,18 +1,17 @@
 package com.wangyueche.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.SysRole;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.mapper.SysRoleMapper;
 import com.wangyueche.service.RoleService;
-import com.wangyueche.dao.RoleDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -82,20 +81,12 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public List<SysRole> listForId(List<Object> idList) {
-		ArgGen argGen = new ArgGen();
-		argGen.addIn("idLists", idList);
-		Pager pager = new Pager().max();
-		pager.setSorts(SysRoleMapper.ORDERBY);
-		return mapper.select(pager, argGen.getArgs());
+	public List<SysRole> listForId(List<Long> idList) {
+		return mapper.selectByIds(idList);
 	}
 
 	@Override
-	public int deleteByIds(List<Object> idLists) {
-		ArgGen argGen = new ArgGen();
-		argGen.addIn("idLists", idLists);
-		Pager pager = new Pager().max();
-		pager.setSorts(SysRoleMapper.ORDERBY);
-		return mapper.delete(argGen.getArgs());
+	public int deleteByIds(List<Long> idLists) {
+		return mapper.deleteByIds(idLists);
 	}
 }

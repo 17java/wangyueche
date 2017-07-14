@@ -126,7 +126,7 @@ public class UserBiz {
      */
     public List<SysRole> queryRoles(Long userId) {
         List<SysUserRole> userRoles = userRoleService.queryByParam(null,userId);
-        ArrayList<Object> params = new ArrayList();
+        ArrayList<Long> params = new ArrayList();
         for (SysUserRole sysUserRole : userRoles) {
             params.add(sysUserRole.getRoleId());
         }
@@ -141,12 +141,12 @@ public class UserBiz {
      * @return
      */
     public List<SysPermission> queryPermissions(List<SysRole> roles) {
-        ArrayList<Object> roleParams = new ArrayList();
+        ArrayList<Long> roleParams = new ArrayList();
         for (SysRole sysRole : roles) {
             roleParams.add(sysRole.getId());
         }
         List<SysRolePermission> rolePermissions = rolePermissionsService.listForRoleId(roleParams);
-        ArrayList<Object> params = new ArrayList();
+        ArrayList<Long> params = new ArrayList();
         for (SysRolePermission sysRolePermission : rolePermissions) {
             params.add(sysRolePermission.getPermissionId());
         }

@@ -1,21 +1,21 @@
 package com.wangyueche.mapper;
 
 import com.wangyueche.bean.entity.CompanyInfo;
-import com.wangyueche.bean.entity.CompanyInfoExample;
 import com.wangyueche.util.base.MyBatis;
 import com.wangyueche.util.page.Pager;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
+@MyBatis
 public interface CompanyInfoMapper {
 
-    int countByExample(@Param("param") Map<String, Object> args);
+    String[] ORDERBY = {"id"};
 
-    int deleteByExample(@Param("param") Map<String, Object> args);
+    int count(@Param("param") Map<String, Object> args);
+
+    int delete(@Param("param") Map<String, Object> args);
 
     int deleteByPrimaryKey(Integer id);
 
@@ -23,7 +23,7 @@ public interface CompanyInfoMapper {
 
     int insertSelective(CompanyInfo record);
 
-    List<CompanyInfo> selectByExample(@Param("pager") Pager pager,@Param("param") Map<String, Object> args);
+    List<CompanyInfo> select(@Param("pager") Pager pager,@Param("param") Map<String, Object> args);
 
     List<CompanyInfo> list(@Param("pager") Pager pager);
 
@@ -31,7 +31,7 @@ public interface CompanyInfoMapper {
 
     int infom(@Param("record") CompanyInfo record, @Param("param") Map<String, Object> args);
 
-    int updateByExample(@Param("record") CompanyInfo record, @Param("param") Map<String, Object> args);
+    int update(@Param("record") CompanyInfo record, @Param("param") Map<String, Object> args);
 
     int updateByPrimaryKeySelective(CompanyInfo record);
 

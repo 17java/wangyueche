@@ -32,7 +32,7 @@ public class PermissionServiceImpl implements PermissionService {
 		Date date = new Date();
 		sysPermission.setCreateTime(date);
 		sysPermission.setUpdateTime(date);
-		return sysPermissionMapper.insertSelective(sysPermission);
+		return sysPermissionMapper.insert(sysPermission);
 	}
 
 	@Override
@@ -81,20 +81,13 @@ public class PermissionServiceImpl implements PermissionService {
 	}
 
 	@Override
-	public int deleteByIds(List<Object> ids) {
-		ArgGen args = new ArgGen();
-		args.addIn("ids", ids);
-		return sysPermissionMapper.deleteByExample(args.getArgs());
+	public int deleteByIds(List<Long> ids) {
+		return sysPermissionMapper.deleteByIds(ids);
 	}
 
 	@Override
-	public List<SysPermission> listForId(List<Object> ids) {
-		ArgGen args = new ArgGen();
-		args.addIn("ids", ids);
-		Pager pager = new Pager();
-		pager.setSorts(SysPermissionMapper.ORDERBY);
-		pager.max();
-		return sysPermissionMapper.selectByExample(pager, args.getArgs());
+	public List<SysPermission> listForId(List<Long> ids) {
+		return sysPermissionMapper.selectByIds(ids);
 	}
 
 	@Override

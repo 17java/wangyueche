@@ -1,14 +1,11 @@
 package com.wangyueche.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.Fence;
-import com.wangyueche.bean.entity.FenceExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.FenceVo;
 import com.wangyueche.mapper.FenceMapper;
 import com.wangyueche.service.FenceService;
-import com.wangyueche.dao.FenceDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;

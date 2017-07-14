@@ -35,10 +35,14 @@ public class BaseInfosStatServiceImpl implements BaseInfoStatService{
     @Autowired
     private VehicleOperateStatMapper operateStatMapper;
 
+    @Autowired
+    private CompanyInfoMapper companyInfoMapper;
+
     @Override
     public BaseInfoStat statistics() {
         BaseInfoStat stat = new BaseInfoStat();
         ArgGen args = new ArgGen();
+        stat.setCompanyCount(companyInfoMapper.count(args.getArgs()));
         stat.setDriverCount(driverInfoMapper.count(args.getArgs()));
         stat.setVehicleCount(vehicleInfoMapper.count(args.getArgs()));
 

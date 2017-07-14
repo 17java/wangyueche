@@ -41,6 +41,8 @@
     <if test="param.depLatPostion != null">AND  #{param.depLatPostion}</if>
     <if test="param.destLongPostion != null">AND  #{param.destLongPostion}</if>
     <if test="param.destLatPostion != null">AND  #{param.destLatPostion}</if>
+    <if test="param.licenseId != null">AND license_id = #{param.licenseId}</if>
+
   </sql>
 
   <sql id="Base_Column_List" >

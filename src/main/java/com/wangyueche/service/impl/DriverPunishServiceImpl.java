@@ -7,7 +7,6 @@ import com.wangyueche.bean.vo.operation.DriverPunishVo;
 import com.wangyueche.mapper.DriverPunishMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.DriverPunishService;
-import com.wangyueche.dao.DriverPunishDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;

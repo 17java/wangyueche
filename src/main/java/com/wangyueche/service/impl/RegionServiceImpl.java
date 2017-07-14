@@ -3,21 +3,17 @@ package com.wangyueche.service.impl;
 import com.wangyueche.bean.entity.RegionInfo;
 import com.wangyueche.mapper.RegionInfoMapper;
 import com.wangyueche.service.RegionService;
-import com.wangyueche.dao.RegionDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/4/22 22:30
- *
- * @author gaojl
+ * @author lyq
  */
 @Service
 public class RegionServiceImpl implements RegionService{

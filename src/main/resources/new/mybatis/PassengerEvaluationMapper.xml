@@ -15,9 +15,10 @@
   <sql id="params">
     <if test="param.address != null">AND address = #{param.address}</if>
     <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
-    <if test="param.vehicleNoIn != null">AND order_id in #{param.vehicleNoIn}</if>
-    <if test="param.licenseIdIn != null">AND order_id in #{param.licenseIdIn}</if>
-    <if test="param.driverPhoneIn != null">AND order_id in #{param.driverPhoneIn}</if>
+    <if test="param.vehicleNoIn != null">AND order_id in (#{param.vehicleNoIn})</if>
+    <if test="param.licenseIdIn != null">AND order_id in (#{param.licenseIdIn})</if>
+    <if test="param.driverPhoneIn != null">AND order_id in (#{param.driverPhoneIn})</if>
+    <if test="param.orderId != null">AND order_id = #{param.orderId}</if>
   </sql>
   
   <sql id="Base_Column_List" >

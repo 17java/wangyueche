@@ -2,25 +2,22 @@ package com.wangyueche.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.CompanyPermit;
-import com.wangyueche.bean.entity.CompanyPermitExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.baseinfo.CompanyPermitVo;
 import com.wangyueche.mapper.CompanyPermitMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.CompanyPermitService;
-import com.wangyueche.dao.CompanyPermitDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by lyq on 2017/4/12.
+ * Created by lyq
  */
 @Service
 public class CompanyPermitServiceImpl implements CompanyPermitService {

@@ -253,10 +253,10 @@
         loadSearch: function () {
             var _self = this;
             var address = $("#oArea").val();
-            var driverNo = $("#sDriverNo").val();
+            var driverName = $("#sDriverName").val();
             var param = {
                 address: address,
-                driverNo: driverNo,
+                driverName: driverName
             }
             _self.loadDataGrid(param);
         },

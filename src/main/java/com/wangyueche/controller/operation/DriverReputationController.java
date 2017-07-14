@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by gaojl on 2017/4/18 0:15
  * 运营监管——驾驶员信誉信息
- *
- * @author gaojl
+ * @author lyq
  */
 @Controller
 @RequestMapping(value = "/operation", method = RequestMethod.GET)

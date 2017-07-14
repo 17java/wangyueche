@@ -26,6 +26,8 @@ public interface SysRoleMapper {
 
     List<SysRole> select(@Param("pager") Pager pager, @Param("param") Map<String, Object> args);
 
+    List<SysRole> selectByIds(List<Long> ids);
+
     SysRole selectByPrimaryKey(Long id);
 
     int updateSelective(@Param("pager") Pager pager, @Param("param") Map<String, Object> args);
@@ -35,4 +37,6 @@ public interface SysRoleMapper {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+    int deleteByIds(List<Long> idLists);
 }

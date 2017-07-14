@@ -37,7 +37,7 @@ public class PermissionBiz {
 		return permissionService.listForPage(pageCurrent, pageSize, permCondition, permName, permValue);
 	}
 
-	public int deletByIds(List<Object> ids) {
+	public int deletByIds(List<Long> ids) {
 		return permissionService.deleteByIds(ids);
 	}
 }

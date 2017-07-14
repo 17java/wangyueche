@@ -1,15 +1,12 @@
 package com.wangyueche.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.wangyueche.bean.entity.DriverPunish;
 import com.wangyueche.bean.entity.DriverReputation;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.operation.DriverReputationVo;
-import com.wangyueche.mapper.DriverPunishMapper;
 import com.wangyueche.mapper.DriverReputationMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.DriverReputationService;
-import com.wangyueche.dao.DriverReputationDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;

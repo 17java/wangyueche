@@ -1,18 +1,20 @@
 package com.wangyueche.service.impl;
 
-import com.github.abel533.echarts.AxisPointer;
 import com.github.abel533.echarts.Option;
 import com.github.abel533.echarts.axis.CategoryAxis;
 import com.github.abel533.echarts.axis.ValueAxis;
-import com.github.abel533.echarts.code.*;
+import com.github.abel533.echarts.code.AxisType;
+import com.github.abel533.echarts.code.Magic;
+import com.github.abel533.echarts.code.Tool;
+import com.github.abel533.echarts.code.Trigger;
 import com.github.abel533.echarts.feature.MagicType;
 import com.github.abel533.echarts.json.GsonUtil;
 import com.github.abel533.echarts.series.Bar;
 import com.wangyueche.bean.vo.StateCode;
 import com.wangyueche.bean.vo.statistics.VehicleBeyondOperateStat;
+import com.wangyueche.mapper.VehicleBeyondOperateStatMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.statistics.VehicleBeyondOperateStatService;
-import com.wangyueche.mapper.VehicleBeyondOperateStatMapper;
 import com.wangyueche.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

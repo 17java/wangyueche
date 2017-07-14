@@ -21,7 +21,7 @@ public interface PermissionService {
 
 	int delete(long id);
 	
-	List<SysPermission> listForId(List<Object> idList);
+	List<SysPermission> listForId(List<Long> idList);
 	
 	List<SysPermission> list();
 
@@ -29,7 +29,7 @@ public interface PermissionService {
 
 	EasyUIResult listForPage(int pageCurrent, int pageSize, String permCondition, String permName, String permValue);
 
-    int deleteByIds(List<Object> ids);
+    int deleteByIds(List<Long> ids);
 
 	/**
 	 * 根据父节点查询子节点

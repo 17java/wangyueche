@@ -26,23 +26,20 @@
     economic_type, reg_capital, legal_name, legal_ID, legal_phone, legal_photo, state,
     flag, update_time
   </sql>
-  <sql id="table">t_account_check</sql>
+  <sql id="table">company_info</sql>
 
   <sql id="params">
     <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
   </sql>
 
-  <select id="countByExample" resultType="long">
-    SELECT
-    COUNT(<include refid="key" />)
-    FROM
-    <include refid="table" />
+  <select id="count" resultType="java.lang.Integer">
+    SELECT   COUNT(*)  FROM  company_info
     <where>
       <include refid="params" />
     </where>
   </select>
 
-  <select id="selectByExample" resultMap="BaseResultMap">
+  <select id="select" resultMap="BaseResultMap">
     select
       <include refid="key" />, <include refid="columns" />
     from company_info
@@ -71,7 +68,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <delete id="deleteByExample"  >
+  <delete id="delete"  >
     delete from company_info
     <where>
       <include refid="params" />
@@ -92,7 +89,7 @@
             #{updateTime,jdbcType=BIGINT})
   </insert>
 
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateSelective" parameterType="map" >
     update company_info
     <set >
       <if test="record.id != null" >id                            = #{record.id,jdbcType=INTEGER},</if>
@@ -116,7 +113,7 @@
       <include refid="params" />
     </where>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="update" parameterType="map" >
     update company_info
     set
       id              =     #{record.id,jdbcType=INTEGER},

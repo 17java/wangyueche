@@ -37,4 +37,8 @@ public interface SysPermissionMapper {
     int updateByPrimaryKeySelective(SysPermission record);
 
     int updateByPrimaryKey(SysPermission record);
+
+    int deleteByIds(List<Long> ids);
+
+    List<SysPermission> selectByIds(List<Long> ids);
 }

@@ -26,6 +26,8 @@ public interface SysRolePermissionMapper {
 
     List<SysRolePermission> select(@Param("pager") Pager pager, @Param("param") Map<String, Object> args);
 
+    List<SysRolePermission> selectByIds(List<Long> ids);
+
     SysRolePermission selectByPrimaryKey(Long id);
 
     int updateSelective(@Param("record") SysRolePermission record, @Param("param") Map<String, Object> args);

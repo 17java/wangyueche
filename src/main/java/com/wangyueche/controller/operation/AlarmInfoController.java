@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Created by gaojl on 2017/6/1 10:11 .
+ * Created by lyq
  * 告警信息
  */
 @Controller

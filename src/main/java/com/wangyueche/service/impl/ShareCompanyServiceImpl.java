@@ -3,7 +3,6 @@ package com.wangyueche.service.impl;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.ShareCompany;
 import com.wangyueche.bean.vo.EasyUIResult;
-import com.wangyueche.dao.ShareCompanyDao;
 import com.wangyueche.mapper.ShareCompanyMapper;
 import com.wangyueche.service.share.ShareCompanyService;
 import com.wangyueche.util.page.ArgGen;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;

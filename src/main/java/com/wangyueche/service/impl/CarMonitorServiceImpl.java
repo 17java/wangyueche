@@ -2,11 +2,11 @@ package com.wangyueche.service.impl;
 
 import com.wangyueche.bean.entity.*;
 import com.wangyueche.bean.vo.*;
-import com.wangyueche.dao.OperateDepartArriveDao;
-import com.wangyueche.dao.OrderInfoDao;
 import com.wangyueche.mapper.FenceMapper;
 import com.wangyueche.mapper.RegionInfoMapper;
 import com.wangyueche.service.CarMonitorService;
+import com.wangyueche.service.OperateDepartArriveService;
+import com.wangyueche.service.OrderInfoService;
 import com.wangyueche.service.cache.DriverPositionCache;
 import com.wangyueche.service.cache.OrderCache;
 import com.wangyueche.service.cache.PositionCache;
@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -50,7 +49,7 @@ public class CarMonitorServiceImpl implements CarMonitorService {
     OrderCache orderCache;
 
     @Autowired
-    OrderInfoDao orderInfoDao;
+    OrderInfoService orderInfoService;
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -149,7 +148,7 @@ public class CarMonitorServiceImpl implements CarMonitorService {
 
     
     @Autowired
-    OperateDepartArriveDao operateDepartArriveDao;
+    OperateDepartArriveService operateDepartArriveService;
     
     @Override
     public PositionVo position(String code,String vehicleNo) {
@@ -163,12 +162,12 @@ public class CarMonitorServiceImpl implements CarMonitorService {
             so.setBizStatus(Integer.valueOf(position.getBizStatus()));
             
             if(position.getOrderId() != null){
-            	OrderInfo order = orderInfoDao.selectByOrderId(position.getOrderId());
+            	OrderInfo order = orderInfoService.select(null, null, null, position.getOrderId());
             	
             	if(order != null ){
             		so.setTel(order.getDriverPhone());
             	}
-            	OperateDepartArrive operate = operateDepartArriveDao.selectByOrderId(position.getOrderId());
+            	OperateDepartArrive operate = operateDepartArriveService.select(position.getOrderId());
             	if(operate != null){
             		so.setDriverName(operate.getDriverName());
             	}

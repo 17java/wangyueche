@@ -43,7 +43,7 @@ public class RoleBiz {
         SysRole sysRole = service.query(roleId);
         SysRoleVo sysRoleVo = new SysRoleVo(sysRole);
         List<SysRolePermission> rolePermissions = rolePermissionService.queryByParam(roleId);
-        ArrayList<Object> idList = new ArrayList();
+        ArrayList<Long> idList = new ArrayList();
         for (SysRolePermission sysRolePermission : rolePermissions) {
             idList.add(sysRolePermission.getPermissionId());
         }

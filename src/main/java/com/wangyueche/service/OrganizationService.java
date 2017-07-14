@@ -5,11 +5,12 @@ import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.Result;
 import com.wangyueche.bean.vo.SysOrganizationVo;
 import com.wangyueche.util.base.Page;
+import com.wangyueche.util.page.Pager;
 
 import java.util.List;
 
 /**
- * Created by gaoshiwei on 2017/3/20.
+ * Created by lyq
  */
 public interface OrganizationService {
 
@@ -27,7 +28,7 @@ public interface OrganizationService {
 
     List<SysOrganization> list();
 
-    EasyUIResult listForPage(int pageCurrent, int pageSize, String orgName, String orgLeaderName);
+    EasyUIResult listForPage(Pager pager, String orgName, String orgLeaderName);
 
     /**
      * 多选删除

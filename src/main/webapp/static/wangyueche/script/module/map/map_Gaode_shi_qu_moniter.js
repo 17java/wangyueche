@@ -326,7 +326,7 @@
                     var me = this;
                     // -----这个不通
                     me.api._shi_data({
-                        code: Carnet.city_code,
+                        code: Carnet.city_code
                     })
                         .done(function (data) {
                             if (data.districts.length != 0) {

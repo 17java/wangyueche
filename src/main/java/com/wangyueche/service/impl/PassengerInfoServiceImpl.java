@@ -1,29 +1,23 @@
 package com.wangyueche.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.PassengerInfo;
-import com.wangyueche.bean.entity.PassengerInfoExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.operation.PassengerInfoVo;
 import com.wangyueche.mapper.PassengerInfoMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.PassengerInfoService;
-import com.wangyueche.dao.PassengerInfoDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/4/17 16:25
- *
- * @author gaojl
+ * @author lyq
  */
 @Service
 public class PassengerInfoServiceImpl implements PassengerInfoService {

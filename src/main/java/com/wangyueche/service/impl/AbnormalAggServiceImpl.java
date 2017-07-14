@@ -1,18 +1,17 @@
 package com.wangyueche.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.Abnormalaggregation;
-import com.wangyueche.bean.vo.baseinfo.AbnormalagVo;
 import com.wangyueche.bean.vo.EasyUIResult;
+import com.wangyueche.bean.vo.baseinfo.AbnormalagVo;
 import com.wangyueche.mapper.AbnormalaggregationMapper;
 import com.wangyueche.service.AbnormalAggService;
 import com.wangyueche.service.cache.AbnormalagCache;
-import com.wangyueche.dao.AbnormalAggServiceDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +20,6 @@ import java.util.List;
  */
 @Service
 public class AbnormalAggServiceImpl implements AbnormalAggService {
-
-    @Autowired
-    AbnormalAggServiceDao abnormalAggServiceDao;
 
     @Autowired
     AbnormalagCache abnormalagCache;

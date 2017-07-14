@@ -26,6 +26,8 @@ public interface SysUserMapper {
 
     List<SysUser> select(@Param("pager") Pager pager,@Param("param") Map<String, Object> args);
 
+    List<SysUser> selectByIds(List<Long> uidList);
+
     SysUser selectByPrimaryKey(Long id);
 
     int updateSelective(@Param("record") SysUser record, @Param("param") Map<String, Object> args);

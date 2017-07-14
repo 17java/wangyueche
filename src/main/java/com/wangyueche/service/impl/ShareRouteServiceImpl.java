@@ -1,11 +1,9 @@
 package com.wangyueche.service.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.wangyueche.bean.entity.SharePay;
 import com.wangyueche.bean.entity.ShareRoute;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.share.ShareRouteVo;
-import com.wangyueche.dao.ShareRouteDao;
 import com.wangyueche.mapper.SharePayMapper;
 import com.wangyueche.mapper.ShareRouteMapper;
 import com.wangyueche.service.share.ShareCompanyService;

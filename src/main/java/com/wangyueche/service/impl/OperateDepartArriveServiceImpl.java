@@ -66,4 +66,15 @@ public class OperateDepartArriveServiceImpl implements OperateDepartArriveServic
         return result;
     }
 
+    @Override
+    public OperateDepartArrive select(String orderId) {
+        ArgGen argGen = new ArgGen();
+        argGen.addNotEmpty("orderId", orderId);
+        List<OperateDepartArrive> arrives = operateDepartArriveMapper.select(new Pager().max().setSorts(OperateDepartArriveMapper.ORDERBY), argGen.getArgs());
+        if (arrives.size() > 0){
+            return arrives.get(0);
+        }
+        return null;
+    }
+
 }

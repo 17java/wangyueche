@@ -25,9 +25,9 @@ public interface RoleService {
 
 	EasyUIResult listForPage(Pager pager, String startDate,String endDate, String roleName);
 	
-	List<SysRole> listForId(List<Object> idList);
+	List<SysRole> listForId(List<Long> idList);
 
 	List<SysRole> list();
 
-	int deleteByIds(List<Object> ids);
+	int deleteByIds(List<Long> ids);
 }

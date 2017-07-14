@@ -6,7 +6,7 @@ import com.wangyueche.bean.vo.Result;
 import java.util.List;
 
 /**
- * Created by gaoshiwei on 2017/3/20.
+ * Created by lyq
  */
 public interface RolePermissionService {
 
@@ -22,6 +22,6 @@ public interface RolePermissionService {
 
 	int deleteByRolePermission(SysRolePermission sysRolePermission);
 	
-	List<SysRolePermission> listForRoleId(List<Object> idList);
+	List<SysRolePermission> listForRoleId(List<Long> idList);
 
 }

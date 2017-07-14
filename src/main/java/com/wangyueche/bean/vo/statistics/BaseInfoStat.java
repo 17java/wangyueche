@@ -3,7 +3,7 @@ package com.wangyueche.bean.vo.statistics;
 import java.io.Serializable;
 
 /**
- * Created by gaojl on 2017/5/11 16:12 .
+ * Created by lyq
  * 用于企业首页展现
  */
 public class BaseInfoStat implements Serializable{

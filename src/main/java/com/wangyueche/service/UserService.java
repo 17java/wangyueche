@@ -33,7 +33,7 @@ public interface UserService {
 
 	List<SysUser> list();
 
-	int deleteByIds(List<Object> ids);
+	int deleteByIds(List<Long> ids);
 
 	/**
 	 * 根据负责人姓名和邮箱查询负责人

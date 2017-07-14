@@ -35,6 +35,18 @@
     #{pager.offset}, #{pager.limit}
   </select>
 
+  <select id="selectByIds" resultMap="BaseResultMap"  parameterType="list">
+    select
+    <include refid="Base_Column_List" />
+    from sys_role
+    <where>
+      id in
+      <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -51,6 +63,16 @@
     delete from sys_role
     <where>
       <include refid="params" />
+    </where>
+  </delete>
+
+  <delete id="deleteByIds"  >
+    delete from sys_role
+    <where>
+      id in
+      <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+      </foreach>
     </where>
   </delete>
 

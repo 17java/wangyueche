@@ -1,18 +1,13 @@
 package com.wangyueche.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.wangyueche.bean.entity.CompanyPay;
 import com.wangyueche.bean.entity.OrderInfo;
-import com.wangyueche.bean.entity.OrderInfoExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.operation.OrderInfoVo;
-import com.wangyueche.mapper.CompanyPayMapper;
 import com.wangyueche.mapper.OrderInfoMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.OrderInfoService;
 import com.wangyueche.service.RegionService;
-import com.wangyueche.dao.OrderInfoDao;
 import com.wangyueche.util.DateUtil;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
@@ -43,7 +38,8 @@ public class OrderInfoServiceImpl implements OrderInfoService {
                 .addNotEmpty("vehicleNo",vehicleNo)
                 .addPositive("address",address)
                 .addNotEmpty("orderId",orderId)
-                .addNotEmpty("driverPhone",driverPhone);
+                .addNotEmpty("driverPhone",driverPhone)
+                .addNotEmpty("licenseId",licenseId);
         if (StringUtils.hasText(startDate) && StringUtils.hasText(endDate)) {
             String dateFormat = "yyyy-MM-dd HH:mm:ss";
             String numFormat = "yyyyMMddHHmmss";

@@ -7,7 +7,6 @@ import com.wangyueche.bean.vo.baseinfo.DriverInfoVo;
 import com.wangyueche.mapper.DriverInfoMapper;
 import com.wangyueche.service.CompanyInfoService;
 import com.wangyueche.service.DriverInfoService;
-import com.wangyueche.dao.DriverInfoDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by gaojl on 2017/4/13 8:50
- *
- * @author gaojl
+ * @author lyq
  */
 @Service
 public class DriverInfoServiceImpl implements DriverInfoService {

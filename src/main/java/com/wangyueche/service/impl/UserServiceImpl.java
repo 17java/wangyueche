@@ -2,16 +2,16 @@ package com.wangyueche.service.impl;
 
 import com.github.pagehelper.PageInfo;
 import com.wangyueche.bean.entity.SysUser;
-import com.wangyueche.bean.entity.SysUserExample;
 import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.mapper.SysUserMapper;
 import com.wangyueche.service.UserService;
-import com.wangyueche.dao.UserDao;
 import com.wangyueche.util.Base64Util;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -118,10 +118,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<SysUser> listForId(List<Long> uidList) {
-        ArgGen args = new ArgGen();
-        //args.addIn("organizationId", organizationId);
-        List<SysUser> list = sysUserMapper.select(new Pager(), args.getArgs());
-        return list;
+        return sysUserMapper.selectByIds(uidList);
     }
 
     @Override
@@ -140,11 +137,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int deleteByIds(List<Object> ids) {
-        //return dao.deleteByIds(ids);
-        ArgGen args = new ArgGen();
-        args.addIn("ids", ids);
-        return sysUserMapper.delete(args.getArgs());
+    public int deleteByIds(List<Long> ids) {
+        int count = 0;
+        for (Long id : ids) {
+            int num = sysUserMapper.deleteByPrimaryKey(id);
+            if (num > 0) {
+                count += num;
+            }
+        }
+        return count;
     }
 
     /**

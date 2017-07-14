@@ -6,6 +6,7 @@ import com.wangyueche.bean.vo.EasyUIResult;
 import com.wangyueche.bean.vo.SysOrganizationVo;
 import com.wangyueche.service.OrganizationService;
 import com.wangyueche.service.UserService;
+import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by gaoshiwei on 2017/3/20.
+ * Created by lyq
  */
 @Component
 public class OrganizationBiz {
@@ -25,28 +26,8 @@ public class OrganizationBiz {
     private UserService userService;
 
     public EasyUIResult listForPage(int pageCurrent, int pageSize, String orgName, String orgLeaderName) {
-        /*Result<Page<SysOrganizationVo>> resultVo = new Result<>();
-        Result<Page<SysOrganization>> result = service.listForPage(pageCurrent,pageSize,date,search);
-        if (result.isStatus()){
-            ArrayList<SysOrganizationVo> resultData = new ArrayList<>();
-            SysOrganizationVo sysOrganizationVo;
-            for (SysOrganization sysOrganization : result.getResultData().getList()){
-                sysOrganizationVo = new SysOrganizationVo(sysOrganization);
-                Result<SysUser> resultUser = userService.query(sysOrganization.getUserId());
-                if (resultUser.isStatus()){
-                    sysOrganizationVo.setSysUser(resultUser.getResultData());
-                }
-                resultData.add(sysOrganizationVo);
-            }
-            Page<SysOrganizationVo> page = new Page<>(result.getResultData().getTotalCount(),result.getResultData().getTotalPage(),result.getResultData().getPageCurrent(),result.getResultData().getPageSize(),resultData);
-            resultVo.setErrCode(0);
-            resultVo.setStatus(true);
-            resultVo.setErrMsg("查询成功");
-            resultVo.setResultData(page);
-            return resultVo;
-        }
-        return resultVo;*/
-        return service.listForPage(pageCurrent, pageSize, orgName, orgLeaderName);
+        Pager pager = new Pager(pageCurrent,pageSize);
+        return service.listForPage(pager, orgName, orgLeaderName);
     }
 
     public SysOrganizationVo query(long id) {

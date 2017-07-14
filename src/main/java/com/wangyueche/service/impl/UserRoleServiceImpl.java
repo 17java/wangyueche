@@ -1,16 +1,15 @@
 package com.wangyueche.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import com.wangyueche.bean.entity.SysUserRole;
 import com.wangyueche.mapper.SysUserRoleMapper;
 import com.wangyueche.service.UserRoleService;
-import com.wangyueche.dao.UserRoleDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserRoleServiceImpl implements UserRoleService {

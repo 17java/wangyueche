@@ -29,7 +29,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         ArgGen args = new ArgGen();
         args.addPositive("address", address)
                 .addNotEmpty("companyId", companyId);
-        List<CompanyInfo> list = companyInfoMapper.selectByExample(new Pager(),args.getArgs());
+        List<CompanyInfo> list = companyInfoMapper.select(new Pager(),args.getArgs());
         if (list.size() > 0){
             return list.get(0);
         }
@@ -41,7 +41,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         ArgGen args = new ArgGen();
         args.addPositive("state",state)
             .addNotEmpty("companyId", companyId);
-        List<CompanyInfo> list = companyInfoMapper.selectByExample(new Pager(),args.getArgs());
+        List<CompanyInfo> list = companyInfoMapper.select(new Pager(),args.getArgs());
         if (list.size() > 0){
             return list.get(0);
         }
@@ -53,7 +53,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService {
         ArgGen args = new ArgGen();
         args.addPositive("state",state)
             .addNotEmpty("companyId", companyId);
-        List<CompanyInfo> list = companyInfoMapper.selectByExample(new Pager(), args.getArgs());
+        List<CompanyInfo> list = companyInfoMapper.select(new Pager(), args.getArgs());
         PageInfo<CompanyInfo> pageInfo = new PageInfo<>(list);
 
         EasyUIResult result = new EasyUIResult();

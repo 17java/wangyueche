@@ -71,6 +71,18 @@
     #{pager.offset}, #{pager.limit}
   </select>
 
+  <select id="selectByIds" resultMap="BaseResultMap">
+    select
+    <include refid="key" />, <include refid="columns" />
+    from sys_user
+    <where>
+      id in
+      <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select
       <include refid="key" />,<include refid="columns" />

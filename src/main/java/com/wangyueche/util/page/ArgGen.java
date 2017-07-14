@@ -100,27 +100,4 @@ public class ArgGen implements Serializable {
         if (values != null && values.size() > 0) args.put(key, values);
         return this;
     }
-
-    /**
-     * 添加list, 忽略null和空列表
-     */
-    public ArgGen addIn(String key, List<Object> values) {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < values.size(); i++) {
-            Object value = values.get(i);
-            if (value != null) {
-                sb.append("'");
-                sb.append(value);
-                if (i == values.size() - 1){
-                    sb.append("'");
-                }else{
-                    sb.append("',");
-                }
-            }
-        }
-        if (values != null && values.size() > 0) args.put(key, sb.toString());
-        return this;
-    }
-
-
 }

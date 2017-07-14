@@ -1,16 +1,15 @@
 package com.wangyueche.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import com.wangyueche.bean.entity.SysRolePermission;
 import com.wangyueche.mapper.SysRolePermissionMapper;
 import com.wangyueche.service.RolePermissionService;
-import com.wangyueche.dao.RolePermissionDao;
 import com.wangyueche.util.page.ArgGen;
 import com.wangyueche.util.page.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class RolePermissionServiceImpl implements RolePermissionService {
@@ -81,9 +80,7 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 	}
 
 	@Override
-	public List<SysRolePermission> listForRoleId(List<Object> idList) {
-		ArgGen argGen = new ArgGen();
-		argGen.addIn("roleIds", idList);
-		return mapper.select(new Pager().max().setSorts(SysRolePermissionMapper.ORDERBY),argGen.getArgs());
+	public List<SysRolePermission> listForRoleId(List<Long> idList) {
+		return mapper.selectByIds(idList);
 	}
 }
