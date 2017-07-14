@@ -1,4 +1,4 @@
-package com.wangyueche.mybatis;
+package com.wangyueche.mapper;
 
 import com.wangyueche.bean.entity.SysOrganization;
 import com.wangyueche.bean.entity.SysOrganizationExample;
@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Param;
 
 @MyBatis
 public interface SysOrganizationMapper {
+
+
+
     int countByExample(SysOrganizationExample example);
 
     int deleteByExample(SysOrganizationExample example);

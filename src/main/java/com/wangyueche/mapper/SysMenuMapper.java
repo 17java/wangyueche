@@ -1,4 +1,4 @@
-package com.wangyueche.mybatis;
+package com.wangyueche.mapper;
 
 import com.wangyueche.bean.entity.SysMenu;
 import com.wangyueche.bean.entity.SysMenuExample;
