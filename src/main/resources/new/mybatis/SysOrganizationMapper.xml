@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.wangyueche.mybatis.SysOrganizationMapper" >
+<mapper namespace="com.wangyueche.mapper.SysOrganizationMapper" >
   <resultMap id="BaseResultMap" type="com.wangyueche.bean.entity.SysOrganization" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -16,101 +16,65 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+
+  <sql id="params">
+    <if test="param.companyId != null">AND company_id = #{param.companyId}</if>
+    <if test="param.routeId != null">AND route_id = #{param.routeId}</if>
+    <if test="param.driverName != null">AND driver_name = #{param.driverName}</if>
+    <if test="param.driverPhone != null">AND driver_phone = #{param.driverPhone}</if>
+    <if test="param.vehicleNo != null">AND vehicle_no = #{param.vehicleNo}</if>
+    <if test="param.userIds != null">AND user_id in (#{param.userIds})</if>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+
   <sql id="Base_Column_List" >
     id, name, parent_id, parent_ids, status_id, email, user_id, sort_no, expend, is_leaf, 
     remark, create_time, update_time
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.wangyueche.bean.entity.SysOrganizationExample" >
+
+  <select id="select" resultMap="BaseResultMap" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
     <include refid="Base_Column_List" />
     from sys_organization
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-    <if test="limitStart >= 0" >
-      limit ${limitStart} , ${pageSize}
-    </if>
+    <where>
+      <include refid="params" />
+    </where>
+    ORDER BY
+    ${pager.sort} ${pager.order}
+    LIMIT
+    #{pager.offset}, #{pager.limit}
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+
+  <select id="selectByIds" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_organization
+    <where>
+        id in
+      <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey"  parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from sys_organization
     where id = #{id,jdbcType=BIGINT}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_organization
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.wangyueche.bean.entity.SysOrganizationExample" >
+
+  <delete id="delete" >
     delete from sys_organization
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+    <where>
+      <include refid="params" />
+    </where>
   </delete>
+
   <insert id="insert" parameterType="com.wangyueche.bean.entity.SysOrganization" >
     insert into sys_organization (id, name, parent_id, 
       parent_ids, status_id, email, 
@@ -123,6 +87,7 @@
       #{isLeaf,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
+
   <insert id="insertSelective" parameterType="com.wangyueche.bean.entity.SysOrganization" >
     insert into sys_organization
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -208,13 +173,15 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.wangyueche.bean.entity.SysOrganizationExample" resultType="java.lang.Integer" >
+
+  <select id="count" resultType="java.lang.Integer" >
     select count(*) from sys_organization
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+    <where>
+      <include refid="params" />
+    </where>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+
+  <update id="updateSelective" parameterType="map" >
     update sys_organization
     <set >
       <if test="record.id != null" >
@@ -257,11 +224,12 @@
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+    <where>
+      <include refid="params" />
+    </where>
   </update>
-  <update id="updateByExample" parameterType="map" >
+
+  <update id="update" parameterType="map" >
     update sys_organization
     set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
@@ -276,10 +244,11 @@
       remark = #{record.remark,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+    <where>
+      <include refid="params" />
+    </where>
   </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.wangyueche.bean.entity.SysOrganization" >
     update sys_organization
     <set >
@@ -322,6 +291,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.wangyueche.bean.entity.SysOrganization" >
     update sys_organization
     set name = #{name,jdbcType=VARCHAR},
@@ -338,4 +308,5 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
 </mapper>
